@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>18 Things You Do That Drive Me Crazy · ZEEL × VRUSH</title>
+
+<link rel="stylesheet" href="../assets/style.css">
+
+
+<style>
+.crazy-page{
+  max-width:1050px;
+  margin:0 auto;
+  padding:45px 20px 80px;
+}
+
+.crazy-header{
+  max-width:760px;
+  margin:0 auto 40px;
+  text-align:center;
+}
+
+.crazy-header h1{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:clamp(38px,6vw,68px);
+  line-height:1;
+  letter-spacing:-.045em;
+  margin:16px 0;
+}
+
+.crazy-header p{
+  line-height:1.75;
+  opacity:.68;
+}
+
+.evidence-board{
+  min-height:580px;
+  position:relative;
+  border-radius:32px;
+  padding:45px;
+  background:
+    linear-gradient(
+      135deg,
+      #eee6d8,
+      #e3d8c6
+    );
+  box-shadow:0 30px 90px rgba(30,26,40,.15);
+  overflow:hidden;
+}
+
+.evidence-board:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.18;
+  background-image:
+    radial-gradient(#594e42 0.7px,transparent .7px);
+  background-size:17px 17px;
+}
+
+.crazy-stack{
+  position:relative;
+  min-height:430px;
+}
+
+.crazy-evidence{
+  position:absolute;
+  inset:0;
+  background:#fffdf7;
+  border:1px solid rgba(35,32,48,.13);
+  box-shadow:
+    0 20px 50px rgba(30,26,40,.16);
+  border-radius:5px;
+  padding:35px;
+  opacity:0;
+  transform:
+    translateX(45px)
+    rotate(1deg);
+  pointer-events:none;
+  transition:
+    opacity .35s ease,
+    transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.crazy-evidence.active{
+  opacity:1;
+  transform:
+    translateX(0)
+    rotate(-.3deg);
+  pointer-events:auto;
+}
+
+.evidence-top{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px dashed rgba(35,32,48,.2);
+  padding-bottom:14px;
+  font-size:10px;
+  letter-spacing:.17em;
+  opacity:.55;
+}
+
+.evidence-stamp{
+  display:inline-block;
+  margin:28px 0 35px;
+  padding:8px 13px;
+  border:2px solid #b45369;
+  color:#b45369;
+  transform:rotate(-4deg);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.13em;
+}
+
+.evidence-content{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:35px;
+  align-items:center;
+}
+
+.evidence-icon{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:1px dashed rgba(180,83,105,.5);
+  display:grid;
+  place-items:center;
+  color:#b45369;
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+  transform:rotate(-7deg);
+}
+
+.evidence-content h2{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:38px;
+  line-height:1.08;
+  margin:0 0 18px;
+}
+
+.evidence-content p{
+  max-width:620px;
+  font-size:18px;
+  line-height:1.75;
+  opacity:.74;
+}
+
+.evidence-footer{
+  position:absolute;
+  left:35px;
+  right:35px;
+  bottom:28px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:10px;
+  letter-spacing:.12em;
+  opacity:.5;
+}
+
+.evidence-footer strong{
+  color:#b45369;
+}
+
+.crazy-controls{
+  position:relative;
+  z-index:5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin-top:25px;
+}
+
+.crazy-btn{
+  border:1px solid rgba(35,32,48,.14);
+  background:rgba(255,255,255,.75);
+  border-radius:999px;
+  padding:11px 20px;
+  cursor:pointer;
+  font:inherit;
+}
+
+.crazy-progress{
+  min-width:70px;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.12em;
+  opacity:.55;
+}
+
+@media(max-width:700px){
+  .evidence-board{
+    padding:22px;
+  }
+
+  .crazy-stack{
+    min-height:570px;
+  }
+
+  .crazy-evidence{
+    padding:25px;
+  }
+
+  .evidence-content{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .evidence-icon{
+    margin:auto;
+  }
+
+  .evidence-content h2{
+    font-size:31px;
+  }
+
+  .evidence-content p{
+    font-size:16px;
+  }
+
+  .evidence-footer{
+    left:25px;
+    right:25px;
+    flex-direction:column;
+    gap:7px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<div class="app">
+<main>
+
+<section class="crazy-page">
+
+  <header class="crazy-header">
+    <span class="tag">gift 05 · confidential evidence</span>
+
+    <h1>
+      18 Things You Do<br>
+      That Drive Me Crazy
+    </h1>
+
+    <p>
+      After a very serious investigation, I have collected enough evidence.
+      Unfortunately for you, almost all of it is adorable.
+    </p>
+  </header>
+
+  <section class="evidence-board">
+
+    <div class="crazy-stack">
+      
+    <article class="crazy-evidence active" data-crazy="0">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#01</strong>
+      </div>
+
+      <div class="evidence-stamp">THE SMILE ATTACK</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>01</span>
+        </div>
+
+        <div>
+          <h2>Whenever I video call you and the first thing I see is that smile.</h2>
+          <p>You literally appear on my screen and suddenly my brain forgets what I was about to say. Very unfair.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="1">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#02</strong>
+      </div>
+
+      <div class="evidence-stamp">TRADITIONAL YOU</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>02</span>
+        </div>
+
+        <div>
+          <h2>Whenever you wear traditional clothes.</h2>
+          <p>You probably think you&#x27;re just getting ready. Meanwhile I&#x27;m sitting there thinking, “Excuse me, who allowed you to look like THAT?”</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="2">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#03</strong>
+      </div>
+
+      <div class="evidence-stamp">THE RANDOM SNAP</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>03</span>
+        </div>
+
+        <div>
+          <h2>Whenever you randomly send me a snap or video.</h2>
+          <p>Especially when you didn&#x27;t even try to look special. Those are somehow the ones that stay in my head.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="3">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#04</strong>
+      </div>
+
+      <div class="evidence-stamp">VOICE NOTE DAMAGE</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>04</span>
+        </div>
+
+        <div>
+          <h2>Whenever you send me a random voice note.</h2>
+          <p>Sometimes I replay it just because I like hearing you talk. Yes, I&#x27;m that guy.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="4">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#05</strong>
+      </div>
+
+      <div class="evidence-stamp">BABY MODE</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>05</span>
+        </div>
+
+        <div>
+          <h2>Whenever you suddenly become a little baby.</h2>
+          <p>The attitude disappears, the cute nonsense starts and somehow I forget that I was supposed to be serious.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="5">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#06</strong>
+      </div>
+
+      <div class="evidence-stamp">YOUR RANDOM FUNNY MOMENTS</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>06</span>
+        </div>
+
+        <div>
+          <h2>Whenever you do something completely stupid and funny.</h2>
+          <p>You might think it&#x27;s nothing. My brain immediately saves it under: “things I will remember forever.”</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="6">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#07</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU GET EXCITED</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>07</span>
+        </div>
+
+        <div>
+          <h2>Whenever something genuinely makes you excited.</h2>
+          <p>I love watching that little change in you. You become so happy that I can&#x27;t help smiling too.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="7">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#08</strong>
+      </div>
+
+      <div class="evidence-stamp">THE LITTLE LOOK</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>08</span>
+        </div>
+
+        <div>
+          <h2>That tiny look you give when you know you&#x27;re being cute.</h2>
+          <p>Don&#x27;t pretend you don&#x27;t know what you&#x27;re doing. You absolutely know.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="8">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#09</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU TRY NOT TO LAUGH</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>09</span>
+        </div>
+
+        <div>
+          <h2>Whenever you&#x27;re trying very hard not to laugh.</h2>
+          <p>That makes it approximately ten times harder for me to behave normally.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="9">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#10</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU SAY MY NAME</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>10</span>
+        </div>
+
+        <div>
+          <h2>Whenever you say my name in that particular way.</h2>
+          <p>It&#x27;s literally just my name. Somehow it sounds different when you say it.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="10">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#11</strong>
+      </div>
+
+      <div class="evidence-stamp">YOUR RANDOM STORIES</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>11</span>
+        </div>
+
+        <div>
+          <h2>Whenever you start telling me something and then get completely distracted halfway through.</h2>
+          <p>I don&#x27;t even care what the original story was anymore. I&#x27;m just enjoying watching you explain it.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="11">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#12</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU ARE PROUD OF SOMETHING</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>12</span>
+        </div>
+
+        <div>
+          <h2>Whenever you show me something you&#x27;re genuinely proud of.</h2>
+          <p>That little happiness on your face is one of my favourite things to see.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="12">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#13</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU GET SHY</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>13</span>
+        </div>
+
+        <div>
+          <h2>Whenever you suddenly become shy after I compliment you.</h2>
+          <p>Aha. Caught you. You can pretend you don&#x27;t like the compliment, but I know that smile.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="13">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#14</strong>
+      </div>
+
+      <div class="evidence-stamp">THE UNEXPECTED PHOTO</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>14</span>
+        </div>
+
+        <div>
+          <h2>Whenever you send me a photo I wasn&#x27;t expecting.</h2>
+          <p>One second I&#x27;m doing something completely normal. Next second I&#x27;m staring at my phone like an idiot.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="14">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#15</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU TEASE ME</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>15</span>
+        </div>
+
+        <div>
+          <h2>Whenever you intentionally annoy me just to see my reaction.</h2>
+          <p>You know exactly what you&#x27;re doing. And the worst part? I secretly enjoy it.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="15">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#16</strong>
+      </div>
+
+      <div class="evidence-stamp">YOUR LITTLE HABITS</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>16</span>
+        </div>
+
+        <div>
+          <h2>Those tiny things you do without realizing.</h2>
+          <p>You probably don&#x27;t even notice them. I do. That&#x27;s the problem with being in love with someone.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="16">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#17</strong>
+      </div>
+
+      <div class="evidence-stamp">WHEN YOU ARE JUST... YOU</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>17</span>
+        </div>
+
+        <div>
+          <h2>Whenever you&#x27;re not trying to impress anyone.</h2>
+          <p>No special outfit. No special moment. Nothing dramatic. Just you. And somehow that&#x27;s enough to completely ruin my ability to act normal.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    <article class="crazy-evidence " data-crazy="17">
+
+      <div class="evidence-top">
+        <span>EVIDENCE FILE</span>
+        <strong>#18</strong>
+      </div>
+
+      <div class="evidence-stamp">THE FINAL ONE</div>
+
+      <div class="evidence-content">
+        <div class="evidence-icon">
+          <span>18</span>
+        </div>
+
+        <div>
+          <h2>Honestly? You.</h2>
+          <p>Sometimes there isn&#x27;t one specific thing. It&#x27;s just you existing in my life and somehow managing to drive me completely crazy in the best possible way.</p>
+        </div>
+      </div>
+
+      <div class="evidence-footer">
+        <span>STATUS</span>
+        <strong>GUILTY OF MAKING ME CRAZY ♥</strong>
+      </div>
+
+    </article>
+
+    </div>
+
+    <div class="crazy-controls">
+
+      <button class="crazy-btn" id="crazyPrev">
+        ← Previous
+      </button>
+
+      <span class="crazy-progress" id="crazyProgress">
+        01 / 18
+      </span>
+
+      <button class="crazy-btn" id="crazyNext">
+        Next →
+      </button>
+
+    </div>
+
+  </section>
+
+  
+<div class="gift-footer">
+  <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+</div>
+
+
+</section>
+
+</main>
+</div>
+
+
+<script>
+(() => {
+
+  const items =
+    [...document.querySelectorAll(".crazy-evidence")];
+
+  const prev =
+    document.querySelector("#crazyPrev");
+
+  const next =
+    document.querySelector("#crazyNext");
+
+  const progress =
+    document.querySelector("#crazyProgress");
+
+  let index = 0;
+
+  function show(n){
+
+    index =
+      (n + items.length) % items.length;
+
+    items.forEach((item,i)=>{
+      item.classList.toggle(
+        "active",
+        i === index
+      );
+    });
+
+    progress.textContent =
+      String(index + 1).padStart(2,"0") +
+      " / " +
+      String(items.length).padStart(2,"0");
+  }
+
+  prev.addEventListener(
+    "click",
+    ()=>show(index - 1)
+  );
+
+  next.addEventListener(
+    "click",
+    ()=>show(index + 1)
+  );
+
+  document.addEventListener(
+    "keydown",
+    e=>{
+      if(e.key === "ArrowLeft")
+        show(index - 1);
+
+      if(e.key === "ArrowRight")
+        show(index + 1);
+    }
+  );
+
+  show(0);
+
+})();
+</script>
+
+
+</body>
+</html>

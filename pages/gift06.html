@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gift 06 — Vrushti Fortune Generator</title>
+<style>
+:root{
+  --bg:#070914;
+  --panel:rgba(16,20,38,.78);
+  --panel2:rgba(23,28,52,.72);
+  --text:#f7f8ff;
+  --muted:#aab1cf;
+  --pink:#ff5fa2;
+  --cyan:#54e6ff;
+  --violet:#9b7cff;
+  --yellow:#ffd86b;
+  --green:#68f5bd;
+  --border:rgba(255,255,255,.12);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% 15%,rgba(255,95,162,.18),transparent 28%),
+    radial-gradient(circle at 85% 20%,rgba(84,230,255,.16),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(155,124,255,.18),transparent 30%),
+    var(--bg);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.24;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.9) 0 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(84,230,255,.7) 0 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,95,162,.7) 0 1px,transparent 1.5px);
+  background-size:130px 150px,210px 190px,270px 230px;
+  animation:stars 18s linear infinite;
+}
+
+@keyframes stars{
+  from{background-position:0 0,0 0,0 0}
+  to{background-position:120px 180px,-150px 130px,100px -170px}
+}
+
+.page{
+  width:min(1100px,calc(100% - 28px));
+  margin:auto;
+  padding:30px 0 50px;
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.gift-label{
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.back{
+  text-decoration:none;
+  color:#fff;
+  padding:10px 15px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.06);
+  border-radius:14px;
+  font-size:13px;
+  transition:.2s;
+}
+
+.back:hover{
+  transform:translateY(-2px);
+  border-color:rgba(84,230,255,.45);
+}
+
+.hero{
+  text-align:center;
+  margin:35px auto 28px;
+}
+
+.hero .emoji{
+  font-size:42px;
+  display:block;
+  margin-bottom:10px;
+  filter:drop-shadow(0 0 18px rgba(255,95,162,.5));
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(32px,7vw,68px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  font-weight:850;
+  background:linear-gradient(90deg,var(--pink),var(--yellow),var(--cyan),var(--violet));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  max-width:650px;
+  margin:17px auto 0;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
+
+.generator{
+  max-width:850px;
+  margin:30px auto 0;
+  padding:clamp(20px,5vw,42px);
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:linear-gradient(145deg,rgba(24,29,53,.88),rgba(8,11,25,.86));
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.4),
+    inset 0 1px rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+}
+
+.mood-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:25px;
+}
+
+.mood{
+  padding:7px 11px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.1);
+  color:#cbd1e8;
+  background:rgba(255,255,255,.035);
+  font-size:11px;
+}
+
+.mood:nth-child(4n+1){border-color:rgba(255,95,162,.28)}
+.mood:nth-child(4n+2){border-color:rgba(84,230,255,.28)}
+.mood:nth-child(4n+3){border-color:rgba(155,124,255,.28)}
+.mood:nth-child(4n){border-color:rgba(255,216,107,.28)}
+
+.fortune-card{
+  position:relative;
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:35px 25px;
+  text-align:center;
+  border-radius:25px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,95,162,.13),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(84,230,255,.12),transparent 30%),
+    rgba(4,7,17,.7);
+  border:1px solid rgba(255,255,255,.09);
+}
+
+.fortune-card:after{
+  content:"✦";
+  position:absolute;
+  top:18px;
+  right:23px;
+  color:rgba(255,216,107,.65);
+  font-size:20px;
+}
+
+.mood-tag{
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:22px;
+}
+
+.fortune{
+  max-width:690px;
+  min-height:110px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:clamp(22px,4vw,34px);
+  line-height:1.35;
+  font-weight:720;
+  letter-spacing:-.025em;
+}
+
+.fortune-placeholder{
+  color:#6f7694;
+  font-size:18px;
+  font-weight:500;
+}
+
+.reveal{
+  animation:reveal .75s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes reveal{
+  0%{
+    opacity:0;
+    transform:translateY(18px) scale(.96);
+    filter:blur(8px);
+  }
+  100%{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.meta span{
+  padding:8px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.08);
+  color:#aeb5d0;
+  font-size:11px;
+}
+
+.action{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  color:#08101a;
+  font-weight:850;
+  font-size:15px;
+  padding:15px 27px;
+  border-radius:16px;
+  background:linear-gradient(110deg,#ff5fa2,#ffd86b,#54e6ff);
+  box-shadow:0 12px 35px rgba(84,230,255,.14);
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-3px) scale(1.015);
+  box-shadow:0 17px 45px rgba(255,95,162,.2);
+}
+
+button:disabled{
+  cursor:default;
+  opacity:.55;
+  transform:none;
+}
+
+.status{
+  text-align:center;
+  margin-top:15px;
+  min-height:20px;
+  color:#8992b2;
+  font-size:12px;
+}
+
+.footer{
+  text-align:center;
+  color:#656d8b;
+  font-size:11px;
+  margin-top:30px;
+}
+
+@media(max-width:600px){
+  .page{width:min(100% - 18px,1100px);padding-top:18px}
+  .topbar{margin-bottom:10px}
+  .hero{margin-top:25px}
+  .generator{border-radius:22px}
+  .fortune-card{min-height:340px}
+  .fortune{font-size:22px}
+}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <div class="gift-label">Gift 06 · Fortune Generator</div>
+    <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+  </div>
+
+  <section class="hero">
+    <span class="emoji">🔮</span>
+    <h1>Vrushti's Fortune</h1>
+    <p>
+      One tiny prediction for one very specific girl.
+      Some are cute. Some are suspicious. Some are completely unnecessary.
+      Unfortunately, all of them are about us. ✨
+    </p>
+  </section>
+
+  <section class="generator">
+
+    <div class="mood-row">
+      <span class="mood">💗 Romantic</span>
+      <span class="mood">😈 Teasing</span>
+      <span class="mood">😂 Chaotic</span>
+      <span class="mood">👀 Suspicious</span>
+      <span class="mood">🥹 Soft</span>
+      <span class="mood">🔥 Flirty</span>
+      <span class="mood">🥊 Fighting</span>
+      <span class="mood">🪄 Random</span>
+    </div>
+
+    <div class="fortune-card">
+      <div class="mood-tag" id="moodTag">YOUR DAILY FORTUNE</div>
+
+      <div class="fortune" id="fortune">
+        <span class="fortune-placeholder">
+          Your fortune is waiting for you… 👀
+        </span>
+      </div>
+
+      <div class="meta">
+        <span id="fortuneNumber">Fortune #— / 324</span>
+        <span id="fortuneDate">Today</span>
+      </div>
+    </div>
+
+    <div class="action">
+      <button id="fortuneButton">✨ Reveal Today's Fortune</button>
+    </div>
+
+    <div class="status" id="status">
+      One fortune per day. No cheating. 😌
+    </div>
+
+  </section>
+
+  <div class="footer">
+    A tiny prediction machine made for Vrushti Jii · from Zeel 💫
+  </div>
+
+</main>
+
+<script>
+/*
+ * GIFT 06 — FORTUNE ENGINE
+ *
+ * 18 moods × 18 fortunes = 324 unique entries.
+ * The actual daily fortune is stored in localStorage.
+ *
+ * Same browser + same day:
+ *     same fortune
+ *
+ * New calendar day:
+ *     new fortune
+ */
+
+const fortunes = [
+  ["💗 Romantic", [
+    "Today you will randomly realise that someone is still ridiculously in love with you.",
+    "A tiny moment today will make you think of Zeel without even trying.",
+    "Your heart is scheduled to receive one unnecessary amount of love today.",
+    "Someone somewhere is probably smiling because of something you did. Yes, probably Zeel.",
+    "Today's universe message: you are someone's favourite notification.",
+    "You may discover that distance is annoying, but it has never made the feelings smaller.",
+    "A normal moment today is secretly going to become one of your favourite memories.",
+    "Your fortune says someone is missing your face more than they are admitting.",
+    "There is a very high chance that one conversation today becomes unnecessarily cute.",
+    "Today contains one invisible hug reserved specifically for you.",
+    "Someone's heart has once again selected you as its permanent favourite person.",
+    "Your day will contain a reminder that some people feel like home even from far away.",
+    "You are about to be remembered during a completely random part of someone's day.",
+    "Today's romantic forecast: 100% chance of Zeel being annoying and loving simultaneously.",
+    "Your heart has absolutely no intention of behaving normally around one particular person.",
+    "A future memory is quietly being created today.",
+    "The universe recommends one smile, one call, and one unnecessary 'I miss you'.",
+    "Your love story has another tiny chapter waiting for you today."
+  ]],
+
+  ["🔥 Flirty", [
+    "Warning: your smile may cause one specific boy to forget what he was saying.",
+    "Today's forecast contains dangerous levels of cuteness. Proceed carefully, babee.",
+    "Someone is definitely thinking you look extra cute today. Evidence unavailable. Confidence high.",
+    "Your eyes are officially under investigation for being unnecessarily distracting.",
+    "You may receive suspiciously sweet attention today. Do not pretend you dislike it.",
+    "A certain person has once again decided that you are way too pretty for his peace of mind.",
+    "Today's fortune says: send one cute snap and create absolute chaos.",
+    "Your smile has a confirmed history of making Zeel lose his argument.",
+    "Flirting probability is high. Acting innocent afterwards is also highly probable.",
+    "Someone will tease you today because admitting 'I missed you' would be too obvious.",
+    "Your cuteness level has exceeded the legally recommended limit.",
+    "Today's mission: look cute, act innocent, and cause maximum distraction.",
+    "One particular person may suddenly become very interested in what you are doing.",
+    "Your fortune predicts one suspiciously long look during a call.",
+    "There is a 99.9% chance somebody wants a hug and is pretending otherwise.",
+    "Your face is about to become someone's favourite distraction again.",
+    "A tiny flirt is hiding somewhere inside today's conversation.",
+    "You will probably annoy Zeel today. He will probably enjoy it."
+  ]],
+
+  ["😂 Funny", [
+    "Today you will confidently enter a room and immediately forget why.",
+    "A snack will become a full meal because apparently self-control is optional.",
+    "Your brain will open seventeen tabs and finish approximately none of them.",
+    "You will say 'five minutes' and somehow discover an entirely different time zone.",
+    "Today's fortune predicts an unnecessary amount of scrolling.",
+    "You may become hungry immediately after deciding you are not hungry.",
+    "One small inconvenience will receive a dramatic reaction worthy of a movie.",
+    "You will probably laugh at something that makes absolutely no sense.",
+    "Your schedule has been reviewed and chaos has been approved.",
+    "You are likely to annoy someone and then look completely innocent.",
+    "A very serious conversation may suddenly become about food.",
+    "Today your laziness will attempt to negotiate with your responsibilities.",
+    "You will probably say 'I am coming' while still being nowhere near ready.",
+    "A random thought will arrive at the worst possible time.",
+    "Your phone will become suspiciously interesting whenever work appears.",
+    "The universe predicts one completely unnecessary argument about something tiny.",
+    "You are officially allowed one dramatic 'ufffff' today.",
+    "Today's forecast: cute chaos with a 73% chance of laughing at your own joke."
+  ]],
+
+  ["😈 Teasing", [
+    "Someone is preparing a tiny roast for you. You know exactly who.",
+    "Today you may be accused of being cute on purpose. Denial will not help.",
+    "Your innocence has been placed under serious investigation.",
+    "Someone remembers exactly how to annoy you and may use that information.",
+    "A tiny argument is approaching. It will probably end with both of you laughing.",
+    "You are about to receive one message designed specifically to irritate you.",
+    "Today's fortune says your 'I am not angry' face will be completely unconvincing.",
+    "Someone may call you dramatic today. The evidence may be annoyingly strong.",
+    "You will probably tease someone and then act surprised when they tease you back.",
+    "Your patience will be tested by one professional-level annoyer.",
+    "A suspiciously cute nickname may appear during today's conversation.",
+    "Someone has officially remembered one embarrassing thing you did.",
+    "Your teasing privileges are temporarily unlimited.",
+    "One innocent-looking message may contain absolutely criminal levels of teasing.",
+    "Today's forecast: 40% sweetness, 60% bakchodi.",
+    "You may start a fight and immediately forget what the fight was about.",
+    "A certain person is planning to annoy you simply because he likes your reactions.",
+    "You have been warned: today is a certified teasing day."
+  ]],
+
+  ["🥹 Soft", [
+    "Today deserves a slow moment where you realise how loved you are.",
+    "Someone wishes they could sit beside you quietly today.",
+    "A soft memory from the two of you may suddenly appear in your mind.",
+    "You are someone's safe little thought in the middle of a busy day.",
+    "Your fortune contains one invisible forehead kiss.",
+    "Someone misses the ordinary version of being around you.",
+    "Today is a good day to remember the little things that became big memories.",
+    "You don't need to do anything special to be someone's favourite person.",
+    "A quiet conversation could mean more than a hundred dramatic ones.",
+    "Someone is grateful that your paths crossed when they did.",
+    "There is comfort hidden inside today's smallest moment.",
+    "Your presence has become part of someone's everyday happiness.",
+    "A tiny 'take care' today will carry more meaning than you realise.",
+    "Someone would choose another ordinary day with you over a perfect day without you.",
+    "Your story is built from small moments, and one more is waiting today.",
+    "Today's fortune recommends a little kindness toward yourself.",
+    "You are loved in ways that do not always need to be announced.",
+    "Somewhere between the jokes and fights, there is something very real."
+  ]],
+
+  ["👀 Suspicious", [
+    "Someone is hiding a compliment behind a joke today.",
+    "A mysterious notification may appear. Investigation is encouraged.",
+    "There is something suspiciously cute about today's timing.",
+    "Someone knows you are reading this and is probably smiling.",
+    "Today's events may contain a secret you are not supposed to notice yet.",
+    "Your fortune refuses to reveal who is thinking about you. Very suspicious.",
+    "One message today may look normal but absolutely will not be normal.",
+    "There is evidence of secret missing-you activity.",
+    "Someone is definitely pretending not to care as much as they actually do.",
+    "Today's case file contains one unidentified romantic suspect.",
+    "Your investigation may discover that you are the favourite person again.",
+    "A suspicious amount of affection is approaching.",
+    "Something ordinary today may have a hidden meaning.",
+    "The universe has classified today's cutest moment as confidential.",
+    "Someone has been caught thinking about a future with you.",
+    "Your fortune has detected suspicious levels of 'I miss you'.",
+    "One person is guilty of smiling at their phone because of you.",
+    "Case status: cute. Motive: unknown. Suspect: probably Zeel."
+  ]],
+
+  ["🥊 Fighting", [
+    "Today's tiny fight will probably be about something completely unnecessary.",
+    "You may say 'fine' while meaning approximately the opposite of fine.",
+    "Someone will try to win an argument using pure confidence and zero evidence.",
+    "A disagreement may appear today and disappear after one stupid joke.",
+    "Your anger forecast contains a very short expiry date.",
+    "Someone may annoy you and then immediately try to make you laugh.",
+    "Today's fight probability is low, but your dramatic reactions remain high.",
+    "You might start an argument and accidentally make a cute memory.",
+    "One 'okay then' may contain an entire novel of emotions.",
+    "The universe predicts one stubborn person and one even more stubborn person.",
+    "You may temporarily declare someone annoying. The declaration may not last.",
+    "Today's argument will require snacks and emotional negotiation.",
+    "Someone may refuse to apologise first. Historic evidence suggests chaos.",
+    "Your fortune says: fight less, hug more. Annoying advice, but still valid.",
+    "A tiny disagreement cannot defeat a relationship built from thousands of tiny moments.",
+    "Someone's ego may lose a battle today. Do not reveal who.",
+    "You may be angry for ten minutes and miss the person for eleven.",
+    "Today's conflict forecast ends with laughter. Probably."
+  ]],
+
+  ["👻 Anonymous", [
+    "Someone has something sweet to say but is waiting for the right moment.",
+    "A person who cares about you is closer to your thoughts than you realise.",
+    "Someone remembers your little habits.",
+    "There is a secret smile connected to your name today.",
+    "A certain someone would like to steal five minutes of your time.",
+    "Someone is quietly rooting for you.",
+    "One person thinks your existence makes ordinary days better.",
+    "Someone misses hearing your voice.",
+    "There is an unnamed person who would choose you again.",
+    "Someone remembers the exact moment they realised you mattered.",
+    "A secret admirer? Maybe. A familiar admirer? Almost certainly.",
+    "Someone's favourite thought today has your face in it.",
+    "One person has been waiting for your next message.",
+    "Someone would like one long conversation with you tonight.",
+    "A mystery person thinks you are adorable when you are annoyed.",
+    "Someone has saved a future memory with you in their imagination.",
+    "Your anonymous message: you are more loved than you think.",
+    "Identity classified. Feelings confirmed."
+  ]],
+
+  ["🪄 Curious", [
+    "Today may answer a question you have been quietly carrying.",
+    "A random conversation could reveal something surprisingly interesting.",
+    "You may discover a new little thing about someone you already know well.",
+    "Curiosity will lead you somewhere unexpectedly funny today.",
+    "Ask one extra question. The answer might become a memory.",
+    "Something you almost ignore today may turn out to matter.",
+    "A tiny coincidence may make you stop and smile.",
+    "Your day contains one 'wait, what?' moment.",
+    "You may learn something completely useless and immediately want to tell Zeel.",
+    "A random idea could become tomorrow's favourite story.",
+    "Someone may reveal a side of themselves you have not seen before.",
+    "Today's mystery is small, but the reaction may be big.",
+    "A strange coincidence is waiting somewhere in your day.",
+    "Follow the random thought. It may be surprisingly entertaining.",
+    "You are one question away from discovering something cute.",
+    "A forgotten memory may return at exactly the right time.",
+    "Today's curiosity forecast is unusually high.",
+    "There is a tiny secret hiding inside an ordinary moment."
+  ]],
+
+  ["💬 Missing You", [
+    "Someone is missing you right now but may pretend they are busy.",
+    "Distance is currently annoying. Feelings remain unaffected.",
+    "Today's fortune contains one very obvious 'I wish you were here'.",
+    "Someone would happily trade a hundred texts for one real hug.",
+    "A call today could make the distance feel slightly less annoying.",
+    "Someone is probably imagining what you would say right now.",
+    "Your absence has been noticed. Very much.",
+    "Someone misses the boring everyday moments with you.",
+    "A random song may suddenly remind you of each other.",
+    "Today has strong 'come here already' energy.",
+    "Someone wishes they could steal a normal evening with you.",
+    "Distance can stretch roads, not feelings.",
+    "Your fortune predicts one extra-long conversation.",
+    "Someone would like to sit beside you and do absolutely nothing.",
+    "A small 'I miss you' today may fix more than expected.",
+    "You are about to be missed during a completely random moment.",
+    "Someone wants the next meeting to happen sooner than the calendar allows.",
+    "Today's official forecast: missing you hours."
+  ]],
+
+  ["☕ Food & Chai", [
+    "Today's fortune recommends chai and an unnecessary conversation.",
+    "Someone may suddenly become interested in what you are eating.",
+    "A food discussion is approaching. It may become surprisingly serious.",
+    "Today's happiness level can probably be increased with a sandwich.",
+    "One snack may become a complete emotional support system.",
+    "A future date involving food has been unofficially approved.",
+    "Someone would happily share chai with you and then steal your food.",
+    "Today's menu contains one cute memory waiting to happen.",
+    "A debate about what to eat may last longer than expected.",
+    "You may discover that food tastes better when the conversation is stupid.",
+    "Your fortune says: eat first, argue later.",
+    "A café memory may visit your brain today.",
+    "Someone still remembers the little café moments.",
+    "A future chai session is somewhere on the relationship calendar.",
+    "Today's emotional support item is probably chocolate.",
+    "You will think about food at an extremely inconvenient time.",
+    "One day you will look back and remember the ordinary meals most.",
+    "The universe has ordered: one snack, one smile, zero guilt."
+  ]],
+
+  ["🌙 Late Night", [
+    "Tonight has strong 'one more conversation' energy.",
+    "You may promise to sleep early and immediately break that promise.",
+    "A random 2 AM thought is probably already loading.",
+    "Tonight someone may become unexpectedly honest.",
+    "One late-night message could become a favourite memory.",
+    "Your pillow is about to hear a completely unnecessary thought.",
+    "The night may make a normal conversation feel strangely special.",
+    "Someone may say good night and continue talking anyway.",
+    "Tonight's forecast: sleepy eyes, active brain.",
+    "A future memory is waiting somewhere between midnight and nonsense.",
+    "Someone may miss you more after the world becomes quiet.",
+    "Tonight would be perfect for one stupid conversation and one serious one.",
+    "The probability of saying 'okay last message' and sending five more is high.",
+    "A late-night laugh may be today's best moment.",
+    "Someone's favourite conversations with you probably happen when neither of you should be awake.",
+    "Your brain has permission to be dramatic after midnight.",
+    "Tonight contains one tiny moment you will want to remember.",
+    "Sleep is recommended. Talking to each other will probably win."
+  ]],
+
+  ["💫 Future Us", [
+    "A future version of you is going to laugh about something happening today.",
+    "One day today's ordinary moments will feel surprisingly precious.",
+    "A future café visit is waiting somewhere ahead.",
+    "There are still so many places and days neither of you has experienced together.",
+    "Today's little story may become a future inside joke.",
+    "A future date is currently somewhere between imagination and planning.",
+    "One day distance will be a story you tell instead of a problem you live.",
+    "The future contains more ordinary mornings together than you can imagine.",
+    "A future version of you will be grateful that today's version kept trying.",
+    "There is another chapter after this one.",
+    "One day you will remember these calls and smile at how far you came.",
+    "The future has room for more chai, more arguments, and more laughs.",
+    "Today's tiny effort can become tomorrow's favourite memory.",
+    "A future trip has not happened yet. That does not mean it is not waiting.",
+    "One day the 'I wish you were here' moments will become 'come here'.",
+    "Your future has plenty of unfinished plans.",
+    "The story is still very much being written.",
+    "The next beautiful memory has not happened yet."
+  ]],
+
+  ["🍀 Lucky", [
+    "Lucky sign: something small goes exactly the way you hoped.",
+    "Your luck today comes disguised as a random good mood.",
+    "A tiny coincidence may work suspiciously in your favour.",
+    "Today's lucky number is 18. Obviously.",
+    "Lucky object: your phone, because someone you like may message you.",
+    "Your lucky moment will probably arrive when you stop looking for it.",
+    "A small win deserves a bigger celebration than usual today.",
+    "Your luck forecast is bright enough to require sunglasses.",
+    "One annoying problem may solve itself.",
+    "Today has unusually strong good-news energy.",
+    "A random decision may turn out better than expected.",
+    "Your lucky charm today is a very specific person.",
+    "One ordinary moment may suddenly become excellent.",
+    "Something you were worried about may feel lighter today.",
+    "Your luck is currently sponsored by good timing.",
+    "A tiny surprise may improve your mood.",
+    "Today's universe has placed one nice little coincidence in your path.",
+    "Lucky forecast: smile first, investigate later."
+  ]],
+
+  ["🧸 Cute", [
+    "Today you are officially allowed to be extra cute.",
+    "Someone is probably saving a cute reply just to send it at the right time.",
+    "Your cute side has once again defeated your serious side.",
+    "A tiny compliment is hiding somewhere in today's conversation.",
+    "You may accidentally make someone's entire day better.",
+    "Today's fortune recommends one silly selfie.",
+    "Your smile has been declared dangerously adorable.",
+    "A certain person would probably squeeze your cheeks if distance allowed it.",
+    "Someone thinks your random little habits are cute.",
+    "Today contains a certified 'aww' moment.",
+    "Your cute privileges have been renewed for another 24 hours.",
+    "A small act of kindness will look especially adorable today.",
+    "Someone likes the version of you that nobody else sees.",
+    "Your sleepy face has unofficially entered the favourite-things list.",
+    "One silly conversation may become today's highlight.",
+    "You are about to make someone smile without knowing it.",
+    "Today's fortune has no serious advice. Just be cute.",
+    "Official diagnosis: too adorable, mildly annoying."
+  ]],
+
+  ["🎭 Dramatic", [
+    "Today deserves at least one dramatic 'WHATTT'.",
+    "A tiny inconvenience may feel like the final episode of a series.",
+    "Your emotional soundtrack is ready.",
+    "Someone may receive a completely unnecessary dramatic reaction today.",
+    "Today's plot twist will probably be very small but emotionally enormous.",
+    "Your life currently has main-character background music.",
+    "A normal conversation may suddenly become a full courtroom case.",
+    "You may announce 'I am done' and return approximately three minutes later.",
+    "Today's drama budget has been approved.",
+    "One facial expression will communicate an entire paragraph.",
+    "The universe predicts unnecessary suspense.",
+    "Your next reaction may deserve its own award.",
+    "A tiny misunderstanding may produce a surprisingly cinematic moment.",
+    "You are allowed exactly one dramatic exit today.",
+    "Someone may call you dramatic. You may respond dramatically.",
+    "Today's episode title: 'Why Are We Like This?'",
+    "Plot twist: everything is actually fine.",
+    "Season finale prediction: both of you laugh about it later."
+  ]],
+
+  ["🫶 Wholesome", [
+    "Someone is proud of you even when you do not notice it.",
+    "Your effort matters, including the tiny effort nobody sees.",
+    "Today deserves one genuine compliment.",
+    "You make ordinary moments feel less ordinary for someone.",
+    "A small kindness today may stay with someone longer than expected.",
+    "You do not need to be perfect to be deeply loved.",
+    "Someone appreciates the way you are simply yourself.",
+    "Today's reminder: rest is allowed.",
+    "One little win deserves to be celebrated.",
+    "Your presence is enough for someone today.",
+    "You have made more memories than you realise.",
+    "Someone is grateful for one conversation you probably forgot.",
+    "A difficult day does not erase all the good ones.",
+    "You are allowed to have soft days.",
+    "Someone would choose your imperfect, real version every time.",
+    "Your story contains more good chapters than you can currently see.",
+    "Take one breath and give yourself some credit.",
+    "Today's fortune is simple: you matter."
+  ]],
+
+  ["🌀 Completely Random", [
+    "A pigeon somewhere is having a more complicated day than you.",
+    "Today's suspicious object is probably completely harmless.",
+    "You may suddenly remember something from three years ago for no reason.",
+    "A random song will become extremely important for approximately four minutes.",
+    "Your brain may produce a brilliant idea and immediately forget it.",
+    "Today is legally allowed to be weird.",
+    "Someone will probably say something that makes absolutely no sense.",
+    "A completely random thought may become your favourite thought today.",
+    "You may discover a new reason to laugh at something stupid.",
+    "Today's chaos has excellent timing.",
+    "Your fortune refuses to explain itself.",
+    "Something unexpectedly funny is approaching from an unknown direction.",
+    "The universe has misplaced the instructions. Enjoy the day.",
+    "A random coincidence will probably make you say 'bro what'.",
+    "Today contains one moment that makes absolutely no sense.",
+    "You are advised to trust approximately 63% of today's events.",
+    "The fortune generator has officially decided you deserve nonsense.",
+    "Final prediction: somehow, this will become a story."
+  ]]
+];
+
+const TOTAL = fortunes.reduce((n, x) => n + x[1].length, 0);
+const STORAGE = "gift06_daily_fortune_v1";
+const POOL_STORAGE = "gift06_used_fortunes_v1";
+
+const button = document.getElementById("fortuneButton");
+const fortuneEl = document.getElementById("fortune");
+const moodEl = document.getElementById("moodTag");
+const numberEl = document.getElementById("fortuneNumber");
+const dateEl = document.getElementById("fortuneDate");
+const statusEl = document.getElementById("status");
+
+function todayKey(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+
+function flatten(){
+  const result=[];
+  fortunes.forEach(([mood,lines])=>{
+    lines.forEach(line=>result.push({mood,line}));
+  });
+  return result;
+}
+
+const pool = flatten();
+
+function loadUsed(){
+  try{
+    const value = JSON.parse(localStorage.getItem(POOL_STORAGE) || "[]");
+    return Array.isArray(value) ? value : [];
+  }catch{
+    return [];
+  }
+}
+
+function chooseFortune(){
+  let used=loadUsed();
+
+  if(used.length >= TOTAL){
+    used=[];
+  }
+
+  const available=[];
+  for(let i=0;i<TOTAL;i++){
+    if(!used.includes(i)) available.push(i);
+  }
+
+  const index = available[Math.floor(Math.random()*available.length)];
+
+  used.push(index);
+  localStorage.setItem(POOL_STORAGE,JSON.stringify(used));
+
+  return {
+    index,
+    ...pool[index]
+  };
+}
+
+function saveToday(data){
+  localStorage.setItem(STORAGE,JSON.stringify({
+    date:todayKey(),
+    index:data.index,
+    mood:data.mood,
+    line:data.line
+  }));
+}
+
+function getToday(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORAGE) || "null");
+    if(saved && saved.date === todayKey() && Number.isInteger(saved.index)){
+      return saved;
+    }
+  }catch{}
+  return null;
+}
+
+function display(data, animate=true){
+  moodEl.textContent=data.mood.toUpperCase();
+  fortuneEl.textContent=data.line;
+  numberEl.textContent=`Fortune #${String(data.index+1).padStart(3,"0")} / ${TOTAL}`;
+
+  const d=new Date();
+  dateEl.textContent=d.toLocaleDateString(undefined,{
+    weekday:"long",
+    month:"short",
+    day:"numeric"
+  });
+
+  if(animate){
+    fortuneEl.classList.remove("reveal");
+    void fortuneEl.offsetWidth;
+    fortuneEl.classList.add("reveal");
+  }
+}
+
+function revealToday(){
+  let today=getToday();
+
+  if(today){
+    display(today,true);
+    button.disabled=true;
+    button.textContent="🔒 Today's Fortune Already Claimed";
+    statusEl.textContent="This is your fortune for today. Come back tomorrow for another one. 💫";
+    return;
+  }
+
+  const data=chooseFortune();
+  saveToday(data);
+  display(data,true);
+
+  button.disabled=true;
+  button.textContent="🔒 Today's Fortune Already Claimed";
+  statusEl.textContent="Locked for today. Reloading won't change it. 😌";
+}
+
+function init(){
+  if(TOTAL !== 324){
+    console.error("Gift 06 expected 324 fortunes but found",TOTAL);
+  }
+
+  const today=getToday();
+
+  if(today){
+    display(today,false);
+    button.disabled=true;
+    button.textContent="🔒 Today's Fortune Already Claimed";
+    statusEl.textContent="Already revealed today. The fortune stays the same until tomorrow. ✨";
+  }
+}
+
+button.addEventListener("click",revealToday);
+init();
+</script>
+</body>
+</html>

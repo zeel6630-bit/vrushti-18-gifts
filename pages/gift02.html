@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Open When… · ZEEL × VRUSH</title>
+
+<link rel="stylesheet" href="../assets/style.css">
+
+
+
+
+
+
+<style id="open-when-modal-v4">
+
+/* ================================
+   OPEN WHEN — CENTER MODAL
+   ================================ */
+
+.ow-page{
+  max-width:1180px;
+  margin:0 auto;
+  padding-bottom:70px;
+}
+
+.ow-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+
+.ow-card{
+  position:relative;
+}
+
+.ow-envelope{
+  width:100%;
+  min-height:245px;
+
+  border:1px solid rgba(35,32,48,.12);
+  border-radius:24px;
+
+  background:linear-gradient(145deg,#fff,#f7f3ed);
+
+  box-shadow:
+    0 18px 45px rgba(30,26,40,.09);
+
+  padding:30px 28px;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:
+    transform .28s ease,
+    box-shadow .28s ease,
+    border-color .28s ease;
+
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.ow-envelope:hover{
+  transform:translateY(-7px) rotate(-.35deg);
+
+  box-shadow:
+    0 25px 55px rgba(30,26,40,.14);
+
+  border-color:
+    rgba(180,83,105,.3);
+}
+
+.ow-number{
+  font-size:12px;
+  letter-spacing:.18em;
+  font-weight:600;
+  opacity:.58;
+}
+
+.ow-seal{
+  width:46px;
+  height:46px;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  margin:25px 0 20px;
+
+  background:#b45369;
+  color:#fff;
+
+  font-size:19px;
+
+  box-shadow:
+    0 8px 20px rgba(180,83,105,.2);
+}
+
+.ow-title{
+  font-family:"Playfair Display",serif;
+
+  font-size:28px;
+  line-height:1.08;
+
+  font-weight:500;
+
+  letter-spacing:-.025em;
+
+  color:#181724;
+}
+
+.ow-hint{
+  margin-top:auto;
+  padding-top:25px;
+
+  font-size:12px;
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+  opacity:.55;
+}
+
+
+/* ================================
+   MODAL BACKDROP
+   ================================ */
+
+.ow-modal{
+  position:fixed;
+
+  inset:0;
+
+  z-index:99999;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:
+    rgba(13,12,20,.58);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:
+    opacity .28s ease;
+}
+
+.ow-modal.is-open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+
+/* ================================
+   CENTER LETTER WINDOW
+   ================================ */
+
+.ow-modal-window{
+  position:relative;
+
+  width:min(760px,94vw);
+
+  max-height:
+    min(820px,88vh);
+
+  overflow:auto;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffefa 0%,
+      #fbf7ef 100%
+    );
+
+  border:
+    1px solid rgba(255,255,255,.8);
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.28),
+    0 8px 30px rgba(0,0,0,.12);
+
+  transform:
+    translateY(22px)
+    scale(.96);
+
+  transition:
+    transform .32s cubic-bezier(.2,.8,.2,1);
+
+  scrollbar-width:thin;
+}
+
+.ow-modal.is-open .ow-modal-window{
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* ================================
+   MODAL TOP
+   ================================ */
+
+.ow-modal-head{
+  position:sticky;
+
+  top:0;
+
+  z-index:3;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  padding:
+    20px 24px;
+
+  background:
+    rgba(255,253,249,.92);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  border-bottom:
+    1px solid rgba(35,32,48,.08);
+}
+
+.ow-modal-label{
+  font-size:10px;
+
+  letter-spacing:.15em;
+
+  text-transform:uppercase;
+
+  font-weight:600;
+
+  opacity:.52;
+}
+
+.ow-modal-close{
+  width:38px;
+  height:38px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(35,32,48,.12);
+
+  background:#fff;
+
+  color:#34313b;
+
+  font-size:18px;
+
+  cursor:pointer;
+
+  display:grid;
+  place-items:center;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.ow-modal-close:hover{
+  transform:rotate(8deg) scale(1.05);
+
+  background:#f2ece4;
+}
+
+
+/* ================================
+   LETTER
+   ================================ */
+
+.ow-modal-content{
+  padding:
+    38px 46px 42px;
+}
+
+.ow-modal-title{
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(30px,5vw,46px);
+
+  line-height:1.08;
+
+  font-weight:500;
+
+  letter-spacing:-.035em;
+
+  color:#181724;
+
+  margin:
+    0 0 30px;
+}
+
+.ow-modal-letter-body{
+  font-size:16px;
+
+  line-height:1.85;
+
+  color:#34313b;
+
+  max-width:680px;
+}
+
+.ow-modal-letter-body p{
+  margin:
+    0 0 18px;
+}
+
+
+/* ================================
+   PERSONAL NOTE
+   ================================ */
+
+.ow-modal-note{
+  margin-top:32px;
+
+  padding-top:27px;
+
+  border-top:
+    1px dashed rgba(35,32,48,.18);
+}
+
+.ow-modal-note label{
+  display:block;
+
+  font-size:11px;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+  font-weight:600;
+
+  opacity:.62;
+
+  margin-bottom:10px;
+}
+
+.ow-modal-note textarea{
+  width:100%;
+
+  min-height:120px;
+
+  resize:vertical;
+
+  box-sizing:border-box;
+
+  border:
+    1px solid rgba(35,32,48,.13);
+
+  border-radius:16px;
+
+  background:#fbf8f1;
+
+  padding:15px;
+
+  font:inherit;
+
+  line-height:1.55;
+
+  color:#302d35;
+
+  outline:none;
+}
+
+.ow-modal-note textarea:focus{
+  border-color:
+    rgba(180,83,105,.5);
+
+  box-shadow:
+    0 0 0 3px rgba(180,83,105,.08);
+}
+
+.ow-modal-actions{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  margin-top:11px;
+}
+
+.ow-save,
+.ow-clear{
+  border:0;
+
+  border-radius:999px;
+
+  padding:
+    10px 17px;
+
+  font:inherit;
+
+  cursor:pointer;
+}
+
+.ow-save{
+  background:#1d1b29;
+  color:#fff;
+}
+
+.ow-clear{
+  background:#eee9e1;
+  color:#302d35;
+}
+
+.ow-saved{
+  font-size:12px;
+  opacity:.6;
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media(max-width:900px){
+
+  .ow-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+}
+
+@media(max-width:620px){
+
+  .ow-grid{
+    grid-template-columns:1fr;
+  }
+
+  .ow-envelope{
+    min-height:220px;
+  }
+
+  .ow-modal{
+    padding:12px;
+  }
+
+  .ow-modal-window{
+    width:100%;
+    max-height:92vh;
+    border-radius:22px;
+  }
+
+  .ow-modal-content{
+    padding:
+      28px 22px 32px;
+  }
+
+  .ow-modal-head{
+    padding:
+      15px 17px;
+  }
+
+}
+
+</style>
+
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body data-page="gift">
+
+<div class="app">
+
+  <div class="noise"></div>
+  <div class="orb"></div>
+  <div class="topbar"></div>
+
+  <main>
+
+    <section class="page-hero ow-intro">
+
+      <span class="tag">
+        gift 02 · eighteen little letters
+      </span>
+
+      <h1>Open When…</h1>
+
+      <p>
+        18 little letters from me for the moments when you need me,
+        miss me, or simply want a reminder that I am here.
+      </p>
+
+    </section>
+
+    <section class="ow-page">
+
+      <div class="ow-grid">
+      <article class="ow-card" data-card="01">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">01</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you miss me</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>If you opened this, then I already know one thing... you miss meuuuu.</p><p>I miss youuu too, bachhaa. Maybe I don&#x27;t always say it at the exact moment you want to hear it, but trust me, you cross my mind more than you know.</p><p>I know I can&#x27;t magically come running to you whenever you miss me. I wish I could though. I would probably just appear in front of you and say, “heyy dikuuu, I&#x27;m here.” 🫂</p><p>Until that becomes possible, remember that distance doesn&#x27;t change what you mean to me.</p><p>So don&#x27;t be too sad, okayy?</p><p>Your Zeel is still here.</p><p>And yes... I lovvveeee youuuu sooo muchhhh. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="02">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">02</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re having a bad day</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>So today was a bad day, huh?</p><p>Come here first. 🫂</p><p>You don&#x27;t have to explain everything immediately. You don&#x27;t have to pretend that you are okay just because the day is almost over.</p><p>Some days are just stupid.</p><p>Some days everything feels annoying.</p><p>And sometimes you don&#x27;t even know why you feel bad.</p><p>That&#x27;s okay, bachhaa.</p><p>Take a little break. Breathe. Forget everything for a few minutes.</p><p>If I were there, I would probably try to make you laugh until you got annoyed with me... and then I would still continue. 😂</p><p>So for now, just remember this:</p><p>One bad day doesn&#x27;t mean everything is bad.</p><p>Tomorrow gets another chance.</p><p>And so do you.</p><p>I&#x27;m here, babee. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="03">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">03</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re angry at me</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy betuu 😭</p><p>Okay okay... I already know.</p><p>You are angry at me.</p><p>And before you say anything — yes, you are allowed to be angry.</p><p>I am not going to sit here and say, “Zeel is always right.”</p><p>Because let&#x27;s be honest... that would be the biggest joke in this whole website. 😂</p><p>If I actually hurt you, tell me.</p><p>If I did something stupid, tell me.</p><p>If I made you feel bad, tell me.</p><p>I want to understand you, not win some stupid argument.</p><p>You can be angry.</p><p>You can take your time.</p><p>But after you&#x27;re done being angry at your idiot, come back to me, okayy?</p><p>Because even when we fight...</p><p>I still lovvveeee youuuu sooo muchhhh. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="04">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">04</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re overthinking</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee.</p><p>Stoppp. 😭</p><p>I already know your brain has probably created an entire movie, three alternate endings and seventeen possible problems.</p><p>Listen to me, dikuuu.</p><p>Not every thought in your head is true.</p><p>Not every silence means something is wrong.</p><p>Not every little thing needs an answer right now.</p><p>Sometimes your brain is simply being dramatic.</p><p>And yes, I&#x27;m allowed to say that because I am your favourite person. 😌</p><p>So breathe.</p><p>Come back to what is actually happening right now.</p><p>You are okay.</p><p>We are okay.</p><p>And whatever needs to be solved can be solved one thing at a time.</p><p>You don&#x27;t have to solve tomorrow tonight, bachhaa.</p><p>Now stop overthinking and come talk to me. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="05">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">05</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you feel alone</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy menaa Ranji Jii ❤️</p><p>If you feel alone right now, please remember something.</p><p>Being alone for a moment does not mean you are unloved.</p><p>You have people who care about you.</p><p>And then there is one very annoying boy who has decided that he is going to stay in your life for a very long time. 😭</p><p>Me.</p><p>You don&#x27;t have to be happy all the time for me to love you.</p><p>You don&#x27;t have to be interesting.</p><p>You don&#x27;t have to have everything figured out.</p><p>You can have quiet days.</p><p>You can have messy days.</p><p>You can just sit there and do absolutely nothing.</p><p>You are still my babee.</p><p>And I am still here.</p><p>So if you feel alone, come to me.</p><p>Even if you don&#x27;t know what to say.</p><p>Just say, “Heyy.”</p><p>I&#x27;ll understand. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="06">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">06</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you need to hear that I love you</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>Okay.</p><p>No long explanation this time.</p><p>I lovvveeee youuuu sooo muchhhh.</p><p>I love you when you&#x27;re happy.</p><p>I love you when you&#x27;re annoyed.</p><p>I love you when you&#x27;re being cute.</p><p>I love you when you&#x27;re being completely impossible. 😭</p><p>I love you when we are talking about absolutely nothing.</p><p>I love you when we disagree.</p><p>And I love you on the days when you don&#x27;t feel like yourself.</p><p>You don&#x27;t have to become perfect for me.</p><p>You don&#x27;t have to prove anything.</p><p>You don&#x27;t have to earn my love.</p><p>You are already loved.</p><p>By me.</p><p>Very, very much.</p><p>So whenever you need to hear it again...</p><p>Open this.</p><p>And read it again.</p><p>I LOVVVEEEE YOUUUU, BABEEE. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="07">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">07</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you need a hug</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy bachhaa 🫂</p><p>Come here.</p><p>Yes, right now.</p><p>This is your emergency digital hug.</p><p>I know it&#x27;s not the same.</p><p>There are no actual arms on this screen, which is honestly a serious technological failure. 😭</p><p>But imagine I&#x27;m right there.</p><p>No questions.</p><p>No explaining.</p><p>Just a long hug.</p><p>You can stay there for as long as you want.</p><p>You don&#x27;t have to tell me what happened.</p><p>You don&#x27;t have to pretend you&#x27;re strong.</p><p>Just breathe.</p><p>And imagine me saying:</p><p>“It&#x27;s okay, dikuuu. I&#x27;m here.”</p><p>One day I won&#x27;t need a screen to give you this hug.</p><p>Until then...</p><p>Consider yourself officially hugged by your idiot. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="08">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">08</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re doubting yourself</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee.</p><p>Listen to me for a minute, okayy?</p><p>I know sometimes you doubt yourself.</p><p>You think you&#x27;re not doing enough.</p><p>You think maybe you&#x27;re not good enough.</p><p>But please don&#x27;t be so hard on yourself, bachhaa.</p><p>You don&#x27;t have to have everything figured out.</p><p>You can make mistakes.</p><p>You can take your time.</p><p>You can start again.</p><p>None of those things make you less worthy.</p><p>I see things in you that you sometimes forget to see in yourself.</p><p>So when your brain starts telling you that you can&#x27;t...</p><p>Come back here.</p><p>Read this again.</p><p>And remember that your Zeel believes in you.</p><p>Now go prove your own brain wrong. 😌❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="09">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">09</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re scared about the future</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>I know the future can look scary sometimes.</p><p>There are so many things we don&#x27;t know.</p><p>What will happen?</p><p>Where will we be?</p><p>What will change?</p><p>Honestly... I don&#x27;t know either.</p><p>And that&#x27;s okay.</p><p>We don&#x27;t need to know everything right now.</p><p>We just have to keep moving.</p><p>One day at a time.</p><p>One little step at a time.</p><p>There will be difficult days.</p><p>There will also be days that make us say, “I&#x27;m so glad we kept going.”</p><p>So don&#x27;t be scared of a future that hasn&#x27;t happened yet, dikuuu.</p><p>There are still so many beautiful things waiting for you.</p><p>And hopefully...</p><p>a lot of them will have me irritating you in them. 😭❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="10">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">10</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you need motivation</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy betuu ❤️</p><p>Okay.</p><p>Enough thinking.</p><p>Let&#x27;s do one thing.</p><p>Just one.</p><p>You don&#x27;t need to fix your entire life today.</p><p>You don&#x27;t need to become a completely different person tomorrow.</p><p>Just do the next small thing.</p><p>Then another.</p><p>If you mess up, restart.</p><p>If you&#x27;re tired, rest.</p><p>If something takes longer than you expected, that&#x27;s okay.</p><p>Slow progress is still progress, bachhaa.</p><p>And remember...</p><p>I will always be proud of you for trying again.</p><p>So get up.</p><p>Do that one thing.</p><p>Then come back and tell me:</p><p>“Dekho, I did it.” 😌</p><p>I&#x27;ll be waiting.</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="11">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">11</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you feel like crying</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>If you feel like crying...</p><p>Then cry.</p><p>Seriously.</p><p>Don&#x27;t hold everything inside just because you think you have to be strong.</p><p>You don&#x27;t.</p><p>You can cry.</p><p>You can be tired.</p><p>You can feel everything.</p><p>And none of that makes you weak.</p><p>Sometimes you just need to let everything out.</p><p>So take your time, bachhaa.</p><p>Cry if you need to.</p><p>Then wash your face.</p><p>Take a deep breath.</p><p>And remember one thing:</p><p>You never have to hide the difficult version of yourself from me.</p><p>I don&#x27;t only want your happy days.</p><p>I want the real you too.</p><p>Always. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="12">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">12</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you&#x27;re bored and need me</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee 😭</p><p>You opened this because you&#x27;re bored??</p><p>Seriously??</p><p>Okay, fine. I accept my responsibility.</p><p>Emergency boredom treatment begins now.</p><p>Message me something completely random.</p><p>Ask me the stupidest question you can think of.</p><p>Tell me a useless story.</p><p>Send me something that makes absolutely no sense.</p><p>Or simply message me:</p><p>“I&#x27;m bored.”</p><p>And I will understand the assignment. 😂</p><p>Because honestly, some of our best conversations probably started with absolutely nothing.</p><p>So go.</p><p>Create another completely unnecessary conversation with me.</p><p>I miss youuu anyway.</p><p>And yes, your bored boy is also waiting for you. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="13">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">13</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when we have a stupid fight</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee.</p><p>Okay.</p><p>We&#x27;re fighting.</p><p>Again. 😭</p><p>But listen to me.</p><p>Whatever we&#x27;re fighting about right now is probably much smaller than everything we have together.</p><p>We can disagree.</p><p>We can get annoyed.</p><p>We can misunderstand each other.</p><p>That&#x27;s normal.</p><p>But I don&#x27;t want one stupid moment to become bigger than us.</p><p>So when you&#x27;re ready...</p><p>Come talk to me.</p><p>Not to prove who is right.</p><p>Not to win.</p><p>Just talk.</p><p>Because I would rather say sorry, understand you and fix things than sit there trying to win some stupid argument.</p><p>And even if you&#x27;re angry with me right now...</p><p>I still love you, dikuuu.</p><p>Unfortunately for you, you&#x27;re stuck with me. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="14">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">14</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you want to remember us</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy menaa Ranji Jii ❤️</p><p>Think about us for a second.</p><p>All the random conversations.</p><p>The stupid jokes.</p><p>The little things only we understand.</p><p>The moments that probably wouldn&#x27;t mean much to anyone else.</p><p>But they mean something to me.</p><p>That&#x27;s what I love about our story.</p><p>It isn&#x27;t made only from huge moments.</p><p>It&#x27;s made from tiny little memories.</p><p>A message.</p><p>A joke.</p><p>A random conversation.</p><p>A silly argument.</p><p>A moment where we just talked.</p><p>All those little things slowly became “us.”</p><p>And bachhaa...</p><p>I don&#x27;t think we&#x27;re done making memories yet.</p><p>Not even close. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="15">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">15</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you need a reason to smile</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee 😭</p><p>Emergency situation detected.</p><p>You need to smile.</p><p>So here is your reminder:</p><p>There is a boy somewhere who has voluntarily accepted the lifelong responsibility of annoying you.</p><p>And unfortunately...</p><p>he is very serious about the job. 😂</p><p>You can run.</p><p>You can hide.</p><p>You can pretend you don&#x27;t like him.</p><p>But too late.</p><p>He&#x27;s already attached.</p><p>So please smile a little.</p><p>Even if it&#x27;s tiny.</p><p>And if this doesn&#x27;t work...</p><p>Imagine my stupid face trying desperately to make you laugh.</p><p>See?</p><p>You smiled.</p><p>I knew it.</p><p>You&#x27;re welcome, dikuuu. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="16">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">16</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you want to know what I see in you</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>You want to know what I see in you?</p><p>I see someone who slowly became one of the most important people in my life.</p><p>I see your little ways of talking.</p><p>Your reactions.</p><p>Your random thoughts.</p><p>The way you can make an ordinary conversation feel special.</p><p>I see someone I genuinely want to understand better.</p><p>Someone whose happiness actually matters to me.</p><p>And no...</p><p>I don&#x27;t look at you and think you have to become perfect.</p><p>I look at you and think:</p><p>“That&#x27;s my girl.”</p><p>Menaa Ranji Jii.</p><p>My babee.</p><p>My betuu.</p><p>My dikuuu.</p><p>You.</p><p>That&#x27;s what I see.</p><p>And I love it. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="17">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">17</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you miss our future</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>Do you know something crazy?</p><p>Most of our story hasn&#x27;t even happened yet.</p><p>There are places we haven&#x27;t gone.</p><p>Things we haven&#x27;t done.</p><p>Conversations we haven&#x27;t had.</p><p>Memories we haven&#x27;t made.</p><p>There are so many future versions of us that we haven&#x27;t met yet.</p><p>And honestly...</p><p>that&#x27;s kind of beautiful.</p><p>So if you ever miss our future, don&#x27;t be scared of how far away it feels.</p><p>Think about all the little things waiting for us.</p><p>Maybe some days will be difficult.</p><p>Maybe some plans will change.</p><p>But there are still so many moments ahead of us.</p><p>And I hope a lot of them have you and me in them.</p><p>I lovvveeee youuuu, bachhaa. ❤️</p>
+          </div>
+        </template>
+      </article>
+
+      <article class="ow-card" data-card="18">
+        <button class="ow-envelope" type="button">
+          <span class="ow-number">18</span>
+          <span class="ow-seal">♥</span>
+          <span class="ow-title">Open when you just need me</span>
+          <span class="ow-hint">Open this when you need it →</span>
+        </button>
+
+        <template class="ow-content">
+          <div class="ow-modal-letter-body">
+            <p>Heyy babee ❤️</p><p>If you opened this one...</p><p>you don&#x27;t need a special reason.</p><p>Maybe you&#x27;re sad.</p><p>Maybe you&#x27;re happy.</p><p>Maybe you&#x27;re tired.</p><p>Maybe you just...</p><p>need me.</p><p>So here I am.</p><p>You don&#x27;t have to explain anything.</p><p>You don&#x27;t have to find the right words.</p><p>Just come talk to me.</p><p>Send me a “heyy.”</p><p>Call me.</p><p>Tell me something random.</p><p>Tell me nothing.</p><p>Whatever you need.</p><p>I&#x27;ll be here.</p><p>I miss youuu.</p><p>And I lovvveeee youuuu sooo muchhhh, menaa Ranji Jii. ❤️</p><p>So whenever you need me...</p><p>come find me.</p><p>Your Zeel is here.</p><p>Always, babee. 🫂</p>
+          </div>
+        </template>
+      </article>
+
+      </div>
+    </section>
+
+    <div class="footer">
+
+      <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script src="../assets/app.js"></script>
+
+
+
+
+
+
+<script id="open-when-modal-js">
+(() => {
+
+  const cards = document.querySelectorAll(".ow-card");
+
+  if (!cards.length) return;
+
+  /*
+   * One reusable modal.
+   * Clicking a card opens it in the exact center of the viewport.
+   * Closing returns to the 18-card page.
+   */
+
+  const modal = document.createElement("div");
+
+  modal.className = "ow-modal";
+
+  modal.innerHTML = `
+    <div class="ow-modal-window" role="dialog" aria-modal="true">
+
+      <div class="ow-modal-head">
+
+        <span class="ow-modal-label">
+          ZEEL × VRUSH · OPEN WHEN
+        </span>
+
+        <button
+          class="ow-modal-close"
+          type="button"
+          aria-label="Close letter"
+        >×</button>
+
+      </div>
+
+      <div class="ow-modal-content">
+
+        <h2 class="ow-modal-title"></h2>
+
+        <div class="ow-modal-body"></div>
+
+        <div class="ow-modal-note">
+
+          <label></label>
+
+          <textarea
+            class="ow-modal-textarea"
+            placeholder="Write anything you want me to know..."
+          ></textarea>
+
+          <div class="ow-modal-actions">
+
+            <button
+              class="ow-save"
+              type="button"
+            >Save my note</button>
+
+            <button
+              class="ow-clear"
+              type="button"
+            >Clear</button>
+
+            <span
+              class="ow-saved"
+              aria-live="polite"
+            ></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const windowBox =
+    modal.querySelector(".ow-modal-window");
+
+  const title =
+    modal.querySelector(".ow-modal-title");
+
+  const body =
+    modal.querySelector(".ow-modal-body");
+
+  const label =
+    modal.querySelector(".ow-modal-note label");
+
+  const textarea =
+    modal.querySelector(".ow-modal-textarea");
+
+  const closeButton =
+    modal.querySelector(".ow-modal-close");
+
+  const saveButton =
+    modal.querySelector(".ow-save");
+
+  const clearButton =
+    modal.querySelector(".ow-clear");
+
+  const saved =
+    modal.querySelector(".ow-saved");
+
+  let currentKey = null;
+
+  function openModal(card){
+
+    const number =
+      card.dataset.card;
+
+    const cardTitle =
+      card.querySelector(".ow-title").textContent.trim();
+
+    const content =
+      card.querySelector(".ow-content").content.cloneNode(true);
+
+    title.textContent =
+      cardTitle;
+
+    body.innerHTML = "";
+
+    body.appendChild(content);
+
+    label.textContent =
+      "Your little note to me";
+
+    currentKey =
+      "zeel_vrush_open_when_" + number;
+
+    const previous =
+      localStorage.getItem(currentKey);
+
+    textarea.value =
+      previous !== null ? previous : "";
+
+    saved.textContent = "";
+
+    modal.classList.add("is-open");
+
+    document.body.style.overflow =
+      "hidden";
+
+    windowBox.scrollTop = 0;
+
+    setTimeout(() => {
+      closeButton.focus();
+    }, 80);
+  }
+
+  function closeModal(){
+
+    modal.classList.remove("is-open");
+
+    document.body.style.overflow = "";
+
+    currentKey = null;
+
+  }
+
+  cards.forEach(card => {
+
+    const button =
+      card.querySelector(".ow-envelope");
+
+    button.addEventListener(
+      "click",
+      () => openModal(card)
+    );
+
+  });
+
+  closeButton.addEventListener(
+    "click",
+    closeModal
+  );
+
+  modal.addEventListener(
+    "click",
+    event => {
+
+      if (event.target === modal){
+        closeModal();
+      }
+
+    }
+  );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("is-open")
+      ){
+        closeModal();
+      }
+
+    }
+  );
+
+  saveButton.addEventListener(
+    "click",
+    () => {
+
+      if (!currentKey) return;
+
+      localStorage.setItem(
+        currentKey,
+        textarea.value
+      );
+
+      saved.textContent =
+        "Saved ♥";
+
+      setTimeout(
+        () => saved.textContent = "",
+        1800
+      );
+
+    }
+  );
+
+  clearButton.addEventListener(
+    "click",
+    () => {
+
+      if (!currentKey) return;
+
+      textarea.value = "";
+
+      localStorage.removeItem(
+        currentKey
+      );
+
+      saved.textContent =
+        "Cleared";
+
+      setTimeout(
+        () => saved.textContent = "",
+        1800
+      );
+
+    }
+  );
+
+})();
+</script>
+
+</body>
+</html>

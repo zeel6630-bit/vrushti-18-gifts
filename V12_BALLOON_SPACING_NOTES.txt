@@ -1,0 +1,6 @@
+V12 BASE + ONLY TWO REQUESTED REFINEMENTS
+
+1. Kept the V12 project as the baseline.
+2. Balloon animation: continuous stream, faster smooth upward movement, multi-point airflow sway, realistic CSS balloon body, curved/waving animated thread, pop before the top bunting, burst ring/sparks/confetti.
+3. Added intentional breathing room between the celebration message and the static cake.
+4. No countdown, password, page structure, cake design, toran, or other V12 systems were rewritten.

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Jigsaw puzzle</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body><div class="gift17-particles" aria-hidden="true"></div>
+  <div id=forPuzzle></div>
+    <div id="menu">
+        <p id="controls">close controls</p><div class="gift17-brand"><span class="gift17-brand-dot"></span><span>The Missing Pieces</span><small>Gift 17</small></div><button type="button" id="themeToggle" class="theme-toggle"><span class="theme-icon">☾</span><span class="theme-label">Dark theme</span></button>
+        <div id="showhide">
+            <hr>
+            <p class="center"><button type="button" id="help">instructions</button></p>
+            <hr>
+            <p class="center">
+                <button type="button" id="default">default image</button>
+                <button type="button" id="load">load image</button>
+            </p>
+            
+            
+                
+                    <option value="02">Picture 02</option>
+                    <option value="03">Picture 03</option>
+                    <option value="04">Picture 04</option>
+                    <option value="05">Picture 05</option>
+                    <option value="06">Picture 06</option>
+                    <option value="07">Picture 07</option>
+                    <option value="08">Picture 08</option>
+                    <option value="09">Picture 09</option>
+                    <option value="10">Picture 10</option>
+                    <option value="11">Picture 11</option>
+                    <option value="12">Picture 12</option>
+                    <option value="13">Picture 13</option>
+                    <option value="14">Picture 14</option>
+                    <option value="15">Picture 15</option>
+                    <option value="16">Picture 16</option>
+                    <option value="17">Picture 17</option>
+                    <option value="18">Picture 18</option>
+                </select>
+            </p>
+            <p class="center">
+                <button type="button" id="show">show image</button>
+            </p>
+
+            <p><input type=checkbox id="enablerot"><label for="enablerot" id="enablerotlabel">enable rotation</label>
+            </p>
+            <p>shape: <select id="shape">
+                    <option value="1" selected>classic</option>
+                    <option value="2">triangle</option>
+                    <option value="3">round</option>
+                    <option value="4">straight</option>
+                </select></p>
+            <p>number of pieces: <select id="nbpieces">
+                    <option selected>12</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                </select></p>
+            <p>between connected pieces: <select id="drawmode">
+                    <option value="1" selected>thin line</option>
+                    <option value="2">flat</option>
+                    <option value="3">bevel</option>
+                </select></p>
+            <p class="center"><button type="button" id="start">start game</button><button type="button" id="stop">stop
+                    game</button></p>
+            <hr>
+            <p>storage: <button type="button" id="helpstorage">?</button></p>
+            <p class="center"><button type="button" id="save">save game</button><button type="button"
+                    id="restore">restore game</button></p>
+            <hr>
+            <p>file: <button type="button" id="helpfile">?</button></p>
+            <p class="center"><button type="button" id="fsave">save game</button><button type="button"
+                    id="frestore">restore game</button></p>
+            <p>save name: <input type="text" id="saveas"><span id="saveext"></span></p>
+        </div> <!-- showhide -->
+    </div> <!-- menu -->
+    <script src="./script.js"></script>
+
+
+  
+<div id="gift17PictureControl" class="gift17-picture-control">
+  <label for="gift17PictureSelect">PICTURE LIBRARY</label>
+
+  
+
+  <div id="gift17ImageStatus">Picture 01 ready</div>
+
+  <img id="gift17Preview"
+       alt="Selected puzzle picture preview"
+       style="display:none">
+
+  <button type="button" id="gift17ForceShow">
+    SHOW SELECTED IMAGE
+  </button>
+</div>
+
+
+<div id="gift17PictureControl" class="gift17-picture-control">
+  <label for="gift17PictureSelect">PICTURE LIBRARY</label>
+
+  <select id="gift17PictureSelect" aria-label="Select puzzle picture">
+    <option value="1">Picture 01</option>
+    <option value="2">Picture 02</option>
+    <option value="3">Picture 03</option>
+    <option value="4">Picture 04</option>
+    <option value="5">Picture 05</option>
+    <option value="6">Picture 06</option>
+    <option value="7">Picture 07</option>
+    <option value="8">Picture 08</option>
+    <option value="9">Picture 09</option>
+    <option value="10">Picture 10</option>
+    <option value="11">Picture 11</option>
+    <option value="12">Picture 12</option>
+    <option value="13">Picture 13</option>
+    <option value="14">Picture 14</option>
+    <option value="15">Picture 15</option>
+    <option value="16">Picture 16</option>
+    <option value="17">Picture 17</option>
+    <option value="18">Picture 18</option>
+  </select>
+
+  <div id="gift17ImageStatus">Picture 01 ready</div>
+
+  <img id="gift17Preview"
+       alt="Selected puzzle picture preview"
+       style="display:none">
+
+  <button type="button" id="gift17ForceShow">
+    SHOW SELECTED IMAGE
+  </button>
+</div>
+
+</body>
+  
+</html>
+
+<style>
+/* ============================================================
+   GIFT 17 — FINAL PICTURE LIBRARY MODAL BEHAVIOUR
+   ============================================================ */
+
+.gift17-library-hidden {
+    display: none !important;
+}
+</style>
+
+<script>
+(function () {
+
+    function findLibraryPanels() {
+
+        const elements = Array.from(
+            document.querySelectorAll("body *")
+        );
+
+        const panels = [];
+
+        for (const el of elements) {
+
+            /*
+             * Find the actual heading element whose text is
+             * exactly "PICTURE LIBRARY".
+             */
+            const text = (el.textContent || "")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toUpperCase();
+
+            if (text !== "PICTURE LIBRARY") {
+                continue;
+            }
+
+            /*
+             * Walk upward until we reach the visual card that
+             * contains the selector/button.
+             */
+            let panel = el;
+
+            for (let i = 0; i < 8 && panel; i++) {
+
+                if (
+                    panel.querySelector &&
+                    (
+                        panel.querySelector("select") ||
+                        Array.from(panel.querySelectorAll("button"))
+                            .some(b =>
+                                (b.textContent || "")
+                                .toUpperCase()
+                                .includes("SHOW SELECTED IMAGE")
+                            )
+                    )
+                ) {
+                    break;
+                }
+
+                panel = panel.parentElement;
+            }
+
+            if (
+                panel &&
+                panel !== document.body &&
+                !panels.includes(panel)
+            ) {
+                panels.push(panel);
+            }
+        }
+
+        return panels;
+    }
+
+
+    function closeAllPictureLibraries() {
+
+        const panels = findLibraryPanels();
+
+        console.log(
+            "[Gift17] Closing Picture Library panels:",
+            panels.length
+        );
+
+        panels.forEach(panel => {
+
+            panel.classList.add(
+                "gift17-library-hidden"
+            );
+
+            /*
+             * Also hide any old modal-style wrapper around it.
+             */
+            let parent = panel.parentElement;
+
+            for (let i = 0; i < 3 && parent; i++) {
+
+                const parentText =
+                    (parent.textContent || "")
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .toUpperCase();
+
+                if (
+                    parentText.includes("PICTURE LIBRARY") &&
+                    parent !== document.body
+                ) {
+                    parent.classList.add(
+                        "gift17-library-hidden"
+                    );
+                }
+
+                parent = parent.parentElement;
+            }
+        });
+
+        /*
+         * Hide our previous reopen button if it exists.
+         * We don't want it appearing immediately after selection.
+         */
+        document
+            .querySelectorAll(".gift17-library-reopen")
+            .forEach(btn => {
+                btn.style.display = "none";
+            });
+    }
+
+
+    function installShowButtons() {
+
+        const buttons = Array.from(
+            document.querySelectorAll("button")
+        ).filter(button =>
+            (button.textContent || "")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toUpperCase()
+                .includes("SHOW SELECTED IMAGE")
+        );
+
+        buttons.forEach(button => {
+
+            if (
+                button.dataset.gift17CloseInstalled === "1"
+            ) {
+                return;
+            }
+
+            button.dataset.gift17CloseInstalled = "1";
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    /*
+                     * Allow the original image-selection
+                     * handler to run first.
+                     */
+                    setTimeout(
+                        closeAllPictureLibraries,
+                        80
+                    );
+
+                },
+                true
+            );
+        });
+    }
+
+
+    /*
+     * Install now.
+     */
+    installShowButtons();
+
+
+    /*
+     * The original page can create UI dynamically,
+     * so keep watching for the buttons.
+     */
+    const observer = new MutationObserver(
+        function () {
+            installShowButtons();
+        }
+    );
+
+    observer.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+
+    /*
+     * Also expose it for debugging if needed.
+     */
+    window.gift17ClosePictureLibrary =
+        closeAllPictureLibraries;
+
+})();
+</script>
+

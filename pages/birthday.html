@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>18 → 1 · A little countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="numbers" class="countdown-page">
+  <main class="countdown-stage" id="countdownStage">
+    <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
+    <div class="countdown-vignette"></div>
+    <div class="countdown-orbit orbit-a"></div>
+    <div class="countdown-orbit orbit-b"></div>
+
+    <section class="countdown-copy" aria-live="polite">
+      <div class="countdown-kicker">A little birthday ritual</div>
+      <div class="countdown-subtitle">One number at a time.</div>
+
+      <button class="solo-number" id="soloNumber" aria-label="Burn number 18">
+        <span id="numberText">18</span>
+        <span class="number-ember" aria-hidden="true"></span>
+        <span class="number-smoke" aria-hidden="true"></span>
+      </button>
+
+      <div class="countdown-hint">Tap the number and let it disappear.</div>
+      <div class="countdown-progress"><span id="progressBar"></span></div>
+      <div class="countdown-progress-label"><span id="progressText">18</span> moments left</div>
+    </section>
+
+    <div id="fxLayer" class="fx-layer" aria-hidden="true"></div>
+  </main>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

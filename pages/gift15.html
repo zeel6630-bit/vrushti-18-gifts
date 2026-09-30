@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 15 — VRUSH TV</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#08090d;
+  --panel:#11141b;
+  --panel2:#181c25;
+  --text:#f4f5f7;
+  --muted:#969daa;
+  --accent:#ff4f91;
+  --accent2:#8e6cff;
+  --line:rgba(255,255,255,.09);
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(255,79,145,.15),transparent 30%),
+    radial-gradient(circle at 15% 90%,rgba(142,108,255,.13),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(120deg,transparent 0 40%,rgba(255,255,255,.015) 50%,transparent 60%);
+}
+
+.app{
+  width:min(1250px,94%);
+  margin:auto;
+  padding:25px 0 70px;
+}
+
+.nav{
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:700;
+  letter-spacing:.03em;
+}
+
+.logoMark{
+  width:34px;
+  height:24px;
+  border-radius:7px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  position:relative;
+}
+
+.logoMark:after{
+  content:"";
+  position:absolute;
+  left:13px;
+  top:7px;
+  border-left:8px solid white;
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+}
+
+.back{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+}
+
+.hero{
+  padding:65px 0 35px;
+}
+
+.live{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(255,79,145,.25);
+  background:rgba(255,79,145,.08);
+  padding:7px 11px;
+  border-radius:999px;
+  color:#ff83af;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.live i{
+  width:6px;
+  height:6px;
+  background:#ff4f91;
+  border-radius:50%;
+  box-shadow:0 0 12px #ff4f91;
+}
+
+h1{
+  margin-top:20px;
+  font-size:clamp(48px,9vw,94px);
+  line-height:.92;
+  letter-spacing:-.06em;
+}
+
+.hero p{
+  max-width:680px;
+  color:var(--muted);
+  margin-top:22px;
+  line-height:1.8;
+  font-size:15px;
+}
+
+.channel{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:1.4fr .8fr;
+  gap:20px;
+}
+
+.screen{
+  min-height:430px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015)),
+    #0c0e13;
+  overflow:hidden;
+  position:relative;
+}
+
+.screenTop{
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 18px;
+  border-bottom:1px solid var(--line);
+}
+
+.circle{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#4a4f5a;
+}
+
+.screenContent{
+  padding:42px;
+  position:relative;
+  z-index:2;
+}
+
+.episode{
+  color:#ff76a8;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.screen h2{
+  font-size:clamp(30px,5vw,54px);
+  line-height:1;
+  margin-top:16px;
+  max-width:650px;
+}
+
+.screen p{
+  color:#a7adb8;
+  line-height:1.8;
+  margin-top:18px;
+  max-width:620px;
+}
+
+.signal{
+  position:absolute;
+  width:350px;
+  height:350px;
+  border:1px solid rgba(255,79,145,.1);
+  border-radius:50%;
+  right:-110px;
+  bottom:-130px;
+  box-shadow:0 0 0 60px rgba(255,79,145,.025),0 0 0 120px rgba(142,108,255,.018);
+}
+
+.side{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:rgba(255,255,255,.025);
+  padding:26px;
+}
+
+.side h3{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:#858b97;
+  margin-bottom:20px;
+}
+
+.info{
+  padding:18px 0;
+  border-top:1px solid var(--line);
+}
+
+.info strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:7px;
+}
+
+.info span{
+  display:block;
+  color:#8d939f;
+  line-height:1.6;
+  font-size:13px;
+}
+
+.programs{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.card{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  border-radius:16px;
+  padding:20px;
+  min-height:150px;
+  transition:.25s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,79,145,.28);
+  background:rgba(255,255,255,.045);
+}
+
+.card small{
+  color:#777e8a;
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.card h3{
+  margin-top:12px;
+  font-size:17px;
+}
+
+.card p{
+  margin-top:9px;
+  color:#8e949f;
+  line-height:1.55;
+  font-size:12px;
+}
+
+.footer{
+  text-align:center;
+  margin-top:55px;
+  color:#656b76;
+  font-size:12px;
+}
+
+@media(max-width:800px){
+  .channel{grid-template-columns:1fr}
+  .programs{grid-template-columns:1fr 1fr}
+  .screenContent{padding:30px}
+}
+
+@media(max-width:500px){
+  .programs{grid-template-columns:1fr}
+  h1{font-size:58px}
+}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<main class="app">
+
+<nav class="nav">
+  <div class="logo">
+    <div class="logoMark"></div>
+    <span>VRUSH TV</span>
+  </div>
+  <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+</nav>
+
+<section class="hero">
+  <div class="live"><i></i> Broadcasting from Vrushti's Universe</div>
+  <h1>VRUSH TV</h1>
+  <p>
+    Welcome to the completely unofficial television network dedicated to one
+    very specific person. From the first morning alarm to the final late-night
+    conversation, every ordinary part of her day gets its own place on the schedule.
+  </p>
+</section>
+
+<section class="channel">
+
+  <div class="screen">
+    <div class="screenTop">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+
+    <div class="screenContent">
+      <div class="episode">Now Broadcasting · Channel 15</div>
+      <h2>The Vrushti Universe</h2>
+      <p>
+        A 24/7 fictional network covering the important departments:
+        random conversations, cute moments, unnecessary teasing, food,
+        web-series time, lazy hours, calls, memories, and the person
+        Zeel somehow ended up caring about this much.
+      </p>
+    </div>
+
+    <div class="signal"></div>
+  </div>
+
+  <aside class="side">
+    <h3>Channel Information</h3>
+
+    <div class="info">
+      <strong>Channel</strong>
+      <span>15 · VRUSH TV</span>
+    </div>
+
+    <div class="info">
+      <strong>Primary Audience</strong>
+      <span>One extremely specific viewer.</span>
+    </div>
+
+    <div class="info">
+      <strong>Programming Style</strong>
+      <span>College · routine · conversations · little moments</span>
+    </div>
+
+    <div class="info">
+      <strong>Broadcast Policy</strong>
+      <span>18 scheduled programs. No commercial breaks.</span>
+    </div>
+
+    <div class="info">
+      <strong>Network Status</strong>
+      <span>Online whenever Vrushti exists.</span>
+    </div>
+  </aside>
+
+</section>
+
+<section class="programs">
+
+  <article class="card">
+    <small>07:00 AM · Program 01</small>
+    <h3>The Morning Signal</h3>
+    <p>The first broadcast of the day: waking up, slowly becoming human, and preparing for whatever the day has decided to bring.</p>
+  </article>
+
+  <article class="card">
+    <small>07:30 AM · Program 02</small>
+    <h3>Ready in Thirty</h3>
+    <p>A short morning segment covering getting ready, choosing what to wear, collecting everything needed, and finally being ready to leave.</p>
+  </article>
+
+  <article class="card">
+    <small>08:00 AM · Program 03</small>
+    <h3>Breakfast Table</h3>
+    <p>A calm half-hour before college begins. Breakfast, a little preparation, and the final transition from home mode to college mode.</p>
+  </article>
+
+  <article class="card">
+    <small>08:30 AM · Program 04</small>
+    <h3>Before the Bell</h3>
+    <p>The preparation window: homework, clothes, college things and all the small jobs that somehow appear before the actual day has even started.</p>
+  </article>
+
+  <article class="card">
+    <small>09:00 AM · Program 05</small>
+    <h3>Campus Live</h3>
+    <p>The main daytime broadcast begins. Six lectures, classrooms, teachers, classmates and whatever unexpected moment happens between them.</p>
+  </article>
+
+  <article class="card">
+    <small>10:00 AM · Program 06</small>
+    <h3>Second Period</h3>
+    <p>Another lecture, another class, another page of notes. The kind of ordinary college hour that becomes interesting when you know the person living it.</p>
+  </article>
+
+  <article class="card">
+    <small>11:00 AM · Program 07</small>
+    <h3>Lab & Lecture Desk</h3>
+    <p>A rotating college segment covering practical sessions, labs, orientation work, classroom activities and the unpredictable middle of a college day.</p>
+  </article>
+
+  <article class="card">
+    <small>12:00 PM · Program 08</small>
+    <h3>Lunch Outside</h3>
+    <p>The midday escape from the classroom. Lunch with friends, a little fresh air and sometimes a spot in or around the college garden.</p>
+  </article>
+
+  <article class="card">
+    <small>01:00 PM · Program 09</small>
+    <h3>Afternoon Campus</h3>
+    <p>The college continues: more lectures, practical work, conversations and the slow countdown toward the moment everyone can finally go home.</p>
+  </article>
+
+  <article class="card">
+    <small>02:00 PM · Program 10</small>
+    <h3>The Final Lectures</h3>
+    <p>The last stretch of the six-lecture day. Energy is lower, the clock suddenly becomes interesting, and home starts feeling very close.</p>
+  </article>
+
+  <article class="card">
+    <small>03:30 PM · Program 11</small>
+    <h3>Homecoming</h3>
+    <p>College is over. The uniform of the day comes off, the bag is dropped, and the afternoon switches from campus life to personal time.</p>
+  </article>
+
+  <article class="card">
+    <small>04:00 PM · Program 12</small>
+    <h3>The Reset Hour</h3>
+    <p>Rest, bath, recharge and a little breathing space after college. This is the hour where the day finally slows down.</p>
+  </article>
+
+  <article class="card">
+    <small>04:30 PM · Program 13</small>
+    <h3>Open Line</h3>
+    <p>The schedule becomes flexible. If Zeel is available, the line opens for a call or video call; otherwise, the afternoon may turn into a series, a nap or some quiet time.</p>
+  </article>
+
+  <article class="card">
+    <small>05:30 PM · Program 14</small>
+    <h3>Garden Hour</h3>
+    <p>An evening outdoor segment. Sometimes the garden gets the visit, sometimes the plan changes, but after a long college day there is finally room for some fresh air.</p>
+  </article>
+
+  <article class="card">
+    <small>07:00 PM · Program 15</small>
+    <h3>Evening Switch</h3>
+    <p>Dinner approaches and the pace becomes slower. Depending on the day, there may be a walk, time at home, or another little conversation before the night settles in.</p>
+  </article>
+
+  <article class="card">
+    <small>09:00 PM · Program 16</small>
+    <h3>Family Network</h3>
+    <p>The evening family block: calls with sister or brother, catching up on the day and giving the outside world a little attention before returning to the private part of the night.</p>
+  </article>
+
+  <article class="card">
+    <small>10:00 PM · Program 17</small>
+    <h3>Vrushti After Ten</h3>
+    <p>The favourite late-evening program. A long conversation with Zeel, random topics, teasing, stories, updates and absolutely no guarantee that the conversation will end on time.</p>
+  </article>
+
+  <article class="card">
+    <small>11:00 PM · Program 18</small>
+    <h3>Last Episode Tonight</h3>
+    <p>The final broadcast. Maybe one last message, one last thought, one last little moment — and then the screen goes quiet until tomorrow.</p>
+  </article>
+
+</section>
+
+<div class="footer">
+  VRUSH TV · Channel 15 · 18 Programs · Created for one very special viewer
+</div>
+
+</main>
+</body>
+</html>

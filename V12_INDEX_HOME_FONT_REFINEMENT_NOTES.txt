@@ -1,0 +1,7 @@
+Based on the V12 Balloon Fast version.
+Only requested index/home typography refinements were made:
+- Added more vertical space between "private birthday universe" and the lock logo.
+- Changed "Only you / can enter." from Pacifico/cursive to Playfair Display, normal-weight styling.
+- Reduced the visual heaviness of the index headline.
+- Changed home hero "One birthday. / 18 universes." from DM Serif + Pacifico to Playfair Display, lighter weight, no cursive.
+- No countdown, birthday reveal, cake, balloons, or gift-card layout changes.

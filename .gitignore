@@ -1,0 +1,13 @@
+.gift18-backups/
+.home-nav-backup-*/
+.home-button-backup-*/
+.home-nav-backup-*/
+pages/.backup-*/
+pages/.gift18-backup/
+pages/*.backup*
+pages/*.bak
+pages/*.before-*
+pages/*.removed-backup
+pages/gift17-exact/*.backup*
+pages/gift17-exact/*.before-*
+*.Zone.Identifier

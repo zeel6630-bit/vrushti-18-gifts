@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 520" role="img" aria-labelledby="title desc">
+  <title id="title">Animated chocolate birthday cake</title>
+  <desc id="desc">A layered chocolate birthday cake with five candles and looping flames, inspired by the staged SVG cake animation in the referenced CodePen.</desc>
+  <defs>
+    <linearGradient id="plate" x1="0" x2="1"><stop offset="0" stop-color="#4a2524"/><stop offset=".5" stop-color="#9a5b45"/><stop offset="1" stop-color="#3a1d1d"/></linearGradient>
+    <linearGradient id="cakeTop" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6b2b20"/><stop offset="1" stop-color="#341311"/></linearGradient>
+    <linearGradient id="cakeBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7a3427"/><stop offset=".42" stop-color="#4b1d19"/><stop offset="1" stop-color="#24100f"/></linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff2d4"/><stop offset="1" stop-color="#e5b37f"/></linearGradient>
+    <linearGradient id="candle" x1="0" x2="1"><stop stop-color="#fff4d8"/><stop offset=".5" stop-color="#dca55c"/><stop offset="1" stop-color="#7b3526"/></linearGradient>
+    <radialGradient id="flame"><stop offset="0" stop-color="#fffbe5"/><stop offset=".35" stop-color="#ffe26a"/><stop offset=".75" stop-color="#ff8a2b"/><stop offset="1" stop-color="#e43e19"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="20" stdDeviation="15" flood-color="#29100f" flood-opacity=".28"/></filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+
+  <g class="cake-animation" filter="url(#shadow)">
+    <ellipse cx="310" cy="470" rx="245" ry="22" fill="#301617" opacity=".22" filter="url(#soft)"/>
+    <ellipse cx="310" cy="456" rx="235" ry="28" fill="url(#plate)"/>
+    <ellipse cx="310" cy="449" rx="210" ry="18" fill="#bd7653" opacity=".55"/>
+
+    <!-- Lower sponge, staged upward like the reference animation. -->
+    <g class="layer layer-1">
+      <path d="M115 337 Q310 305 505 337 L493 426 Q310 458 127 426 Z" fill="url(#cakeBody)"/>
+      <path d="M115 337 Q310 305 505 337 Q310 370 115 337Z" fill="#8e4431"/>
+      <path d="M127 377 Q310 407 493 377 L493 405 Q310 435 127 405Z" fill="#2f1211" opacity=".38"/>
+      <g fill="#d28b55" opacity=".8">
+        <circle cx="165" cy="386" r="5"/><circle cx="204" cy="402" r="4"/><circle cx="251" cy="389" r="6"/><circle cx="305" cy="413" r="4"/><circle cx="358" cy="390" r="5"/><circle cx="412" cy="405" r="6"/><circle cx="458" cy="384" r="4"/>
+      </g>
+    </g>
+
+    <!-- Middle chocolate layer. -->
+    <g class="layer layer-2">
+      <path d="M127 282 Q310 252 493 282 L482 370 Q310 399 138 370 Z" fill="#5a241d"/>
+      <path d="M127 282 Q310 252 493 282 Q310 313 127 282Z" fill="#8f4834"/>
+      <path d="M138 318 Q310 348 482 318 L482 350 Q310 380 138 350Z" fill="#2b1010" opacity=".42"/>
+    </g>
+
+    <!-- Upper chocolate layer with ganache. -->
+    <g class="layer layer-3">
+      <path d="M140 224 Q310 194 480 224 L468 310 Q310 342 152 310 Z" fill="url(#cakeBody)"/>
+      <path d="M140 224 Q310 194 480 224 Q310 255 140 224Z" fill="url(#cakeTop)"/>
+      <path d="M140 225 Q155 249 171 229 Q190 255 208 231 Q230 263 249 232 Q274 258 294 231 Q315 265 335 230 Q357 258 376 231 Q399 263 418 230 Q441 250 455 227 L468 244 L468 266 Q310 297 152 266Z" fill="#2a0f0d"/>
+      <path d="M140 225 Q310 194 480 225" fill="none" stroke="#d67b4c" stroke-width="5" opacity=".55"/>
+    </g>
+
+    <!-- Cream rosettes: embedded directly into the cake top. -->
+    <g fill="url(#cream)" stroke="#d79a6d" stroke-width="2">
+      <g transform="translate(185 214)"><path d="M0 24 C-24 22 -25 2 -9 -2 C-1 -20 16 -10 17 2 C34 0 36 21 18 25 C12 31 5 30 0 24Z"/></g>
+      <g transform="translate(244 204)"><path d="M0 24 C-24 22 -25 2 -9 -2 C-1 -20 16 -10 17 2 C34 0 36 21 18 25 C12 31 5 30 0 24Z"/></g>
+      <g transform="translate(306 201)"><path d="M0 24 C-24 22 -25 2 -9 -2 C-1 -20 16 -10 17 2 C34 0 36 21 18 25 C12 31 5 30 0 24Z"/></g>
+      <g transform="translate(368 204)"><path d="M0 24 C-24 22 -25 2 -9 -2 C-1 -20 16 -10 17 2 C34 0 36 21 18 25 C12 31 5 30 0 24Z"/></g>
+      <g transform="translate(425 214)"><path d="M0 24 C-24 22 -25 2 -9 -2 C-1 -20 16 -10 17 2 C34 0 36 21 18 25 C12 31 5 30 0 24Z"/></g>
+    </g>
+
+    <!-- Five candles. Their bottoms overlap the frosting so there is no visible gap. -->
+    <g class="candles">
+      <g class="candle c1" transform="translate(205 0)"><rect x="-8" y="158" width="16" height="58" rx="7" fill="url(#candle)"/><path d="M-8 173h16M-8 188h16M-8 203h16" stroke="#fff2d2" stroke-width="4" opacity=".75"/><g class="flame"><ellipse cx="0" cy="148" rx="9" ry="15" fill="url(#flame)"/></g></g>
+      <g class="candle c2" transform="translate(255 0)"><rect x="-8" y="150" width="16" height="66" rx="7" fill="url(#candle)"/><path d="M-8 166h16M-8 182h16M-8 198h16" stroke="#fff2d2" stroke-width="4" opacity=".75"/><g class="flame"><ellipse cx="0" cy="140" rx="9" ry="15" fill="url(#flame)"/></g></g>
+      <g class="candle c3" transform="translate(310 0)"><rect x="-9" y="138" width="18" height="78" rx="8" fill="url(#candle)"/><path d="M-9 157h18M-9 176h18M-9 195h18" stroke="#fff2d2" stroke-width="4" opacity=".75"/><g class="flame"><ellipse cx="0" cy="127" rx="10" ry="17" fill="url(#flame)"/></g></g>
+      <g class="candle c4" transform="translate(365 0)"><rect x="-8" y="150" width="16" height="66" rx="7" fill="url(#candle)"/><path d="M-8 166h16M-8 182h16M-8 198h16" stroke="#fff2d2" stroke-width="4" opacity=".75"/><g class="flame"><ellipse cx="0" cy="140" rx="9" ry="15" fill="url(#flame)"/></g></g>
+      <g class="candle c5" transform="translate(415 0)"><rect x="-8" y="158" width="16" height="58" rx="7" fill="url(#candle)"/><path d="M-8 173h16M-8 188h16M-8 203h16" stroke="#fff2d2" stroke-width="4" opacity=".75"/><g class="flame"><ellipse cx="0" cy="148" rx="9" ry="15" fill="url(#flame)"/></g></g>
+    </g>
+
+    <text x="310" y="278" text-anchor="middle" fill="#f8e2b8" font-family="Georgia,serif" font-size="22" font-weight="700" letter-spacing="1">Happy Birthday</text>
+  </g>
+</svg>

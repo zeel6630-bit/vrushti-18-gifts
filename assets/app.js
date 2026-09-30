@@ -1,0 +1,301 @@
+const GIFTS = [
+["01","18 Reasons I Love You","A scrollable little universe of the tiny things that make you, you.","💗"],
+["02","Open When…","A digital envelope wall for the days when you need a hug from far away.","✉️"],
+["03","If I Were There Right Now","A choose-your-moment long-distance simulation: chai, hugs, nonsense and quiet time.","🫶"],
+["04","Our Secret Room","A hidden-room puzzle with clues, memories and a final secret message.","🔐"],
+["05","18 Things You Do That Drive Me Crazy","Half teasing, half confession. Very specifically you.","😵‍💫"],
+["06","Digital Birthday Cake","A tiny interactive cake: lights, wishes, candles and a surprise.","🎂"],
+["07","18 Future Dates","Eighteen little future plans, from silly dates to serious life moments.","📅"],
+["08","How Well Do You Know Us?","A playful quiz about our story, habits, chaos and little details.","🧠"],
+["09","Her Opening System","A fake cinematic 'system boot' that opens your birthday universe.","🖥️"],
+["10","Relationship Rules Book","The unofficial constitution of ZEEL × VRUSH. Zero boring legal language.","📖"],
+["11","Mystery Box","Choose one of the boxes. Each hides a different kind of message.","🎁"],
+["12","Adorable Gadget Catalog","Completely unnecessary inventions designed specifically for you.","🧸"],
+["13","18 Little Awards","Eighteen ridiculous-but-sweet awards for being you.","🏆"],
+["14","Future Wedding / Ceremony","A playful imaginary ceremony page — soft, silly and cinematic.","💍"],
+["15","Our TV Channel","Your personal channel schedule: shows, segments, ads and nonsense.","📺"],
+["16","The Distance Map","A visual Surat ↔ Gandhinagar journey with memories between the points.","🗺️"],
+["17","Memory Vault","A growing vault for photos, songs, screenshots, inside jokes and milestones.","🗃️"],
+["18","The Final Door","The final unlock: one last message and a future-looking ending.","🚪"]
+];
+
+function ensureLock(){
+  const path=location.pathname.split('/').pop();
+  if(path==="index.html"||path==="") return;
+  if(sessionStorage.getItem("vrushUnlocked")!=="yes") location.href="../index.html";
+}
+
+function nav(){
+  const bar=document.querySelector(".topbar"); if(!bar)return;
+  bar.innerHTML=`<a class="brand" href="home.html">ZEEL <span>×</span> VRUSH</a>
+  <div class="top-actions"><button class="icon-btn" onclick="toggleDrawer()">☰</button><a class="pill" href="home.html">Home</a></div>`;
+}
+function drawer(){
+ const d=document.createElement("div"); d.className="drawer"; d.id="drawer";
+ d.innerHTML=`<div class="drawer-panel"><button class="icon-btn drawer-close" onclick="toggleDrawer()">✕</button><h2>18 little worlds</h2><p class="tiny">Pick any gift. Come back whenever you want.</p>${GIFTS.map(g=>`<a href="gift${g[0]}.html"><span class="dnum">${g[0]}</span><span>${g[3]}</span><strong>${g[1]}</strong></a>`).join("")}</div>`;
+ document.body.appendChild(d);
+}
+function toggleDrawer(){document.getElementById("drawer")?.classList.toggle("open")}
+
+function music(){
+ if(document.querySelector(".music")) return;
+ const m=document.createElement("div");m.className="music";
+ m.innerHTML=`<button id="musicBtn">▶</button><small id="musicName">Birthday soundtrack · add music/song.mp3</small><audio id="bgm" loop preload="auto"></audio>`;
+ document.body.appendChild(m);
+ const a=m.querySelector("audio"), b=m.querySelector("button"); a.src="../music/song.mp3";
+ b.onclick=()=>{if(a.paused){a.play().then(()=>{b.textContent="Ⅱ"}).catch(()=>alert("Add your MP3 as music/song.mp3, then tap play."))}else{a.pause();b.textContent="▶"}};
+}
+
+function gate(){
+ const input=document.getElementById("password"), btn=document.getElementById("unlock"), err=document.getElementById("err");
+ if(!input||!btn)return;
+ btn.onclick=()=>{if(input.value==="1119"){sessionStorage.setItem("vrushUnlocked","yes");location.href="pages/birthday.html"}else{err.textContent="Not that one. Try again.";input.value="";input.focus()}};
+ input.addEventListener("keydown",e=>{if(e.key==="Enter")btn.click()});
+}
+
+function randomFirework(layer,x,y){
+  const f=document.createElement("div");
+  f.className="firework-pop";
+  f.style.setProperty("--x",x+"%");
+  f.style.setProperty("--y",y+"%");
+  const colors=["#ff5f87","#ffd46a","#83cfff","#9de7ca","#b69cff","#ff9c72"];
+  for(let i=0;i<22;i++){
+    const ray=document.createElement("i");
+    ray.style.setProperty("--a",`${i*(360/22)}deg`);
+    ray.style.setProperty("--c",colors[i%colors.length]);
+    ray.style.animationDelay=(Math.random()*90)+"ms";
+    f.appendChild(ray);
+  }
+  layer.appendChild(f);
+  setTimeout(()=>f.remove(),1250);
+}
+
+function burnBurst(layer,x=50,y=50){
+  const colors=["#ff5f3e","#ff9e3d","#ffd46a","#ff5f87","#fff2b0"];
+  for(let i=0;i<38;i++){
+    const p=document.createElement("b");
+    p.className="burst-dot";
+    const a=Math.random()*Math.PI*2;
+    const d=55+Math.random()*170;
+    p.style.setProperty("--x",x+"%");
+    p.style.setProperty("--y",y+"%");
+    p.style.setProperty("--dx",Math.cos(a)*d+"px");
+    p.style.setProperty("--dy",Math.sin(a)*d+"px");
+    p.style.setProperty("--dot",colors[i%colors.length]);
+    p.style.animationDelay=(Math.random()*80)+"ms";
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(),1100);
+  }
+}
+
+function burnNumbers(){
+ const btn=document.getElementById("soloNumber"), txt=document.getElementById("numberText"), fx=document.getElementById("fxLayer");
+ if(!btn||!txt||!fx)return;
+ let current=18,busy=false;
+ const progress=document.getElementById("progressBar"),progressText=document.getElementById("progressText");
+ const updateProgress=()=>{
+   const done=18-current;
+   if(progress)progress.style.width=(done/18*100)+"%";
+   if(progressText)progressText.textContent=current;
+ };
+ updateProgress();
+ btn.onclick=()=>{
+   if(busy)return;
+   busy=true;
+   btn.classList.remove("entering");
+   void btn.offsetWidth;
+   btn.classList.add("igniting");
+   burnBurst(fx,50,51);
+   randomFirework(fx,20+Math.random()*16,22+Math.random()*34);
+   randomFirework(fx,66+Math.random()*14,20+Math.random()*38);
+   if(current<=4) randomFirework(fx,40+Math.random()*20,12+Math.random()*30);
+
+   setTimeout(()=>{
+     current--;
+     if(current===0){
+       location.href="birthday-reveal.html";
+       return;
+     }
+     txt.textContent=current;
+     btn.setAttribute("aria-label","Burn number "+current);
+     btn.classList.remove("igniting");
+     void btn.offsetWidth;
+     btn.classList.add("entering");
+     updateProgress();
+     setTimeout(()=>{busy=false},260);
+   },980);
+ };
+}
+
+function particleField(canvas){
+ if(!canvas)return;
+ const ctx=canvas.getContext("2d");
+ let w=canvas.width=innerWidth*devicePixelRatio;
+ let h=canvas.height=innerHeight*devicePixelRatio;
+ canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";
+ const count=Math.min(130,Math.floor(innerWidth/8));
+ const pts=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:(.4+Math.random()*1.5)*devicePixelRatio,a:.15+Math.random()*.45,s:.08+Math.random()*.3}));
+ const resize=()=>{w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px"};
+ addEventListener("resize",resize,{passive:true});
+ const loop=()=>{ctx.clearRect(0,0,w,h);for(const p of pts){p.y+=p.s*devicePixelRatio;if(p.y>h+10)p.y=-10;p.x+=Math.sin(p.y/900)*.08*devicePixelRatio;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${p.a})`;ctx.fill()}requestAnimationFrame(loop)};
+ loop();
+}
+
+function createBunting(){
+ const root=document.getElementById("buntingLetters");if(!root)return;
+ const text="HAPPY BIRTHDAY";
+ const palette=["#ef5e78","#f7b84b","#4eb7b0","#7d76c9","#ed805e","#5aa9d6"];
+ [...text].forEach((ch,i)=>{
+   if(ch===" "){const gap=document.createElement("span");gap.style.width="clamp(7px,1.1vw,16px)";root.appendChild(gap);return}
+   const flag=document.createElement("span");flag.className="bunting-flag";flag.textContent=ch;
+   flag.style.setProperty("--flag",palette[i%palette.length]);
+   const progress = i / Math.max(1, text.replaceAll(" ", "").length - 1);
+   flag.style.setProperty("--drop", (Math.sin(progress * Math.PI) * 17) + "px");
+   flag.style.setProperty("--rot",((Math.random()*3.2)-1.6)+"deg");
+   flag.style.setProperty("--wind",(3.2+Math.random()*1.6)+"s");
+   flag.style.setProperty("--delay",(i*.07)+"s");
+   root.appendChild(flag);
+ });
+}
+
+function createBalloonBurst(layer, balloon){
+ if(!layer||!balloon)return;
+ const rect=balloon.getBoundingClientRect();
+ const host=layer.getBoundingClientRect();
+ const x=rect.left-host.left+rect.width/2;
+ const y=rect.top-host.top+rect.height*.34;
+ const burst=document.createElement("div");
+ burst.className="balloon-burst";
+ burst.style.left=x+"px";
+ burst.style.top=y+"px";
+ burst.style.setProperty("--burst-color",balloon.style.getPropertyValue("--balloon")||"#ef5f83");
+ const ring=document.createElement("span");ring.className="balloon-burst-ring";burst.appendChild(ring);
+ const colors=["#ef5f83","#f6bd4f","#5ebbc1","#7c76ca","#ed7c5d","#69a9d7","#8ccf8f","#d984b5","#fff0a6"];
+ for(let i=0;i<18;i++){
+   const spark=document.createElement("i");
+   spark.className="balloon-spark";
+   const a=(i/18)*Math.PI*2+Math.random()*.18;
+   const d=32+Math.random()*44;
+   spark.style.setProperty("--dx",Math.cos(a)*d+"px");
+   spark.style.setProperty("--dy",Math.sin(a)*d+"px");
+   spark.style.setProperty("--spark",colors[i%colors.length]);
+   spark.style.setProperty("--spin",(-180+Math.random()*360)+"deg");
+   burst.appendChild(spark);
+ }
+ const confetti=document.createElement("span");
+ confetti.className="balloon-pop-confetti";
+ burst.appendChild(confetti);
+ layer.appendChild(burst);
+ setTimeout(()=>burst.remove(),900);
+}
+
+function createBalloons(){
+ const field=document.getElementById("balloonField");if(!field)return;
+ const burstLayer=document.getElementById("balloonBurstLayer");
+ const colors=["#ef5f83","#f6bd4f","#5ebbc1","#7c76ca","#ed7c5d","#69a9d7","#8ccf8f","#d984b5"];
+ let active=0;
+ const maxActive=10;
+ const spawn=()=>{
+   if(!field.isConnected)return;
+   if(active>=maxActive)return;
+   active++;
+   const b=document.createElement("div");
+   b.className="rising-balloon";
+   const side=Math.random()<.78
+     ?(Math.random()<.5?(2+Math.random()*25):(73+Math.random()*25))
+     :(25+Math.random()*50);
+   b.style.setProperty("--left",side+"%");
+   b.style.setProperty("--size",(38+Math.random()*42)+"px");
+   b.style.setProperty("--balloon",colors[Math.floor(Math.random()*colors.length)]);
+   b.style.setProperty("--dur",(2.55+Math.random()*0.7)+"s");
+   b.style.setProperty("--sway",(-90+Math.random()*180)+"px");
+   b.style.setProperty("--sway2",(-70+Math.random()*140)+"px");
+   b.style.setProperty("--tilt",(-7+Math.random()*14)+"deg");
+   const body=document.createElement("span");body.className="balloon-body";
+   const string=document.createElement("span");string.className="balloon-string";
+   b.append(body,string);field.appendChild(b);
+   b.addEventListener("animationend",(event)=>{
+     if(event.target!==b || event.animationName!=="realBalloonRise")return;
+     createBalloonBurst(burstLayer,b);
+     b.remove();
+     active=Math.max(0,active-1);
+   },{once:true});
+ };
+ // Stagger the first arrivals, then keep a continuous stream going.
+ for(let i=0;i<7;i++)setTimeout(spawn,i*300+Math.random()*140);
+ const stream=setInterval(()=>{
+   if(!document.body.contains(field)){clearInterval(stream);return;}
+   spawn();
+ },300);
+}
+
+function createPaper(){
+ const root=document.getElementById("fallingPaper");if(!root)return;
+ const colors=["#ef5f83","#f6bd4f","#5ebbc1","#7c76ca","#ed7c5d","#69a9d7","#8ccf8f"];
+ for(let i=0;i<55;i++){
+   const p=document.createElement("i");p.className="paper-bit";
+   p.style.setProperty("--left",Math.random()*100+"%");
+   p.style.setProperty("--w",(5+Math.random()*8)+"px");
+   p.style.setProperty("--h",(10+Math.random()*15)+"px");
+   p.style.setProperty("--paper",colors[i%colors.length]);
+   p.style.setProperty("--r",Math.random()*180+"deg");
+   p.style.setProperty("--x1",(-80+Math.random()*160)+"px");
+   p.style.setProperty("--x2",(-110+Math.random()*220)+"px");
+   p.style.setProperty("--x3",(-160+Math.random()*320)+"px");
+   p.style.setProperty("--dur",(5+Math.random()*5)+"s");
+   p.style.setProperty("--delay",(Math.random()*4)+"s");
+   root.appendChild(p);
+ }
+}
+
+function partyCanvas(){
+ const canvas=document.getElementById("partyCanvas");if(!canvas)return;
+ const ctx=canvas.getContext("2d");
+ let w=canvas.width=innerWidth*devicePixelRatio,h=canvas.height=innerHeight*devicePixelRatio;
+ canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";
+ const colors=["#ef5f83","#f6bd4f","#5ebbc1","#7c76ca","#ed7c5d","#69a9d7","#8ccf8f"];
+ const stars=Array.from({length:90},()=>({x:Math.random()*w,y:Math.random()*h,r:(.5+Math.random()*1.6)*devicePixelRatio,a:.1+Math.random()*.35}));
+ const sparks=[];
+ const addFirework=()=>{
+   const x=(.08+Math.random()*.84)*w,y=(.08+Math.random()*.52)*h;
+   for(let i=0;i<70;i++){
+     const a=Math.random()*Math.PI*2,s=.9+Math.random()*3.2;
+     sparks.push({x,y,vx:Math.cos(a)*s*devicePixelRatio,vy:Math.sin(a)*s*devicePixelRatio,life:1,c:colors[i%colors.length],g:.035+Math.random()*.02});
+   }
+ };
+ let next=0;
+ const resize=()=>{w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px"};
+ addEventListener("resize",resize,{passive:true});
+ const frame=(t)=>{
+   ctx.clearRect(0,0,w,h);
+   for(const s of stars){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.a})`;ctx.fill()}
+   if(t>next){addFirework();next=t+800+Math.random()*700}
+   for(let i=sparks.length-1;i>=0;i--){const p=sparks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=p.g*devicePixelRatio;p.vx*=.985;p.vy*=.985;p.life-=.014;if(p.life<=0){sparks.splice(i,1);continue}ctx.globalAlpha=p.life;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,(1.1+2.3*p.life)*devicePixelRatio,0,Math.PI*2);ctx.fill()}
+   ctx.globalAlpha=1;requestAnimationFrame(frame)
+ };
+ requestAnimationFrame(frame);
+}
+
+function birthdayReveal(){
+ createBunting();createBalloons();createPaper();partyCanvas();
+ const fx=document.getElementById("revealFx");
+ if(!fx)return;
+ let count=0;
+ const interval=setInterval(()=>{
+   randomFirework(fx,7+Math.random()*86,10+Math.random()*52);
+   if(++count>=24)clearInterval(interval);
+ },620);
+
+ // The celebration page is intentionally persistent.
+ // The visitor chooses when to continue instead of being auto-redirected.
+}
+
+function init(){
+ ensureLock();
+ const p=document.body.dataset.page;
+ if(p!=="numbers" && p!=="birthday"){nav();drawer();music();}
+ if(p==="gate")gate();
+ if(p==="numbers"){particleField(document.getElementById("particleCanvas"));burnNumbers()}
+ if(p==="birthday")birthdayReveal();
+}
+document.addEventListener("DOMContentLoaded",init);

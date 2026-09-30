@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 13 — 18 Little Awards</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(201,164,82,.16),transparent 28%),
+    radial-gradient(circle at 85% 80%,rgba(137,101,48,.14),transparent 30%),
+    linear-gradient(135deg,#171411,#272018 45%,#100e0c);
+  color:#f4ead7;
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:38px 38px;
+}
+
+.page{
+  width:min(1180px,92%);
+  margin:auto;
+  padding:42px 0 70px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.badge{
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-size:11px;
+  color:#c9a452;
+  font-weight:600;
+}
+
+.back{
+  color:#bcae98;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.hero{
+  text-align:center;
+  padding:35px 10px 30px;
+}
+
+.kicker{
+  color:#c9a452;
+  text-transform:uppercase;
+  letter-spacing:.35em;
+  font-size:11px;
+  margin-bottom:16px;
+}
+
+h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(42px,7vw,78px);
+  line-height:.98;
+  font-weight:600;
+}
+
+.subtitle{
+  max-width:650px;
+  margin:20px auto 0;
+  color:#bdb09d;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.award{
+  margin:35px auto;
+  max-width:900px;
+  min-height:540px;
+  position:relative;
+  border:1px solid rgba(201,164,82,.28);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
+  backdrop-filter:blur(20px);
+  border-radius:26px;
+  padding:55px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  box-shadow:0 35px 100px rgba(0,0,0,.45);
+}
+
+.award:before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  border:1px solid rgba(201,164,82,.13);
+  box-shadow:0 0 0 60px rgba(201,164,82,.025),0 0 0 120px rgba(201,164,82,.015);
+}
+
+.content{
+  position:relative;
+  z-index:2;
+  width:100%;
+  text-align:center;
+}
+
+.number{
+  font-family:"Playfair Display",serif;
+  font-size:16px;
+  color:#c9a452;
+  letter-spacing:.3em;
+  margin-bottom:24px;
+}
+
+
+.trophy-emoji{
+  position:relative;
+  z-index:3;
+  width:110px;
+  height:110px;
+  margin:0 auto 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:78px;
+  line-height:1;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.35));
+}
+
+.award h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(30px,5vw,54px);
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+.award .label{
+  text-transform:uppercase;
+  color:#c9a452;
+  letter-spacing:.18em;
+  font-size:11px;
+  margin-bottom:20px;
+}
+
+.description{
+  max-width:650px;
+  margin:auto;
+  color:#d1c5b4;
+  line-height:1.85;
+  font-size:16px;
+}
+
+.reaction{
+  margin:30px auto 0;
+  max-width:650px;
+  border-top:1px solid rgba(201,164,82,.2);
+  padding-top:22px;
+  color:#9f9382;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  margin-top:28px;
+}
+
+button{
+  border:1px solid rgba(201,164,82,.4);
+  background:rgba(201,164,82,.07);
+  color:#eee2cd;
+  border-radius:999px;
+  padding:13px 24px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.25s ease;
+}
+
+button:hover{
+  background:rgba(201,164,82,.17);
+  transform:translateY(-2px);
+}
+
+.dots{
+  display:flex;
+  gap:7px;
+  justify-content:center;
+  margin-top:24px;
+  flex-wrap:wrap;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#5b5144;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.dot.active{
+  background:#c9a452;
+  transform:scale(1.7);
+}
+
+.note{
+  text-align:center;
+  margin-top:48px;
+  color:#817668;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+.fade{
+  animation:fade .35s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+
+@media(max-width:650px){
+  .page{padding-top:25px}
+  .award{padding:38px 22px;min-height:590px}
+  .top{margin-bottom:5px}
+  .award h2{font-size:35px}
+  .description{font-size:15px}
+}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<main class="page">
+
+  <div class="top">
+    <div class="badge">Gift 13 · Private Awards</div>
+    <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+  </div>
+
+  <section class="hero">
+    <div class="kicker">The Vrushti Awards</div>
+    <h1>18 Little Awards</h1>
+    <p class="subtitle">
+      No judges. No red carpet. No serious voting system.
+      Just eighteen completely official awards for one very unofficially important person.
+    </p>
+  </section>
+
+  <section class="award">
+    <div class="content" id="awardContent"></div>
+  </section>
+
+  <div class="controls">
+    <button onclick="previous()">Previous</button>
+    <button onclick="next()">Next</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="note">Presented by Zeel · Annual Vrushti Awards Department</div>
+</main>
+
+<script>
+const awards=[
+["The Main Character Award","For somehow making ordinary moments feel like they belong in their own little story.","Official reason: the universe clearly gave you protagonist privileges."],
+["The Unnecessary Cutie Award","For being cute even when absolutely nobody asked you to be.","Judges remain confused but unanimously agree."],
+["The Professional Annoyer Award","For possessing a level of talent in annoying me that should probably be studied.","Somehow still my favourite person to be annoyed by."],
+["The Mood Changer Award","For changing my entire mood with one message, one call, or one tiny moment.","One notification from you can completely alter the weather inside my brain."],
+["The Voice-I-Want-To-Hear Award","For being one of those people whose voice can make a normal moment feel better.","No technical explanation has been accepted by the committee."],
+["The Randomness Award","For producing completely unexpected conversations at completely unexpected times.","The topic may be questionable. The entertainment is guaranteed."],
+["The 'Come Here' Award","For somehow making distance feel personally offended by our relationship.","Physical distance tried. It failed emotionally."],
+["The Memory Maker Award","For turning little conversations and tiny moments into things worth remembering.","Apparently the small things were never actually small."],
+["The Certified Teasing Award","For knowing exactly when to tease me and exactly how much.","Dangerous skill. Extremely effective."],
+["The Soft Heart Award","For the little moments where your softer side appears without warning.","Those moments are probably more memorable than you realise."],
+["The Somehow-I-Miss-You Award","For making me miss you even when we literally just talked.","This award has been issued repeatedly."],
+["The Favourite Notification Award","For being the notification I actually want to see.","Other notifications respectfully remain in second place."],
+["The 'Only You' Award","For becoming someone who cannot simply be replaced by another person.","There is no duplicate version available."],
+["The Chaos & Cute Award","For somehow combining ridiculousness and cuteness in the same person.","A highly unstable but adorable combination."],
+["The Future Memory Award","For creating moments that already feel like memories I will want to keep.","Some moments are small now and important later."],
+["The Favourite Person Award","For the extremely inconvenient fact that you became my favourite person.","No return policy was provided."],
+["The Lifetime Annoyance Contract Award","For officially qualifying to annoy me for an unreasonable number of future years.","Contract status: permanently renewable."],
+["The Vrushti Award","For being impossible to summarize with seventeen other awards.","Final decision: there is only one you."]
+];
+
+let index=0;
+
+function render(){
+ const a=awards[index];
+ document.getElementById("awardContent").innerHTML=`
+   <div class="fade">
+     <div class="number">${String(index+1).padStart(2,"0")} / 18</div>
+     <div class="trophy-emoji" aria-label="Trophy">🏆</div>
+<div class="label">Official Award</div>
+     <h2>${a[0]}</h2>
+     <p class="description">${a[1]}</p>
+     <p class="reaction">${a[2]}</p>
+   </div>
+ `;
+ document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===index));
+}
+
+function next(){
+ index=(index+1)%awards.length;
+ render();
+}
+
+function previous(){
+ index=(index-1+awards.length)%awards.length;
+ render();
+}
+
+const dots=document.getElementById("dots");
+awards.forEach((_,i)=>{
+ const d=document.createElement("div");
+ d.className="dot";
+ d.onclick=()=>{index=i;render()};
+ dots.appendChild(d);
+});
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="ArrowRight")next();
+ if(e.key==="ArrowLeft")previous();
+});
+
+let sx=0;
+document.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
+document.addEventListener("touchend",e=>{
+ const dx=e.changedTouches[0].clientX-sx;
+ if(Math.abs(dx)>50) dx<0?next():previous();
+},{passive:true});
+
+render();
+</script>
+</body>
+</html>

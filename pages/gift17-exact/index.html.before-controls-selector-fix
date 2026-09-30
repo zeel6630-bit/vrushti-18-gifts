@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Jigsaw puzzle</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body><div class="gift17-particles" aria-hidden="true"></div>
+  <div id=forPuzzle></div>
+    <div id="menu">
+        <p id="controls">close controls</p><div class="gift17-brand"><span class="gift17-brand-dot"></span><span>The Missing Pieces</span><small>Gift 17</small></div><button type="button" id="themeToggle" class="theme-toggle"><span class="theme-icon">☾</span><span class="theme-label">Dark theme</span></button>
+        <div id="showhide">
+            <hr>
+            <p class="center"><button type="button" id="help">instructions</button></p>
+            <hr>
+            <p class="center">
+                <button type="button" id="default">default image</button>
+                <button type="button" id="load">load image</button>
+            </p>
+            
+            
+                
+                </select>
+            </p>
+            <p class="center">
+                <button type="button" id="show">show image</button>
+            </p>
+
+            <p><input type=checkbox id="enablerot"><label for="enablerot" id="enablerotlabel">enable rotation</label>
+            </p>
+            <p>shape: <select id="shape">
+                    <option value="1" selected>classic</option>
+                    <option value="2">triangle</option>
+                    <option value="3">round</option>
+                    <option value="4">straight</option>
+                </select></p>
+            <p>number of pieces: <select id="nbpieces">
+                    <option selected>12</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                </select></p>
+            <p>between connected pieces: <select id="drawmode">
+                    <option value="1" selected>thin line</option>
+                    <option value="2">flat</option>
+                    <option value="3">bevel</option>
+                </select></p>
+            <p class="center"><button type="button" id="start">start game</button><button type="button" id="stop">stop
+                    game</button></p>
+            <hr>
+            <p>storage: <button type="button" id="helpstorage">?</button></p>
+            <p class="center"><button type="button" id="save">save game</button><button type="button"
+                    id="restore">restore game</button></p>
+            <hr>
+            <p>file: <button type="button" id="helpfile">?</button></p>
+            <p class="center"><button type="button" id="fsave">save game</button><button type="button"
+                    id="frestore">restore game</button></p>
+            <p>save name: <input type="text" id="saveas"><span id="saveext"></span></p>
+        </div> <!-- showhide -->
+    </div> <!-- menu -->
+    <script src="./script.js"></script>
+
+
+  
+<div id="gift17PictureControl" class="gift17-picture-control">
+  <label for="gift17PictureSelect">PICTURE LIBRARY</label>
+
+  
+
+ready</div>
+
+  <img id="gift17Preview"
+       alt="Selected puzzle picture preview"
+       style="display:none">
+
+  <button type="button" id="gift17ForceShow">
+    SHOW SELECTED IMAGE
+  </button>
+</div>
+
+
+<div id="gift17PictureControl" class="gift17-picture-control">
+  <label for="gift17PictureSelect">PICTURE LIBRARY</label>
+
+  <select id="gift17PictureSelect" aria-label="Select puzzle picture">
+  </select>
+
+ready</div>
+
+  <img id="gift17Preview"
+       alt="Selected puzzle picture preview"
+       style="display:none">
+
+  <button type="button" id="gift17ForceShow">
+    SHOW SELECTED IMAGE
+  </button>
+</div>
+
+
+<script>
+(function () {
+  function removeFloatingPictureLibrary() {
+    document.querySelectorAll("body *").forEach(function (el) {
+      if (el.closest("#menu")) return;
+
+      const text = (el.textContent || "").trim();
+      if (!text) return;
+
+      if (/^PICTURE\s+LIBRARY\b/i.test(text)) {
+        el.remove();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(removeFloatingPictureLibrary, 100);
+      setTimeout(removeFloatingPictureLibrary, 500);
+    });
+  } else {
+    setTimeout(removeFloatingPictureLibrary, 100);
+    setTimeout(removeFloatingPictureLibrary, 500);
+  }
+})();
+</script>
+
+</body>
+  
+</html>
+
+<style>
+/* ============================================================
+   GIFT 17 — FINAL PICTURE LIBRARY MODAL BEHAVIOUR
+   ============================================================ */
+
+.gift17-library-hidden {
+    display: none !important;
+}
+</style>
+
+<script>
+(function () {
+
+    function findLibraryPanels() {
+
+        const elements = Array.from(
+            document.querySelectorAll("body *")
+        );
+
+        const panels = [];
+
+        for (const el of elements) {
+
+            /*
+             * Find the actual heading element whose text is
+             * exactly "PICTURE LIBRARY".
+             */
+            const text = (el.textContent || "")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toUpperCase();
+
+            if (text !== "PICTURE LIBRARY") {
+                continue;
+            }
+
+            /*
+             * Walk upward until we reach the visual card that
+             * contains the selector/button.
+             */
+            let panel = el;
+
+            for (let i = 0; i < 8 && panel; i++) {
+
+                if (
+                    panel.querySelector &&
+                    (
+                        panel.querySelector("select") ||
+                        Array.from(panel.querySelectorAll("button"))
+                            .some(b =>
+                                (b.textContent || "")
+                                .toUpperCase()
+                                .includes("SHOW SELECTED IMAGE")
+                            )
+                    )
+                ) {
+                    break;
+                }
+
+                panel = panel.parentElement;
+            }
+
+            if (
+                panel &&
+                panel !== document.body &&
+                !panels.includes(panel)
+            ) {
+                panels.push(panel);
+            }
+        }
+
+        return panels;
+    }
+
+
+    function closeAllPictureLibraries() {
+
+        const panels = findLibraryPanels();
+
+        console.log(
+            "[Gift17] Closing Picture Library panels:",
+            panels.length
+        );
+
+        panels.forEach(panel => {
+
+            panel.classList.add(
+                "gift17-library-hidden"
+            );
+
+            /*
+             * Also hide any old modal-style wrapper around it.
+             */
+            let parent = panel.parentElement;
+
+            for (let i = 0; i < 3 && parent; i++) {
+
+                const parentText =
+                    (parent.textContent || "")
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .toUpperCase();
+
+                if (
+                    parentText.includes("PICTURE LIBRARY") &&
+                    parent !== document.body
+                ) {
+                    parent.classList.add(
+                        "gift17-library-hidden"
+                    );
+                }
+
+                parent = parent.parentElement;
+            }
+        });
+
+        /*
+         * Hide our previous reopen button if it exists.
+         * We don't want it appearing immediately after selection.
+         */
+        document
+            .querySelectorAll(".gift17-library-reopen")
+            .forEach(btn => {
+                btn.style.display = "none";
+            });
+    }
+
+
+    function installShowButtons() {
+
+        const buttons = Array.from(
+            document.querySelectorAll("button")
+        ).filter(button =>
+            (button.textContent || "")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toUpperCase()
+                .includes("SHOW SELECTED IMAGE")
+        );
+
+        buttons.forEach(button => {
+
+            if (
+                button.dataset.gift17CloseInstalled === "1"
+            ) {
+                return;
+            }
+
+            button.dataset.gift17CloseInstalled = "1";
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    /*
+                     * Allow the original image-selection
+                     * handler to run first.
+                     */
+                    setTimeout(
+                        closeAllPictureLibraries,
+                        80
+                    );
+
+                },
+                true
+            );
+        });
+    }
+
+
+    /*
+     * Install now.
+     */
+    installShowButtons();
+
+
+    /*
+     * The original page can create UI dynamically,
+     * so keep watching for the buttons.
+     */
+    const observer = new MutationObserver(
+        function () {
+            installShowButtons();
+        }
+    );
+
+    observer.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+
+    /*
+     * Also expose it for debugging if needed.
+     */
+    window.gift17ClosePictureLibrary =
+        closeAllPictureLibraries;
+
+})();
+</script>
+
+
+<style>
+/* ============================================================
+   GIFT 17 — SINGLE PICTURE SELECTOR
+   No separate Picture Library cards / overlays
+   ============================================================ */
+
+#gift17-inline-picture-selector {
+    margin: 10px 0 12px;
+    padding: 9px 10px;
+    border: 1px solid rgba(90,210,255,.25);
+    border-radius: 10px;
+    background: rgba(8,15,28,.72);
+}
+
+#gift17-inline-picture-selector label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    color: rgba(220,245,255,.78);
+}
+
+#gift17-inline-picture-selector select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gift17-library-old {
+    display: none !important;
+}
+
+.gift17-library-old * {
+    display: none !important;
+}
+</style>
+
+<script>
+/* ============================================================
+   GIFT 17 — FINAL SINGLE PICTURE SELECTOR
+   ============================================================ */
+
+(function () {
+
+    "use strict";
+
+    let installed = false;
+
+    function cleanText(value) {
+        return (value || "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .toUpperCase();
+    }
+
+    function isPictureSelector(select) {
+
+        if (!select) return false;
+
+        const options = Array.from(select.options || []);
+
+        if (!options.length) return false;
+
+        return options.some(option =>
+            /^PICTURE\s*\d+/i.test(
+                (option.textContent || "").trim()
+            )
+        );
+    }
+
+    function isShowSelectedButton(button) {
+
+        return cleanText(button.textContent)
+            .includes("SHOW SELECTED IMAGE");
+    }
+
+    function findLibraryCards() {
+
+        const result = new Set();
+
+        const showButtons = Array.from(
+            document.querySelectorAll("button")
+        ).filter(isShowSelectedButton);
+
+        for (const button of showButtons) {
+
+            let node = button;
+
+            /*
+             * Walk upward until we find the small visual
+             * Picture Library card.
+             */
+            for (let i = 0; i < 8 && node; i++) {
+
+                const text = cleanText(node.textContent);
+
+                const hasLibraryTitle =
+                    text.includes("PICTURE LIBRARY");
+
+                const hasPictureSelector =
+                    !!node.querySelector &&
+                    Array.from(
+                        node.querySelectorAll("select")
+                    ).some(isPictureSelector);
+
+                const hasShowButton =
+                    !!node.querySelector &&
+                    Array.from(
+                        node.querySelectorAll("button")
+                    ).some(isShowSelectedButton);
+
+                /*
+                 * A library card normally contains the title
+                 * plus either selector/show button or image.
+                 */
+                if (
+                    hasLibraryTitle &&
+                    hasShowButton &&
+                    (
+                        hasPictureSelector ||
+                        text.includes("SHOWING PICTURE") ||
+                        text.includes("READY")
+                    )
+                ) {
+                    result.add(node);
+                    break;
+                }
+
+                node = node.parentElement;
+            }
+        }
+
+        return Array.from(result);
+    }
+
+    function findPictureSelector() {
+
+        return Array.from(
+            document.querySelectorAll("select")
+        ).find(isPictureSelector) || null;
+    }
+
+    function findControlsContent() {
+
+        /*
+         * Original game uses #showhide for its actual controls.
+         */
+        const original =
+            document.getElementById("showhide");
+
+        if (original) {
+            return original;
+        }
+
+        /*
+         * Fallback for the modified UI.
+         */
+        const controls =
+            document.getElementById("controls");
+
+        if (controls) {
+            return controls.parentElement || controls;
+        }
+
+        return null;
+    }
+
+    function moveSelectorIntoControls(selector) {
+
+        const controls = findControlsContent();
+
+        if (!controls || !selector) {
+            return false;
+        }
+
+        /*
+         * If already installed, don't duplicate it.
+         */
+        const existing =
+            document.getElementById(
+                "gift17-inline-picture-selector"
+            );
+
+        if (existing) {
+            return true;
+        }
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.id =
+            "gift17-inline-picture-selector";
+
+        const label =
+            document.createElement("label");
+
+        label.textContent =
+            "PICTURE";
+
+        label.htmlFor =
+            "gift17-inline-picture-select";
+
+        /*
+         * Keep the REAL select element.
+         *
+         * This is important because any existing JavaScript
+         * event listeners attached to it remain attached.
+         */
+        selector.id =
+            "gift17-inline-picture-select";
+
+        selector.removeAttribute("style");
+
+        wrapper.appendChild(label);
+        wrapper.appendChild(selector);
+
+        /*
+         * Put it at the top of the original Controls content.
+         */
+        controls.insertBefore(
+            wrapper,
+            controls.firstChild
+        );
+
+        return true;
+    }
+
+    function removeOldLibraryCards() {
+
+        const cards = findLibraryCards();
+
+        cards.forEach(card => {
+
+            /*
+             * Do NOT remove the selector if somehow it is still
+             * inside this card. It has already been moved before
+             * this function is called.
+             */
+            if (
+                card.querySelector &&
+                card.querySelector(
+                    "#gift17-inline-picture-select"
+                )
+            ) {
+                return;
+            }
+
+            card.classList.add(
+                "gift17-library-old"
+            );
+
+            /*
+             * Completely remove it after hiding it.
+             */
+            setTimeout(() => {
+                if (card.isConnected) {
+                    card.remove();
+                }
+            }, 0);
+        });
+
+        /*
+         * Remove any remaining "Show Selected Image"
+         * buttons that aren't part of the original game.
+         */
+        document
+            .querySelectorAll("button")
+            .forEach(button => {
+
+                if (!isShowSelectedButton(button)) {
+                    return;
+                }
+
+                /*
+                 * This is our custom button.
+                 */
+                button.remove();
+            });
+
+        /*
+         * Remove stale text labels generated by our previous
+         * Picture Library implementation.
+         */
+        document
+            .querySelectorAll("*")
+            .forEach(element => {
+
+                if (
+                    element.children.length !== 0
+                ) {
+                    return;
+                }
+
+                const text =
+                    cleanText(element.textContent);
+
+                if (
+                    text === "SHOWING PICTURE 01" ||
+                    text === "SHOWING PICTURE 02" ||
+                    text === "SHOWING PICTURE 03" ||
+                    text === "SHOWING PICTURE 04" ||
+                    text === "SHOWING PICTURE 05" ||
+                    text === "SHOWING PICTURE 06" ||
+                    text === "SHOWING PICTURE 07" ||
+                    text === "SHOWING PICTURE 08" ||
+                    text === "SHOWING PICTURE 09" ||
+                    text === "SHOWING PICTURE 10" ||
+                    text === "SHOWING PICTURE 11" ||
+                    text === "SHOWING PICTURE 12" ||
+                    text === "SHOWING PICTURE 13" ||
+                    text === "SHOWING PICTURE 14" ||
+                    text === "SHOWING PICTURE 15" ||
+                    text === "SHOWING PICTURE 16" ||
+                    text === "SHOWING PICTURE 17" ||
+                    text === "SHOWING PICTURE 18" ||
+                    /^PICTURE\s+\d+\s+READY$/i.test(
+                        text
+                    )
+                ) {
+                    element.remove();
+                }
+            });
+    }
+
+    function closeControlsAfterStart() {
+
+        const start =
+            document.getElementById("start");
+
+        if (!start) {
+            return;
+        }
+
+        if (
+            start.dataset.gift17StartHook === "1"
+        ) {
+            return;
+        }
+
+        start.dataset.gift17StartHook = "1";
+
+        start.addEventListener(
+            "click",
+            function () {
+
+                /*
+                 * Let the ORIGINAL startGame() handler
+                 * execute first.
+                 *
+                 * Then close the Controls panel.
+                 */
+                setTimeout(() => {
+
+                    const menu =
+                        document.getElementById("menu");
+
+                    if (menu) {
+                        menu.classList.add("hidden");
+                    }
+
+                    const controls =
+                        document.getElementById("controls");
+
+                    if (controls) {
+                        controls.textContent =
+                            "open controls";
+                    }
+
+                }, 80);
+
+            },
+            false
+        );
+    }
+
+    function install() {
+
+        if (!document.body) {
+            return false;
+        }
+
+        const selector =
+            findPictureSelector();
+
+        if (!selector) {
+            return false;
+        }
+
+        const moved =
+            moveSelectorIntoControls(selector);
+
+        if (!moved) {
+            return false;
+        }
+
+        removeOldLibraryCards();
+
+        closeControlsAfterStart();
+
+        installed = true;
+
+        console.log(
+            "[Gift17] Single Picture selector installed."
+        );
+
+        return true;
+    }
+
+    /*
+     * Try immediately.
+     */
+    install();
+
+    /*
+     * The previous implementation creates some of its
+     * elements dynamically, so watch the DOM while the page
+     * initializes.
+     */
+    const observer =
+        new MutationObserver(() => {
+
+            install();
+
+            /*
+             * Once the selector is inside the original controls,
+             * keep observing because the old cards can be
+             * regenerated by previous code.
+             */
+        });
+
+    observer.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+    /*
+     * Additional initialization attempts.
+     */
+    setTimeout(install, 100);
+    setTimeout(install, 500);
+    setTimeout(install, 1000);
+    setTimeout(install, 2000);
+
+})();
+</script>
+
+
+<style>
+/* ============================================================
+   GIFT 17 — CLEAN PICTURE CONTROL
+   ============================================================ */
+
+/* Hide the old custom picture-list rows */
+.gift17-remove-picture-row {
+    display: none !important;
+}
+
+/* Hide old custom preview buttons */
+.gift17-remove-selected-button {
+    display: none !important;
+}
+
+/* Keep the real picture dropdown clean */
+#gift17-picture-select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* One compact picture selector */
+#gift17-picture-control {
+    margin: 8px 0 12px;
+}
+
+#gift17-picture-control > label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .8px;
+}
+</style>
+
+<script>
+(function () {
+
+    "use strict";
+
+    /*
+     * ========================================================
+     * GIFT 17 — REAL PICTURE SWITCHER
+     * ========================================================
+     *
+     * This talks to the ORIGINAL Jigsaw engine.
+     *
+     * We do NOT create another puzzle.
+     * We do NOT create another image preview.
+     *
+     * The original engine's:
+     *
+     *     puzzle.srcImage
+     *
+     * is the single source of truth.
+     * ========================================================
+     */
+
+    const imageCandidates = function (number) {
+
+        const n =
+            String(number).padStart(2, "0");
+
+        return [
+            "./images/" + n + ".jpg",
+            "./images/" + n + ".jpeg",
+            "./images/" + n + ".png",
+            "./images/" + n + ".webp"
+        ];
+
+    };
+
+
+    /*
+     * Find the picture dropdown that already exists.
+     */
+    function findPictureSelect() {
+
+        const selects =
+            Array.from(
+                document.querySelectorAll("select")
+            );
+
+        return selects.find(function (select) {
+
+            return Array.from(
+                select.options || []
+            ).some(function (option) {
+
+                return /^Picture\s+\d+$/i.test(
+                    option.textContent.trim()
+                );
+
+            });
+
+        }) || null;
+
+    }
+
+
+    /*
+     * Make the dropdown contain ONLY:
+     *
+     * Picture 01
+     * Picture 02
+     * ...
+     * Picture 18
+     */
+    function normalizePictureSelect(select) {
+
+        if (!select) {
+            return;
+        }
+
+        const oldValue =
+            Number(select.value) || 1;
+
+        select.innerHTML = "";
+
+        for (let i = 1; i <= 18; i++) {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                String(i);
+
+            option.textContent =
+                "Picture " +
+                String(i).padStart(2, "0");
+
+            select.appendChild(option);
+
+        }
+
+        select.value =
+            String(
+                Math.max(
+                    1,
+                    Math.min(18, oldValue)
+                )
+            );
+
+    }
+
+
+    /*
+     * Remove the garbage text rows from the old
+     * Picture Library implementation.
+     *
+     * IMPORTANT:
+     * We NEVER touch <option> elements.
+     */
+    function removeOldPictureRows() {
+
+        const elements =
+            Array.from(
+                document.querySelectorAll("body *")
+            );
+
+        elements.forEach(function (element) {
+
+            if (
+                element.tagName === "OPTION" ||
+                element.tagName === "SELECT"
+            ) {
+                return;
+            }
+
+            /*
+             * Don't remove buttons that belong to
+             * the original Jigsaw controls.
+             */
+            if (
+                element.tagName === "BUTTON"
+            ) {
+                const text =
+                    element.textContent
+                        .replace(/\s+/g, " ")
+                        .trim()
+                        .toLowerCase();
+
+                if (
+                    text === "show image" ||
+                    text === "start game" ||
+                    text === "stop game" ||
+                    text === "instructions" ||
+                    text === "default image" ||
+                    text === "load image"
+                ) {
+                    return;
+                }
+            }
+
+            /*
+             * Only target elements whose entire visible
+             * text is exactly "Picture XX".
+             */
+            const text =
+                element.textContent
+                    .replace(/\s+/g, " ")
+                    .trim();
+
+            if (
+                /^Picture\s+(0?[1-9]|1[0-8])$/i.test(text)
+            ) {
+
+                /*
+                 * Never remove our actual selector.
+                 */
+                if (
+                    element.contains &&
+                    element.contains(
+                        document.getElementById(
+                            "gift17-picture-select"
+                        )
+                    )
+                ) {
+                    return;
+                }
+
+                /*
+                 * Don't remove the SELECT itself.
+                 */
+                if (
+                    element.tagName !== "SELECT"
+                ) {
+                    element.classList.add(
+                        "gift17-remove-picture-row"
+                    );
+                }
+
+            }
+
+        });
+
+
+        /*
+         * Remove the previous custom
+         * "SHOW SELECTED IMAGE" button.
+         */
+        Array.from(
+            document.querySelectorAll("button")
+        ).forEach(function (button) {
+
+            const text =
+                button.textContent
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .toLowerCase();
+
+            if (
+                text === "show selected image" ||
+                text === "show selected picture"
+            ) {
+
+                button.classList.add(
+                    "gift17-remove-selected-button"
+                );
+
+                button.remove();
+
+            }
+
+        });
+
+    }
+
+
+    /*
+     * Load the actual selected file.
+     */
+    function loadSelectedPicture(number) {
+
+        if (
+            !window.puzzle &&
+            typeof puzzle === "undefined"
+        ) {
+
+            console.error(
+                "[Gift17] Original puzzle object is not ready."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * The original source uses the global puzzle
+         * object. Prefer window.puzzle when available.
+         */
+        const p =
+            window.puzzle ||
+            (
+                typeof puzzle !== "undefined"
+                    ? puzzle
+                    : null
+            );
+
+
+        if (!p || !p.srcImage) {
+
+            console.error(
+                "[Gift17] puzzle.srcImage is unavailable."
+            );
+
+            return;
+
+        }
+
+
+        const candidates =
+            imageCandidates(number);
+
+        let index = 0;
+
+
+        /*
+         * Find which actual file exists.
+         */
+        function tryNext() {
+
+            if (
+                index >= candidates.length
+            ) {
+
+                console.error(
+                    "[Gift17] Picture " +
+                    number +
+                    " was not found."
+                );
+
+                return;
+
+            }
+
+
+            const url =
+                candidates[index++];
+
+            const probe =
+                new Image();
+
+
+            probe.onload = function () {
+
+                /*
+                 * If a puzzle is currently running,
+                 * stop it first.
+                 */
+                const stop =
+                    document.getElementById("stop");
+
+                if (
+                    stop &&
+                    !stop.disabled
+                ) {
+
+                    stop.click();
+
+                }
+
+
+                /*
+                 * Give the ORIGINAL puzzle image
+                 * the selected file.
+                 */
+                p.imageLoaded = false;
+
+                p.srcImage.removeAttribute(
+                    "src"
+                );
+
+                /*
+                 * Use the original engine's loader
+                 * when it exists.
+                 */
+                if (
+                    typeof loadRemoteFile ===
+                    "function"
+                ) {
+
+                    loadRemoteFile(url);
+
+                } else {
+
+                    p.srcImage.src = url;
+
+                }
+
+
+                p.srcImage.dataset.origin =
+                    "gift17-picture-" +
+                    String(number).padStart(2, "0");
+
+
+                console.log(
+                    "[Gift17] Selected Picture " +
+                    String(number).padStart(2, "0") +
+                    " → " +
+                    url
+                );
+
+            };
+
+
+            probe.onerror = function () {
+
+                tryNext();
+
+            };
+
+
+            probe.src =
+                url +
+                (
+                    url.includes("?")
+                        ? "&"
+                        : "?"
+                ) +
+                "gift17=" +
+                Date.now();
+
+        }
+
+
+        tryNext();
+
+    }
+
+
+    /*
+     * Install everything ONCE.
+     */
+    function install() {
+
+        const select =
+            findPictureSelect();
+
+        if (!select) {
+
+            console.warn(
+                "[Gift17] Picture dropdown not found."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Normalize it.
+         */
+        normalizePictureSelect(select);
+
+
+        /*
+         * Give it our permanent ID.
+         */
+        select.id =
+            "gift17-picture-select";
+
+
+        /*
+         * Put it inside a single clean wrapper
+         * if it isn't already there.
+         */
+        if (
+            !document.getElementById(
+                "gift17-picture-control"
+            )
+        ) {
+
+            const label =
+                document.createElement("label");
+
+            label.textContent =
+                "PICTURE";
+
+            label.htmlFor =
+                "gift17-picture-select";
+
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.id =
+                "gift17-picture-control";
+
+
+            select.parentNode.insertBefore(
+                wrapper,
+                select
+            );
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(select);
+
+        }
+
+
+        /*
+         * Install ONE change listener.
+         */
+        if (
+            select.dataset.gift17Bound !== "1"
+        ) {
+
+            select.dataset.gift17Bound =
+                "1";
+
+
+            select.addEventListener(
+                "change",
+                function () {
+
+                    const number =
+                        Number(select.value);
+
+                    console.log(
+                        "[Gift17] Picture changed to:",
+                        number
+                    );
+
+                    loadSelectedPicture(
+                        number
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * Delete the old 18-line garbage.
+         */
+        removeOldPictureRows();
+
+
+        /*
+         * Load the currently selected picture.
+         */
+        if (
+            select.dataset.gift17InitialLoad !== "1"
+        ) {
+
+            select.dataset.gift17InitialLoad =
+                "1";
+
+            setTimeout(
+                function () {
+
+                    loadSelectedPicture(
+                        Number(select.value) || 1
+                    );
+
+                },
+                150
+            );
+
+        }
+
+    }
+
+
+    /*
+     * The original scripts are already loaded because
+     * this code is appended after them.
+     */
+    setTimeout(
+        install,
+        250
+    );
+
+})();
+</script>
+

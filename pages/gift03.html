@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>If I Were There Right Now · ZEEL × VRUSH</title>
+
+<link rel="stylesheet" href="../assets/style.css">
+
+
+<style>
+.there-page{
+  min-height:calc(100vh - 80px);
+  max-width:1050px;
+  margin:0 auto;
+  padding:40px 20px 80px;
+}
+
+.there-header{
+  text-align:center;
+  max-width:720px;
+  margin:0 auto 35px;
+}
+
+.there-header .tag{
+  display:inline-block;
+}
+
+.there-header h1{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:clamp(38px,6vw,68px);
+  line-height:1;
+  letter-spacing:-.045em;
+  margin:16px 0;
+}
+
+.there-header p{
+  line-height:1.75;
+  opacity:.68;
+}
+
+.there-stage{
+  position:relative;
+  min-height:670px;
+  border-radius:34px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,255,255,.98),rgba(246,239,229,.94) 45%,rgba(231,221,210,.9));
+  border:1px solid rgba(35,32,48,.1);
+  box-shadow:0 30px 90px rgba(30,26,40,.13);
+}
+
+.there-stage:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(180,83,105,.08),transparent 28%),
+    radial-gradient(circle at 85% 80%,rgba(62,91,76,.08),transparent 30%);
+  pointer-events:none;
+}
+
+.there-scenes{
+  position:relative;
+  min-height:670px;
+}
+
+.there-scene{
+  position:absolute;
+  inset:0;
+  padding:65px 70px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:45px;
+  opacity:0;
+  transform:translateX(35px) scale(.98);
+  pointer-events:none;
+  transition:
+    opacity .38s ease,
+    transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.there-scene.active{
+  opacity:1;
+  transform:translateX(0) scale(1);
+  pointer-events:auto;
+}
+
+.there-kicker{
+  position:absolute;
+  top:30px;
+  left:35px;
+  font-size:10px;
+  letter-spacing:.18em;
+  font-weight:700;
+  opacity:.5;
+}
+
+.there-number{
+  position:absolute;
+  top:24px;
+  right:35px;
+  font-size:12px;
+  letter-spacing:.18em;
+  opacity:.45;
+}
+
+.there-orbit{
+  width:min(350px,70vw);
+  aspect-ratio:1;
+  margin:auto;
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+
+.there-core{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:#1d1b29;
+  color:#fff;
+  font-family:"Playfair Display",serif;
+  font-size:23px;
+  line-height:1.08;
+  box-shadow:0 25px 70px rgba(29,27,41,.25);
+  position:relative;
+  z-index:2;
+}
+
+.there-orbit-ring{
+  position:absolute;
+  border:1px solid rgba(180,83,105,.22);
+  border-radius:50%;
+  inset:15%;
+}
+
+.ring-a{
+  transform:rotate(22deg) scaleX(1.35);
+}
+
+.ring-b{
+  transform:rotate(-35deg) scaleY(.72);
+  border-color:rgba(62,91,76,.22);
+}
+
+.there-copy h2{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:38px;
+  line-height:1.08;
+  margin:0 0 18px;
+}
+
+.there-main{
+  font-size:23px;
+  line-height:1.3;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+.there-copy p{
+  font-size:16px;
+  line-height:1.8;
+  opacity:.7;
+  max-width:470px;
+}
+
+.there-controls{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:25px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  z-index:5;
+}
+
+.there-btn{
+  border:1px solid rgba(35,32,48,.13);
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(8px);
+  border-radius:999px;
+  padding:11px 19px;
+  cursor:pointer;
+  font:inherit;
+  transition:.2s ease;
+}
+
+.there-btn:hover{
+  transform:translateY(-2px);
+  background:#fff;
+}
+
+.there-progress{
+  font-size:11px;
+  letter-spacing:.12em;
+  opacity:.5;
+  min-width:65px;
+  text-align:center;
+}
+
+@media(max-width:760px){
+  .there-stage,
+  .there-scenes{
+    min-height:760px;
+  }
+
+  .there-scene{
+    grid-template-columns:1fr;
+    padding:55px 25px 85px;
+    gap:15px;
+    text-align:center;
+  }
+
+  .there-orbit{
+    width:250px;
+  }
+
+  .there-core{
+    width:135px;
+    height:135px;
+    font-size:18px;
+  }
+
+  .there-copy h2{
+    font-size:30px;
+  }
+
+  .there-main{
+    font-size:20px;
+  }
+
+  .there-copy p{
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<div class="app">
+<main>
+
+<section class="there-page">
+
+  <header class="there-header">
+    <span class="tag">gift 03 · imagine this</span>
+    <h1>If I Were There Right Now…</h1>
+    <p>
+      Don't read all 18 at once. Move through them slowly.
+      Each one is a tiny moment that would happen if distance
+      suddenly disappeared.
+    </p>
+  </header>
+
+  <section class="there-stage">
+
+    <div class="there-scenes">
+      
+    <article class="there-scene active" data-index="0">
+      <div class="there-kicker">THE FIRST SECOND</div>
+      <div class="there-number">01</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>First thing?</h2>
+        <div class="there-main">I would come straight to you.</div>
+        <p>No dramatic entrance. No perfect dialogue. Just me finally standing in front of you after missing you for way too long.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="1">
+      <div class="there-kicker">DON&#x27;T LOOK AWAY</div>
+      <div class="there-number">02</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>Then I would just look at you.</h2>
+        <div class="there-main">Probably for a few seconds too long.</div>
+        <p>Because after talking through a screen for so long, seeing you standing right there would feel completely different.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="2">
+      <div class="there-kicker">CAUGHT</div>
+      <div class="there-number">03</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>Then...</h2>
+        <div class="there-main">I&#x27;d smile like an idiot.</div>
+        <p>Not because you said anything funny. Just because you are finally actually there. And yes, you would probably make fun of me for it.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="3">
+      <div class="there-kicker">STAY CLOSE</div>
+      <div class="there-number">04</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d steal your hand.</h2>
+        <div class="there-main">And I wouldn&#x27;t give it back easily.</div>
+        <p>Just walking beside you while holding your hand would probably feel strangely special after all the distance.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="4">
+      <div class="there-kicker">NO PLAN</div>
+      <div class="there-number">05</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d ask one very important question.</h2>
+        <div class="there-main">“Where are we going?”</div>
+        <p>And whatever your answer was, I&#x27;d probably say yes. Because the point wouldn&#x27;t really be the place.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="5">
+      <div class="there-kicker">LET&#x27;S JUST GO</div>
+      <div class="there-number">06</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>We&#x27;d go somewhere random.</h2>
+        <div class="there-main">No perfect itinerary.</div>
+        <p>Maybe we&#x27;d walk around, stop somewhere interesting, notice something completely stupid and somehow turn it into our own little memory.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="6">
+      <div class="there-kicker">MISSION: SMILE</div>
+      <div class="there-number">07</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d make you laugh.</h2>
+        <div class="there-main">Or at least try very hard.</div>
+        <p>And if my joke was terrible, I would still defend it like it was the funniest thing ever created.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="7">
+      <div class="there-kicker">QUIET</div>
+      <div class="there-number">08</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>Then we&#x27;d have a quiet moment.</h2>
+        <div class="there-main">No phones. No notifications.</div>
+        <p>Just sitting somewhere together and letting the silence exist without needing to fill it.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="8">
+      <div class="there-kicker">HERE WE GO</div>
+      <div class="there-number">09</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d probably annoy you.</h2>
+        <div class="there-main">Because obviously.</div>
+        <p>A peaceful reunion cannot survive too long without me doing something stupid.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="9">
+      <div class="there-kicker">COMPETITION</div>
+      <div class="there-number">10</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d challenge you to something.</h2>
+        <div class="there-main">And absolutely pretend I&#x27;m going to win.</div>
+        <p>Whether it was a game, a silly challenge or something completely unnecessary, I would take it way too seriously.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="10">
+      <div class="there-kicker">KEEP THIS</div>
+      <div class="there-number">11</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d take a picture.</h2>
+        <div class="there-main">Not for anyone else.</div>
+        <p>Just because I would want one ordinary picture of us actually being together instead of another screen full of distance.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="11">
+      <div class="there-kicker">YOUR CHOICE</div>
+      <div class="there-number">12</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d ask you to choose something.</h2>
+        <div class="there-main">Anywhere. Anything.</div>
+        <p>Because I would want to see what a completely normal day with you feels like when we don&#x27;t have to count the kilometres between us.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="12">
+      <div class="there-kicker">I&#x27;M LISTENING</div>
+      <div class="there-number">13</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d listen to you.</h2>
+        <div class="there-main">Properly.</div>
+        <p>All the random things you wanted to tell me. The tiny things. The things you forgot halfway through telling me. All of it.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="13">
+      <div class="there-kicker">FUTURE MEMORY</div>
+      <div class="there-number">14</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d make one memory unnecessarily dramatic.</h2>
+        <div class="there-main">Because we need a story to laugh about later.</div>
+        <p>Something completely normal would somehow become “remember when we did THAT?”</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="14">
+      <div class="there-kicker">NOT YET</div>
+      <div class="there-number">15</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d stay a little longer.</h2>
+        <div class="there-main">Even when it was time to go.</div>
+        <p>Because after waiting so long to be together, leaving would be the one part of the day I wouldn&#x27;t want.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="15">
+      <div class="there-kicker">JUST THE TRUTH</div>
+      <div class="there-number">16</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d tell you something simple.</h2>
+        <div class="there-main">“I&#x27;m really happy I&#x27;m here.”</div>
+        <p>No huge speech. Just the truth.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="16">
+      <div class="there-kicker">ONE MORE TIME</div>
+      <div class="there-number">17</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>I&#x27;d look at you one more time.</h2>
+        <div class="there-main">And probably smile again.</div>
+        <p>Because even after spending the whole day with you, I know I&#x27;d still have that stupid “I can&#x27;t believe you&#x27;re actually here” feeling.</p>
+      </div>
+    </article>
+
+    <article class="there-scene " data-index="17">
+      <div class="there-kicker">STAY</div>
+      <div class="there-number">18</div>
+
+      <div class="there-orbit">
+        <div class="there-orbit-ring ring-a"></div>
+        <div class="there-orbit-ring ring-b"></div>
+        <div class="there-core">
+          <span>IF I WERE<br>THERE</span>
+        </div>
+      </div>
+
+      <div class="there-copy">
+        <h2>And finally...</h2>
+        <div class="there-main">I&#x27;d say: “Okay. Now don&#x27;t go anywhere.”</div>
+        <p>Because if I were there right now, I wouldn&#x27;t want the moment to end.</p>
+      </div>
+    </article>
+
+    </div>
+
+    <div class="there-controls">
+      <button class="there-btn" id="therePrev">← Previous</button>
+      <span class="there-progress" id="thereProgress">01 / 18</span>
+      <button class="there-btn" id="thereNext">Next →</button>
+    </div>
+
+  </section>
+
+  
+<div class="gift-footer">
+  <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+</div>
+
+
+</section>
+
+</main>
+</div>
+
+
+<script>
+(() => {
+  const scenes = [...document.querySelectorAll(".there-scene")];
+  const prev = document.querySelector("#therePrev");
+  const next = document.querySelector("#thereNext");
+  const progress = document.querySelector("#thereProgress");
+
+  let index = 0;
+
+  function show(n){
+    index = (n + scenes.length) % scenes.length;
+
+    scenes.forEach((scene,i)=>{
+      scene.classList.toggle("active",i === index);
+    });
+
+    progress.textContent =
+      String(index + 1).padStart(2,"0") +
+      " / " +
+      String(scenes.length).padStart(2,"0");
+  }
+
+  prev.addEventListener("click",()=>show(index - 1));
+  next.addEventListener("click",()=>show(index + 1));
+
+  document.addEventListener("keydown",(e)=>{
+    if(e.key === "ArrowLeft") show(index - 1);
+    if(e.key === "ArrowRight") show(index + 1);
+  });
+
+  show(0);
+})();
+</script>
+
+
+</body>
+</html>

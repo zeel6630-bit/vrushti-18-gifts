@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gift 08 · How Well Do You Know Us?</title>
+
+<style>
+:root{
+ --bg:#f8f3eb;
+ --paper:rgba(255,255,255,.78);
+ --ink:#34332f;
+ --muted:#7b756c;
+ --line:rgba(70,65,58,.12);
+ --accent:#927b68;
+ --accent2:#718878;
+ --danger:#a45f5f;
+ --dangerbg:#f3dddd;
+ --successbg:#e2ece4;
+ --shadow:0 24px 80px rgba(65,52,40,.11);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ min-height:100%;
+}
+
+body{
+ overflow-x:hidden;
+ color:var(--ink);
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ background:
+ radial-gradient(circle at 10% 8%,rgba(211,190,164,.25),transparent 28%),
+ radial-gradient(circle at 90% 22%,rgba(180,204,190,.18),transparent 30%),
+ linear-gradient(180deg,#fcfaf6,#f5eee5);
+}
+
+#particles{
+ position:absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:0;
+ pointer-events:none;
+}
+
+.page{
+ position:relative;
+ z-index:1;
+ width:min(920px,calc(100% - 30px));
+ margin:auto;
+ padding:55px 0 80px;
+}
+
+.header{
+ text-align:center;
+ max-width:720px;
+ margin:0 auto 38px;
+}
+
+.eyebrow{
+ color:var(--muted);
+ font-size:11px;
+ letter-spacing:.25em;
+ text-transform:uppercase;
+ margin-bottom:18px;
+}
+
+.header h1{
+ margin:0;
+ font-size:clamp(38px,7vw,66px);
+ line-height:1;
+ font-weight:500;
+ letter-spacing:-.045em;
+}
+
+.header h1 span{color:var(--accent)}
+
+.header p{
+ max-width:580px;
+ margin:19px auto 0;
+ color:var(--muted);
+ font-size:14px;
+ line-height:1.8;
+}
+
+.quiz{
+ padding:clamp(22px,5vw,48px);
+ border:1px solid var(--line);
+ border-radius:30px;
+ background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(247,239,229,.72));
+ box-shadow:var(--shadow);
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+}
+
+.progress{
+ display:flex;
+ align-items:center;
+ gap:16px;
+ margin-bottom:28px;
+}
+
+.progress-label{
+ flex:0 0 auto;
+ color:var(--muted);
+ font-size:10px;
+ letter-spacing:.16em;
+ text-transform:uppercase;
+}
+
+.track{
+ flex:1;
+ height:4px;
+ overflow:hidden;
+ border-radius:999px;
+ background:rgba(70,67,61,.08);
+}
+
+.fill{
+ height:100%;
+ width:0;
+ border-radius:inherit;
+ background:linear-gradient(90deg,#9b8875,#718878);
+ transition:width .45s ease;
+}
+
+.question-no{
+ display:grid;
+ place-items:center;
+ width:40px;
+ height:40px;
+ margin-bottom:20px;
+ border-radius:50%;
+ background:#e9dfd4;
+ color:#65594e;
+ font-size:12px;
+}
+
+.question{
+ margin:0;
+ font-size:clamp(27px,4.5vw,42px);
+ line-height:1.13;
+ font-weight:500;
+ letter-spacing:-.035em;
+}
+
+.note{
+ margin:13px 0 26px;
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.65;
+}
+
+.options{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:13px;
+}
+
+.option{
+ min-height:72px;
+ display:flex;
+ align-items:center;
+ width:100%;
+ padding:14px 16px;
+ border:1px solid var(--line);
+ border-radius:17px;
+ background:rgba(255,255,255,.62);
+ color:var(--ink);
+ font:inherit;
+ text-align:left;
+ cursor:pointer;
+ transition:.22s ease;
+}
+
+.option:hover{
+ transform:translateY(-2px);
+ background:rgba(255,255,255,.94);
+ border-color:rgba(126,105,85,.35);
+ box-shadow:0 10px 28px rgba(69,55,42,.08);
+}
+
+.letter{
+ display:grid;
+ place-items:center;
+ flex:0 0 auto;
+ width:34px;
+ height:34px;
+ margin-right:13px;
+ border-radius:50%;
+ background:#e9e1d7;
+ color:#665b50;
+ font-size:12px;
+ font-weight:600;
+}
+
+.option-text{
+ font-size:14px;
+ line-height:1.45;
+}
+
+.option.correct{
+ background:var(--successbg);
+ border-color:rgba(89,122,98,.42);
+}
+
+.option.correct .letter{
+ background:rgba(104,137,112,.18);
+ color:#52715a;
+}
+
+.option.wrong{
+ background:var(--dangerbg);
+ border-color:rgba(164,95,95,.5);
+}
+
+.bottom{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:18px;
+ margin-top:28px;
+ padding-top:22px;
+ border-top:1px solid var(--line);
+}
+
+.status{
+ color:var(--muted);
+ font-size:12px;
+ min-height:20px;
+}
+
+.next{
+ border:0;
+ padding:13px 23px;
+ border-radius:999px;
+ background:#363833;
+ color:#fff;
+ font:inherit;
+ font-size:13px;
+ cursor:pointer;
+ opacity:.32;
+ pointer-events:none;
+ transition:.2s ease;
+}
+
+.next.ready{
+ opacity:1;
+ pointer-events:auto;
+}
+
+.next.ready:hover{
+ transform:translateY(-2px);
+ background:#4a4d46;
+}
+
+.success{
+ display:inline-flex;
+ margin-top:15px;
+ padding:8px 12px;
+ border-radius:999px;
+ background:var(--successbg);
+ color:#55715c;
+ font-size:11px;
+ opacity:0;
+ transform:translateY(5px);
+ transition:.25s ease;
+}
+
+.success.show{
+ opacity:1;
+ transform:translateY(0);
+}
+
+.shake{
+ animation:shake .42s ease;
+}
+
+@keyframes shake{
+ 0%,100%{transform:translateX(0)}
+ 15%{transform:translateX(-8px)}
+ 30%{transform:translateX(7px)}
+ 45%{transform:translateX(-6px)}
+ 60%{transform:translateX(5px)}
+ 75%{transform:translateX(-3px)}
+ 90%{transform:translateX(2px)}
+}
+
+.overlay{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ display:grid;
+ place-items:center;
+ padding:20px;
+ background:rgba(43,34,30,.25);
+ backdrop-filter:blur(8px);
+ opacity:0;
+ pointer-events:none;
+ transition:.22s ease;
+}
+
+.overlay.show{
+ opacity:1;
+ pointer-events:auto;
+}
+
+.popup{
+ width:min(430px,100%);
+ padding:34px;
+ text-align:center;
+ border:1px solid rgba(151,88,88,.2);
+ border-radius:26px;
+ background:rgba(255,248,246,.97);
+ box-shadow:0 30px 100px rgba(60,37,31,.22);
+ transform:translateY(15px) scale(.96);
+ transition:.25s ease;
+}
+
+.overlay.show .popup{
+ transform:translateY(0) scale(1);
+}
+
+.danger-icon{
+ display:grid;
+ place-items:center;
+ width:58px;
+ height:58px;
+ margin:0 auto 18px;
+ border-radius:50%;
+ background:#f1d9d9;
+ color:#9c5a5a;
+ font-size:26px;
+}
+
+.popup h2{
+ margin:0;
+ font-size:28px;
+ font-weight:500;
+ letter-spacing:-.03em;
+}
+
+.popup p{
+ margin:12px 0 23px;
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.7;
+}
+
+.try{
+ border:0;
+ padding:11px 21px;
+ border-radius:999px;
+ background:#3b3b37;
+ color:#fff;
+ font:inherit;
+ font-size:12px;
+ cursor:pointer;
+}
+
+.final{
+ display:none;
+ text-align:center;
+ padding:20px 5px;
+}
+
+.final.show{
+ display:block;
+ animation:finalIn .55s ease;
+}
+
+@keyframes finalIn{
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.final-mark{
+ display:grid;
+ place-items:center;
+ width:76px;
+ height:76px;
+ margin:0 auto 23px;
+ border-radius:50%;
+ background:#e9dfd4;
+ color:#66584c;
+ font-size:30px;
+}
+
+.final h2{
+ margin:0;
+ font-size:clamp(32px,6vw,52px);
+ line-height:1.05;
+ font-weight:500;
+ letter-spacing:-.045em;
+}
+
+.final p{
+ max-width:550px;
+ margin:16px auto 0;
+ color:var(--muted);
+ line-height:1.8;
+ font-size:14px;
+}
+
+.score{
+ margin-top:24px;
+ color:var(--muted);
+ font-size:11px;
+ letter-spacing:.15em;
+ text-transform:uppercase;
+}
+
+.back{
+ display:inline-flex;
+ margin-top:26px;
+ padding:12px 20px;
+ border-radius:999px;
+ background:#343630;
+ color:#fff;
+ text-decoration:none;
+ font-size:12px;
+}
+
+@media(max-width:680px){
+ .page{width:calc(100% - 22px);padding:34px 0 55px}
+ .quiz{padding:20px;border-radius:24px}
+ .options{grid-template-columns:1fr}
+ .bottom{flex-direction:column;align-items:stretch}
+ .next{width:100%}
+ .header h1{font-size:42px}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<main class="page">
+
+<header class="header">
+ <div class="eyebrow">Gift 08 · Our Little Archive</div>
+
+ <h1>
+   How Well Do You
+   <span>Know Us?</span>
+ </h1>
+
+ <p>
+   Eighteen questions about the dates, places, little details,
+   and memories that quietly became our story.
+ </p>
+</header>
+
+<section class="quiz" id="quiz">
+
+ <div class="progress">
+   <div class="progress-label" id="progressLabel">
+     Question 01 / 18
+   </div>
+   <div class="track">
+     <div class="fill" id="fill"></div>
+   </div>
+ </div>
+
+ <div id="quizContent">
+
+   <div class="question-no" id="questionNo">01</div>
+
+   <h2 class="question" id="question"></h2>
+
+   <p class="note" id="note"></p>
+
+   <div class="options" id="options"></div>
+
+   <div class="success" id="success">
+     ✓ That one belongs to our story.
+   </div>
+
+   <div class="bottom">
+     <div class="status" id="status">
+       Choose the answer you remember.
+     </div>
+
+     <button class="next" id="next">
+       Next Question →
+     </button>
+   </div>
+
+ </div>
+
+ <div class="final" id="final">
+   <div class="final-mark">♡</div>
+
+   <h2>
+     You made it through
+     our little archive.
+   </h2>
+
+   <p>
+     Some dates are just numbers until they become memories.
+     These are ours.
+   </p>
+
+   <div class="score" id="score"></div>
+
+   <a class="back" href="index.html">
+     ← Back to Gifts
+   </a>
+ </div>
+
+</section>
+
+</main>
+
+<div class="overlay" id="overlay">
+ <div class="popup">
+   <div class="danger-icon">×</div>
+
+   <h2>Wrong answer.</h2>
+
+   <p>
+     Hmm... that memory doesn't match our story.
+     Take another look and try again.
+   </p>
+
+   <button class="try" id="try">
+     Try Again
+   </button>
+ </div>
+</div>
+
+<script>
+const questions = [
+
+ {
+  q:"When did we first start talking to each other?",
+  note:"The date that quietly started everything.",
+  a:"11 November 2022",
+  o:[
+   "11 November 2022",
+   "11 November 2023",
+   "11 November 2024",
+   "11 October 2022"
+  ]
+ },
+
+ {
+  q:"When did we first meet in real life outside school?",
+  note:"Our first proper meeting away from the school environment.",
+  a:"11 November 2024",
+  o:[
+   "11 November 2022",
+   "11 November 2024",
+   "17 November 2024",
+   "11 April 2025"
+  ]
+ },
+
+ {
+  q:"When did we meet for the second time?",
+  note:"A date worth remembering.",
+  a:"17 November 2024",
+  o:[
+   "14 April 2025",
+   "17 November 2024",
+   "8 May 2025",
+   "17 October 2024"
+  ]
+ },
+
+ {
+  q:"When did I propose to you, and at what exact time?",
+  note:"You need to remember both the date and the time.",
+  a:"14 April 2025 · 10:27 PM",
+  o:[
+   "14 April 2025 · 10:27 PM",
+   "11 April 2025 · 10:27 PM",
+   "14 April 2025 · 11:07 PM",
+   "17 April 2025 · 10:27 PM"
+  ]
+ },
+
+ {
+  q:"When did we first meet in a café?",
+  note:"One of those dates that became a memory.",
+  a:"11 April 2025",
+  o:[
+   "11 April 2025",
+   "14 April 2025",
+   "8 May 2025",
+   "17 November 2024"
+  ]
+ },
+
+ {
+  q:"When did we first meet after our relationship began?",
+  note:"The first time we met after becoming us.",
+  a:"8 May 2025",
+  o:[
+   "11 April 2025",
+   "8 May 2025",
+   "14 April 2025",
+   "17 May 2025"
+  ]
+ },
+
+ {
+  q:"Where did we meet for the first time after our relationship began?",
+  note:"Remember the place.",
+  a:"ER Mall",
+  o:[
+   "D-Mart",
+   "ER Mall",
+   "The café",
+   "The Xerox shop"
+  ]
+ },
+
+ {
+  q:"What color was the shirt I wore when we first met in a café?",
+  note:"A tiny detail — but one that should be easy for you.",
+  a:"White",
+  o:[
+   "Black",
+   "Blue",
+   "White",
+   "Grey"
+  ]
+ },
+
+ {
+  q:"What color was my shirt when we first met after our relationship began?",
+  note:"Different meeting. Different shirt.",
+  a:"Black",
+  o:[
+   "White",
+   "Black",
+   "Dark blue",
+   "Brown"
+  ]
+ },
+
+ {
+  q:"Where did we first meet outside school?",
+  note:"Think of the place where we crossed paths.",
+  a:"D-Mart",
+  o:[
+   "ER Mall",
+   "The café",
+   "D-Mart",
+   "The Xerox shop"
+  ]
+ },
+
+ {
+  q:"Where did we meet for the second time outside school?",
+  note:"One small shop became part of our timeline.",
+  a:"The Xerox shop",
+  o:[
+   "D-Mart",
+   "ER Mall",
+   "The Xerox shop",
+   "The café"
+  ]
+ },
+
+ {
+  q:"What did we order during our first café meeting?",
+  note:"Remember both orders.",
+  a:"Hot chocolate for me and coffee for you",
+  o:[
+   "Coffee for me and hot chocolate for you",
+   "Hot chocolate for me and coffee for you",
+   "Two coffees",
+   "Two hot chocolates"
+  ]
+ },
+
+ {
+  q:"What song was playing when we first met in a café?",
+  note:"A song attached to that memory.",
+  a:"I Wanna Be Yours",
+  o:[
+   "I Wanna Be Yours",
+   "Until I Found You",
+   "Perfect",
+   "Those Eyes"
+  ]
+ },
+
+ {
+  q:"What was the first movie we watched together?",
+  note:"There is a little twist. Read every option carefully.",
+  a:"Both Highlander and The Hi Pappa",
+  o:[
+   "Highlander",
+   "The Hi Pappa",
+   "Both Highlander and The Hi Pappa",
+   "Neither — it was another movie"
+  ]
+ },
+
+ {
+  q:"What is my favorite game?",
+  note:"You should know this one by now.",
+  a:"Forza Horizon 6",
+  o:[
+   "GTA V",
+   "Forza Horizon 6",
+   "Forza Horizon 5",
+   "BGMI"
+  ]
+ },
+
+ {
+  q:"What is my favorite food to have at home?",
+  note:"Simple. Familiar. Very me.",
+  a:"Sandwich",
+  o:[
+   "Pizza",
+   "Momos",
+   "Sandwich",
+   "Pasta"
+  ]
+ },
+
+ {
+  q:"What is my favorite color?",
+  note:"The answer should be immediate.",
+  a:"Black",
+  o:[
+   "Blue",
+   "White",
+   "Green",
+   "Black"
+  ]
+ },
+
+ {
+  q:"Which car is actually my favorite?",
+  note:"This one is deliberately designed to confuse you.",
+  a:"BMW M3",
+  o:[
+   "BMW M340i",
+   "BMW M4",
+   "BMW M3",
+   "BMW M5"
+  ]
+ }
+
+];
+
+let current=0;
+let score=0;
+let answered=false;
+
+const quiz=document.getElementById("quiz");
+const question=document.getElementById("question");
+const note=document.getElementById("note");
+const questionNo=document.getElementById("questionNo");
+const options=document.getElementById("options");
+const fill=document.getElementById("fill");
+const progressLabel=document.getElementById("progressLabel");
+const next=document.getElementById("next");
+const status=document.getElementById("status");
+const success=document.getElementById("success");
+const overlay=document.getElementById("overlay");
+const tryBtn=document.getElementById("try");
+const quizContent=document.getElementById("quizContent");
+const final=document.getElementById("final");
+const scoreText=document.getElementById("score");
+
+function shuffle(arr){
+ const a=[...arr];
+ for(let i=a.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));
+  [a[i],a[j]]=[a[j],a[i]];
+ }
+ return a;
+}
+
+function render(){
+
+ answered=false;
+
+ const item=questions[current];
+
+ questionNo.textContent=String(current+1).padStart(2,"0");
+ progressLabel.textContent=
+  `Question ${String(current+1).padStart(2,"0")} / ${questions.length}`;
+
+ fill.style.width=
+  `${((current+1)/questions.length)*100}%`;
+
+ question.textContent=item.q;
+ note.textContent=item.note;
+
+ options.innerHTML="";
+ options.classList.remove("locked");
+
+ success.classList.remove("show");
+
+ next.classList.remove("ready");
+
+ status.textContent=
+  "Choose the answer you remember.";
+
+ shuffle(item.o).forEach((answer,index)=>{
+
+  const button=document.createElement("button");
+  button.className="option";
+  button.type="button";
+
+  const letter=document.createElement("span");
+  letter.className="letter";
+  letter.textContent=String.fromCharCode(65+index);
+
+  const text=document.createElement("span");
+  text.className="option-text";
+  text.textContent=answer;
+
+  button.append(letter,text);
+
+  button.addEventListener("click",()=>{
+   choose(answer,button);
+  });
+
+  options.appendChild(button);
+ });
+}
+
+function choose(answer,button){
+
+ if(answered)return;
+
+ const item=questions[current];
+
+ if(answer===item.a){
+
+  answered=true;
+  score++;
+
+  button.classList.add("correct");
+  options.classList.add("locked");
+  success.classList.add("show");
+
+  status.textContent=
+   "Correct. You remembered it.";
+
+  next.classList.add("ready");
+
+  if(navigator.vibrate){
+   navigator.vibrate([18,35,18]);
+  }
+
+ }else{
+
+  button.classList.add("wrong");
+
+  quiz.classList.remove("shake");
+  void quiz.offsetWidth;
+  quiz.classList.add("shake");
+
+  overlay.classList.add("show");
+
+  if(navigator.vibrate){
+   navigator.vibrate([80,40,80]);
+  }
+
+  setTimeout(()=>{
+   button.classList.remove("wrong");
+  },500);
+ }
+}
+
+function closePopup(){
+ overlay.classList.remove("show");
+}
+
+tryBtn.addEventListener("click",closePopup);
+
+overlay.addEventListener("click",e=>{
+ if(e.target===overlay)closePopup();
+});
+
+next.addEventListener("click",()=>{
+
+ if(!answered)return;
+
+ current++;
+
+ if(current>=questions.length){
+  quizContent.style.display="none";
+  final.classList.add("show");
+  scoreText.textContent=
+   `${score} / ${questions.length} memories remembered`;
+  return;
+ }
+
+ render();
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+});
+
+document.addEventListener("keydown",e=>{
+
+ if(e.key==="Escape")closePopup();
+
+ if(
+  e.key==="Enter" &&
+  answered &&
+  !overlay.classList.contains("show")
+ ){
+  next.click();
+ }
+});
+
+
+/* ==========================================================
+   FULL-DOCUMENT PARTICLES
+   ========================================================== */
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+let particles=[];
+let cw=0;
+let ch=0;
+
+function resizeParticles(){
+
+ const dpr=Math.min(window.devicePixelRatio||1,2);
+
+ cw=Math.max(
+  document.documentElement.scrollWidth,
+  document.body.scrollWidth,
+  window.innerWidth
+ );
+
+ ch=Math.max(
+  document.documentElement.scrollHeight,
+  document.body.scrollHeight,
+  window.innerHeight
+ );
+
+ canvas.width=cw*dpr;
+ canvas.height=ch*dpr;
+ canvas.style.width=cw+"px";
+ canvas.style.height=ch+"px";
+
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+
+ if(!particles.length){
+
+  for(let i=0;i<100;i++){
+
+   particles.push({
+    x:Math.random()*cw,
+    y:Math.random()*ch,
+    r:.5+Math.random()*1.6,
+    vx:(Math.random()-.5)*.07,
+    vy:(Math.random()-.5)*.055,
+    alpha:.06+Math.random()*.14,
+    phase:Math.random()*Math.PI*2
+   });
+  }
+ }
+}
+
+function particleLoop(time){
+
+ ctx.clearRect(0,0,cw,ch);
+
+ particles.forEach(p=>{
+
+  p.x+=p.vx;
+  p.y+=p.vy;
+
+  if(p.x<-4)p.x=cw+4;
+  if(p.x>cw+4)p.x=-4;
+
+  if(p.y<-4)p.y=ch+4;
+  if(p.y>ch+4)p.y=-4;
+
+  const a=p.alpha*
+   (.72+.28*Math.sin(time*.001+p.phase));
+
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+  ctx.fillStyle=`rgba(93,88,78,${a})`;
+  ctx.fill();
+ });
+
+ requestAnimationFrame(particleLoop);
+}
+
+resizeParticles();
+
+window.addEventListener(
+ "resize",
+ resizeParticles,
+ {passive:true}
+);
+
+window.addEventListener(
+ "load",
+ ()=>{
+  setTimeout(resizeParticles,300);
+  setTimeout(resizeParticles,1000);
+ },
+ {once:true}
+);
+
+render();
+requestAnimationFrame(particleLoop);
+
+</script>
+
+</body>
+</html>

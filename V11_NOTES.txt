@@ -1,0 +1,7 @@
+V11 changes
+- Replaced the animated SVG/SMIL cake with a static CSS cake based directly on https://codepen.io/fazlurr/pen/gPMJMK.
+- No cake entrance/morph animation.
+- No candle/flame animation; flames are static visual elements.
+- Preserved the existing birthday background, fireworks, balloons, toran and 18->1 flow.
+- Adapted the CodePen cake to three candles because the existing project requested three candles.
+- Removed the old SVG cake/candle elements from the reveal page so they cannot overlap the new cake.

@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>18 Future Dates · ZEEL × VRUSH</title>
+
+<link rel="stylesheet" href="../assets/style.css">
+
+
+<style>
+.future-page{
+  max-width:1100px;
+  margin:0 auto;
+  padding:45px 20px 80px;
+}
+
+.future-header{
+  max-width:760px;
+  margin:0 auto 38px;
+  text-align:center;
+}
+
+.future-header h1{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:clamp(38px,6vw,68px);
+  line-height:1;
+  letter-spacing:-.045em;
+  margin:16px 0;
+}
+
+.future-header p{
+  line-height:1.75;
+  opacity:.68;
+}
+
+.date-book{
+  position:relative;
+  min-height:660px;
+  border-radius:34px;
+  overflow:hidden;
+  background:#f6f0e7;
+  box-shadow:0 30px 90px rgba(30,26,40,.14);
+  border:1px solid rgba(35,32,48,.1);
+}
+
+.date-pages{
+  min-height:660px;
+  position:relative;
+}
+
+.date-page{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-columns:100px 1fr;
+  opacity:0;
+  pointer-events:none;
+  transform:translateX(35px);
+  transition:
+    opacity .4s ease,
+    transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.date-page.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0);
+}
+
+.date-side{
+  background:#1d1b29;
+  color:#fff;
+  padding:35px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:13px;
+}
+
+.date-small{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:9px;
+  letter-spacing:.16em;
+  opacity:.55;
+}
+
+.date-side strong{
+  font-family:"Playfair Display",serif;
+  font-size:36px;
+  font-weight:400;
+}
+
+.date-type{
+  margin-top:auto;
+  font-size:9px;
+  letter-spacing:.13em;
+  writing-mode:vertical-rl;
+  opacity:.5;
+}
+
+.date-main{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(
+      180deg,
+      #f5ddd0 0%,
+      #f7e9d9 52%,
+      #d9d0c4 100%
+    );
+}
+
+.date-sky{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+.date-sun{
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  right:14%;
+  top:18%;
+  background:rgba(255,247,211,.75);
+  box-shadow:0 0 80px rgba(255,218,145,.35);
+}
+
+.date-horizon{
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  bottom:-7%;
+  height:48%;
+  background:#78816f;
+  border-radius:50% 50% 0 0;
+  opacity:.35;
+}
+
+.date-content{
+  position:relative;
+  z-index:2;
+  padding:75px 70px 60px;
+  max-width:690px;
+}
+
+.date-tag{
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:.16em;
+  font-weight:700;
+  opacity:.55;
+}
+
+.date-content h2{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  font-size:clamp(42px,5vw,64px);
+  line-height:1;
+  letter-spacing:-.045em;
+  margin:18px 0 25px;
+}
+
+.date-content p{
+  max-width:600px;
+  font-size:18px;
+  line-height:1.8;
+  color:#34313b;
+  opacity:.78;
+}
+
+.date-line{
+  display:flex;
+  gap:15px;
+  align-items:center;
+  margin-top:45px;
+  padding-top:17px;
+  border-top:1px solid rgba(35,32,48,.16);
+  font-size:10px;
+  letter-spacing:.12em;
+}
+
+.date-line span{
+  opacity:.5;
+}
+
+.date-line strong{
+  color:#b45369;
+}
+
+.date-controls{
+  position:absolute;
+  z-index:10;
+  bottom:25px;
+  left:100px;
+  right:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+}
+
+.date-btn{
+  border:1px solid rgba(35,32,48,.13);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(8px);
+  border-radius:999px;
+  padding:11px 20px;
+  cursor:pointer;
+  font:inherit;
+}
+
+.date-progress{
+  min-width:70px;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.12em;
+  opacity:.55;
+}
+
+@media(max-width:700px){
+
+  .date-book,
+  .date-pages{
+    min-height:700px;
+  }
+
+  .date-page{
+    grid-template-columns:65px 1fr;
+  }
+
+  .date-side{
+    padding:25px 12px;
+  }
+
+  .date-side strong{
+    font-size:27px;
+  }
+
+  .date-content{
+    padding:55px 28px 75px;
+  }
+
+  .date-content h2{
+    font-size:40px;
+  }
+
+  .date-content p{
+    font-size:16px;
+  }
+
+  .date-controls{
+    left:65px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<main>
+
+<section class="future-page">
+
+  <header class="future-header">
+
+    <span class="tag">
+      gift 07 · plans we haven't lived yet
+    </span>
+
+    <h1>
+      18 Future Dates
+    </h1>
+
+    <p>
+      These aren't just places to go.
+      They're little future memories waiting for us.
+    </p>
+
+  </header>
+
+  <section class="date-book">
+
+    <div class="date-pages">
+      
+    <article class="date-page active" data-date="0">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>01</strong>
+        <span class="date-type">SHOPPING</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">THE LITTLE ESCAPE</span>
+
+          <h2>Shopping Day</h2>
+
+          <p>A completely unserious shopping trip where we walk around, judge everything, try things we probably don&#x27;t need and somehow come home with something random.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="1">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>02</strong>
+        <span class="date-type">BEACH</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">SAND BETWEEN US</span>
+
+          <h2>Beach Day</h2>
+
+          <p>Barefoot walks, sitting near the water, talking about everything and absolutely nothing, and staying until we don&#x27;t feel like leaving.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="2">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>03</strong>
+        <span class="date-type">CAFÉ</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">OUR TABLE</span>
+
+          <h2>Favourite Café</h2>
+
+          <p>Find our favourite corner, order something we both like and make that café one of those places that automatically reminds us of each other.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="3">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>04</strong>
+        <span class="date-type">STREET FOOD</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">NO RULES</span>
+
+          <h2>Street Food Hunt</h2>
+
+          <p>Walk around and try different street food together. No fancy plan. Just “that looks good, let&#x27;s try it.”</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="4">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>05</strong>
+        <span class="date-type">COOKING</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">TWO CHEFS</span>
+
+          <h2>Cook Together</h2>
+
+          <p>Pick something we both want to make, put music on and discover that cooking together is probably 50% cooking and 50% distracting each other.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="5">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>06</strong>
+        <span class="date-type">CHAI</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">JUST CHAI</span>
+
+          <h2>Chai &amp; Conversation</h2>
+
+          <p>Find a quiet place, order chai and simply sit together talking until we realise we&#x27;ve been there for hours.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="6">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>07</strong>
+        <span class="date-type">LONG DRIVE</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">ROAD WITHOUT A PLAN</span>
+
+          <h2>Long Drive</h2>
+
+          <p>Pick a direction, play our music, stop somewhere interesting and let the road decide most of the day.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="7">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>08</strong>
+        <span class="date-type">WORKOUT</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">TEAM US</span>
+
+          <h2>Workout Date</h2>
+
+          <p>Go for a workout together and pretend we&#x27;re both extremely disciplined. Then motivate each other when one of us wants to give up.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="8">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>09</strong>
+        <span class="date-type">BOOKS</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">SAME PAGE</span>
+
+          <h2>Bookstore &amp; Reading</h2>
+
+          <p>Walk through a bookstore, choose books for each other and then sit somewhere quiet reading side by side.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="9">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>10</strong>
+        <span class="date-type">DRAWING</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">DRAW ME</span>
+
+          <h2>Drawing Date</h2>
+
+          <p>We each draw the other person. The drawings will probably be terrible. We will still keep them forever.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="10">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>11</strong>
+        <span class="date-type">GAMES</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">GAME ON</span>
+
+          <h2>Game Night</h2>
+
+          <p>Pick our favourite games, make ridiculous rules, compete way too seriously and celebrate whichever one of us wins.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="11">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>12</strong>
+        <span class="date-type">VACATION</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">SOMEWHERE NEW</span>
+
+          <h2>Weekend Vacation</h2>
+
+          <p>Pack a small bag and disappear somewhere new for a few days. New streets, new food, new memories.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="12">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>13</strong>
+        <span class="date-type">NIGHT OUT</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">CITY LIGHTS</span>
+
+          <h2>Night Out</h2>
+
+          <p>Dress up, go somewhere nice, walk around under the city lights and make an ordinary night feel like a movie.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="13">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>14</strong>
+        <span class="date-type">CANDLELIGHT</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">JUST US</span>
+
+          <h2>Candlelight Dinner</h2>
+
+          <p>A quiet table, warm lights, good conversation and no reason to check the time.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="14">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>15</strong>
+        <span class="date-type">SLOW DAY</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">THE SLOW DAY</span>
+
+          <h2>Lazy Day Together</h2>
+
+          <p>No schedule. No pressure. Just spending an entire day together doing whatever feels right.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="15">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>16</strong>
+        <span class="date-type">CREATE</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">CREATE SOMETHING</span>
+
+          <h2>Little Project Date</h2>
+
+          <p>Choose something neither of us has made before and build it together. Messy results are completely acceptable.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="16">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>17</strong>
+        <span class="date-type">SUNSET</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">SUNSET PEOPLE</span>
+
+          <h2>Sunset Spot</h2>
+
+          <p>Find a beautiful place, sit beside each other and watch the sky change while we talk about our lives.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <article class="date-page " data-date="17">
+
+      <div class="date-side">
+        <span class="date-small">FUTURE DATE</span>
+        <strong>18</strong>
+        <span class="date-type">NO PLAN</span>
+      </div>
+
+      <div class="date-main">
+
+        <div class="date-sky">
+          <div class="date-sun"></div>
+          <div class="date-horizon"></div>
+        </div>
+
+        <div class="date-content">
+
+          <span class="date-tag">OUR DAY</span>
+
+          <h2>The One We Don&#x27;t Plan</h2>
+
+          <p>One day we don&#x27;t decide anything in advance. We wake up, look at each other and say, “So... what are we doing today?” Then we find out.</p>
+
+          <div class="date-line">
+            <span>DATE STATUS</span>
+            <strong>WAITING FOR US</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    </div>
+
+    <div class="date-controls">
+
+      <button class="date-btn" id="datePrev">
+        ← Previous
+      </button>
+
+      <span class="date-progress" id="dateProgress">
+        01 / 18
+      </span>
+
+      <button class="date-btn" id="dateNext">
+        Next →
+      </button>
+
+    </div>
+
+  </section>
+
+  
+<div class="gift-footer">
+  <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+</div>
+
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+(() => {
+
+  const pages =
+    [...document.querySelectorAll(".date-page")];
+
+  const prev =
+    document.querySelector("#datePrev");
+
+  const next =
+    document.querySelector("#dateNext");
+
+  const progress =
+    document.querySelector("#dateProgress");
+
+  let index = 0;
+
+  function show(n){
+
+    index =
+      (n + pages.length) % pages.length;
+
+    pages.forEach((page,i)=>{
+      page.classList.toggle(
+        "active",
+        i === index
+      );
+    });
+
+    progress.textContent =
+      String(index + 1).padStart(2,"0") +
+      " / " +
+      String(pages.length).padStart(2,"0");
+  }
+
+  prev.addEventListener(
+    "click",
+    ()=>show(index - 1)
+  );
+
+  next.addEventListener(
+    "click",
+    ()=>show(index + 1)
+  );
+
+  document.addEventListener(
+    "keydown",
+    e=>{
+      if(e.key === "ArrowLeft")
+        show(index - 1);
+
+      if(e.key === "ArrowRight")
+        show(index + 1);
+    }
+  );
+
+  show(0);
+
+})();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gift 11 — The Mystery Boxes</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --text:#fff8f4;
+  --muted:#bcaeaa;
+  --pink:#ff6f9f;
+  --pink2:#ff9abd;
+  --gold:#ffd47d;
+}
+
+html,body{
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(255,105,157,.16),transparent 27%),
+    radial-gradient(circle at 20% 80%,rgba(152,105,255,.12),transparent 28%),
+    linear-gradient(145deg,#100b13,#190d18 48%,#09070d);
+}
+
+body.celebrating{
+  overflow:hidden;
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.06;
+  background-image:
+    radial-gradient(rgba(255,255,255,.8) .5px,transparent .5px);
+  background-size:5px 5px;
+}
+
+.app{
+  width:min(1180px,92%);
+  margin:auto;
+  min-height:100vh;
+  padding:26px 0 70px;
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:55px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.brand{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#ffabc7;
+}
+
+.back{
+  color:#9d929a;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.intro{
+  text-align:center;
+  padding:65px 10px 25px;
+}
+
+.eyebrow{
+  color:#ff88ad;
+  text-transform:uppercase;
+  letter-spacing:.3em;
+  font-size:10px;
+  font-weight:600;
+}
+
+h1{
+  font-family:"Playfair Display",serif;
+  font-weight:600;
+  font-size:clamp(45px,8vw,82px);
+  line-height:1;
+  margin-top:17px;
+}
+
+.intro p{
+  max-width:650px;
+  margin:20px auto 0;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:14px;
+}
+
+.counter{
+  margin:27px auto 0;
+  width:max-content;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+  padding:8px 15px;
+  color:#aaa0a7;
+  font-size:11px;
+  letter-spacing:.12em;
+}
+
+.box-stage{
+  min-height:590px;
+  margin-top:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  border-radius:32px;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 50% 55%,rgba(255,103,153,.08),transparent 30%),
+    rgba(255,255,255,.018);
+  box-shadow:0 40px 100px rgba(0,0,0,.42);
+}
+
+.box-shadow{
+  position:absolute;
+  width:260px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(0,0,0,.45);
+  filter:blur(15px);
+  bottom:112px;
+  transition:.4s;
+}
+
+.mystery-box{
+  --box:#c94372;
+  --box-dark:#7d2346;
+  --ribbon:#ffd37b;
+  position:relative;
+  width:var(--size);
+  height:var(--size);
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition:
+    transform .55s cubic-bezier(.2,.8,.2,1),
+    opacity .4s ease;
+  filter:drop-shadow(0 25px 28px rgba(0,0,0,.32));
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.mystery-box:hover{
+  transform:translateY(-7px) rotate(-1deg) scale(1.02);
+}
+
+.box-body{
+  position:absolute;
+  left:7%;
+  right:7%;
+  bottom:5%;
+  height:67%;
+  border-radius:7px 7px 13px 13px;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.15),transparent 22%,transparent 78%,rgba(0,0,0,.13)),
+    var(--box);
+  box-shadow:
+    inset 0 -15px 20px rgba(0,0,0,.16),
+    inset 0 2px 5px rgba(255,255,255,.16);
+}
+
+.box-body:after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:44%;
+  width:12%;
+  background:var(--ribbon);
+  box-shadow:0 0 9px rgba(255,220,135,.16);
+}
+
+.box-lid{
+  position:absolute;
+  left:2%;
+  right:2%;
+  top:25%;
+  height:19%;
+  border-radius:8px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.15),
+      transparent 22%,
+      transparent 78%,
+      rgba(0,0,0,.14)
+    ),
+    var(--box);
+  box-shadow:
+    inset 0 2px 5px rgba(255,255,255,.2),
+    0 7px 12px rgba(0,0,0,.22);
+  z-index:7;
+
+  transform-origin:bottom center;
+
+  transition:
+    transform .68s cubic-bezier(.18,.82,.22,1),
+    box-shadow .4s ease;
+}
+
+/*
+  IMPORTANT:
+  This ribbon is INSIDE .box-lid.
+  Therefore it physically moves with the lid.
+*/
+.lid-ribbon{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:44%;
+  width:12%;
+  background:var(--ribbon);
+  box-shadow:
+    0 0 8px rgba(255,220,135,.14);
+}
+
+/*
+  Bow is also INSIDE the lid.
+  It cannot remain floating behind when the lid opens.
+*/
+.lid-bow{
+  position:absolute;
+  z-index:12;
+  left:50%;
+  top:-68%;
+  width:31%;
+  height:105%;
+  transform:translateX(-50%);
+}
+
+.lid-bow:before,
+.lid-bow:after{
+  content:"";
+  position:absolute;
+  top:0;
+  width:48%;
+  height:100%;
+  border:3px solid var(--ribbon);
+  background:color-mix(
+    in srgb,
+    var(--ribbon),
+    transparent 50%
+  );
+}
+
+.lid-bow:before{
+  right:50%;
+  border-radius:70% 25% 70% 25%;
+  transform:rotate(22deg);
+}
+
+.lid-bow:after{
+  left:50%;
+  border-radius:25% 70% 25% 70%;
+  transform:rotate(-22deg);
+}
+
+/*
+  This is the ribbon that remains on the lower box body.
+*/
+.box-ribbon-v{
+  position:absolute;
+  z-index:5;
+  top:17%;
+  bottom:3%;
+  left:44%;
+  width:12%;
+  background:var(--ribbon);
+}
+
+.box-ribbon-v:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:18%;
+  background:rgba(255,255,255,.08);
+}
+
+
+.lid-ribbon,
+.lid-bow{
+  transition:
+    opacity .25s ease,
+    filter .25s ease;
+}
+
+.mystery-box.opening .lid-bow{
+  filter:drop-shadow(0 8px 8px rgba(0,0,0,.2));
+}
+
+.box-number{
+  position:absolute;
+  z-index:12;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(15px,2vw,25px);
+  font-weight:700;
+  letter-spacing:.08em;
+  color:white;
+  text-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+
+.mystery-box.opening{
+  pointer-events:none;
+  transform:translateY(-18px) scale(1.03);
+}
+
+.mystery-box.opening .box-lid{
+  transform:
+    translateY(-78%)
+    rotate(-9deg)
+    rotateX(5deg);
+  box-shadow:
+    0 24px 28px rgba(0,0,0,.25);
+}
+
+.mystery-box.opening .box-body{
+  opacity:.82;
+}
+
+.mystery-box.opening .box-ribbon-v{
+  opacity:.82;
+}
+
+.mystery-box.opening .box-number{
+  opacity:.45;
+}
+
+/*
+  lid-ribbon and lid-bow are children of the lid,
+  so they automatically follow its movement.
+*/
+.mystery-box.opening .lid-ribbon{
+  opacity:1;
+}
+
+.mystery-box.opening .lid-bow{
+  opacity:1;
+}
+
+.instruction{
+  position:absolute;
+  bottom:34px;
+  left:20px;
+  right:20px;
+  text-align:center;
+  color:#817780;
+  font-size:12px;
+  letter-spacing:.05em;
+}
+
+.flash{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,105,160,.25),transparent 60%);
+}
+
+.flash.active{
+  animation:flash .65s ease;
+}
+
+@keyframes flash{
+  0%{opacity:0}
+  20%{opacity:1}
+  100%{opacity:0}
+}
+
+/* ----------------------------------------------------------
+   FINAL REVEAL
+---------------------------------------------------------- */
+
+.final{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,101,158,.20),transparent 30%),
+    rgba(7,5,10,.94);
+  backdrop-filter:blur(15px);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .7s ease,visibility .7s ease;
+  overflow:auto;
+}
+
+.final.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.final-card{
+  width:min(900px,95vw);
+  min-height:650px;
+  padding:50px 30px 45px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:32px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  box-shadow:0 40px 120px rgba(0,0,0,.6);
+  position:relative;
+  overflow:hidden;
+}
+
+.final-kicker{
+  color:#ff91b5;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  font-size:10px;
+}
+
+.final h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(38px,7vw,65px);
+  margin-top:13px;
+}
+
+.final-message{
+  max-width:590px;
+  margin:15px auto 20px;
+  color:#bdb2b8;
+  line-height:1.8;
+  font-size:14px;
+}
+
+.teddy-wrap{
+  position:relative;
+  width:min(540px,88vw);
+  height:410px;
+  margin:10px auto 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/*
+   Local CSS teddy fallback.
+   The supplied CodePen is the visual reference and its
+   responsive CSS-bear construction is preserved conceptually
+   here so the final experience remains self-contained.
+*/
+
+.teddy{
+  position:relative;
+  width:270px;
+  height:335px;
+  transform:perspective(700px) rotateX(3deg);
+  filter:
+    drop-shadow(0 18px 16px rgba(0,0,0,.35))
+    drop-shadow(0 0 24px rgba(255,166,194,.13));
+}
+
+.teddy .ear{
+  position:absolute;
+  width:90px;
+  height:90px;
+  top:5px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#d99862,#98552f);
+  box-shadow:inset 0 0 0 12px #b86f40;
+  z-index:1;
+}
+
+.teddy .ear.left{left:8px}
+.teddy .ear.right{right:8px}
+
+.teddy .head{
+  position:absolute;
+  width:205px;
+  height:205px;
+  left:32px;
+  top:24px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 25%,rgba(255,255,255,.2),transparent 18%),
+    linear-gradient(145deg,#dfa06b,#a95e35);
+  z-index:3;
+  box-shadow:inset -12px -14px 22px rgba(89,42,23,.22);
+}
+
+.teddy .eye{
+  position:absolute;
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  background:#17110e;
+  top:78px;
+  box-shadow:inset 4px 3px 0 rgba(255,255,255,.8);
+}
+
+.teddy .eye.left{left:55px}
+.teddy .eye.right{right:55px}
+
+.teddy .muzzle{
+  position:absolute;
+  width:115px;
+  height:82px;
+  left:45px;
+  bottom:30px;
+  border-radius:50%;
+  background:#e7aa73;
+}
+
+.teddy .nose{
+  position:absolute;
+  width:34px;
+  height:24px;
+  left:40px;
+  top:14px;
+  border-radius:50%;
+  background:#211612;
+}
+
+.teddy .smile{
+  position:absolute;
+  left:48px;
+  top:38px;
+  width:13px;
+  height:12px;
+  border-left:2px solid #291710;
+  border-bottom:2px solid #291710;
+  transform:rotate(-45deg);
+}
+
+.teddy .body{
+  position:absolute;
+  width:220px;
+  height:200px;
+  left:25px;
+  bottom:0;
+  border-radius:48% 48% 38% 38%;
+  background:
+    radial-gradient(circle at 38% 25%,rgba(255,255,255,.14),transparent 18%),
+    linear-gradient(145deg,#d99a64,#98532f);
+  box-shadow:inset -13px -16px 25px rgba(75,33,19,.2);
+  z-index:2;
+}
+
+.teddy .belly{
+  position:absolute;
+  width:120px;
+  height:125px;
+  left:50px;
+  top:42px;
+  border-radius:50%;
+  background:#e7aa73;
+}
+
+.teddy .arm{
+  position:absolute;
+  width:88px;
+  height:130px;
+  top:86px;
+  border-radius:50%;
+  background:#a65d35;
+  z-index:1;
+}
+
+.teddy .arm.left{
+  left:-13px;
+  transform:rotate(24deg);
+}
+
+.teddy .arm.right{
+  right:-13px;
+  transform:rotate(-24deg);
+}
+
+.teddy .leg{
+  position:absolute;
+  width:105px;
+  height:85px;
+  bottom:-17px;
+  border-radius:50%;
+  background:#a65d35;
+  z-index:1;
+}
+
+.teddy .leg.left{left:8px}
+.teddy .leg.right{right:8px}
+
+.spark{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#ffd47d;
+  box-shadow:0 0 12px #ffd47d;
+  animation:sparkFloat 2.5s ease-in-out infinite;
+}
+
+.spark:nth-child(1){left:13%;top:20%}
+.spark:nth-child(2){left:82%;top:26%;animation-delay:.4s}
+.spark:nth-child(3){left:19%;top:70%;animation-delay:.8s}
+.spark:nth-child(4){left:76%;top:72%;animation-delay:1.2s}
+.spark:nth-child(5){left:91%;top:48%;animation-delay:1.6s}
+.spark:nth-child(6){left:7%;top:48%;animation-delay:2s}
+
+@keyframes sparkFloat{
+  0%,100%{transform:translateY(0) scale(.8);opacity:.3}
+  50%{transform:translateY(-18px) scale(1.4);opacity:1}
+}
+
+.final-close{
+  margin-top:4px;
+  border:1px solid rgba(255,255,255,.13);
+  color:#f2dbe4;
+  background:rgba(255,255,255,.05);
+  border-radius:999px;
+  padding:12px 22px;
+  cursor:pointer;
+}
+
+.confetti{
+  position:fixed;
+  z-index:120;
+  top:-20px;
+  width:8px;
+  height:15px;
+  pointer-events:none;
+  animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+  to{
+    transform:translate3d(var(--x),110vh,0) rotate(var(--r));
+    opacity:0;
+  }
+}
+
+@media(max-width:600px){
+  .box-stage{
+    min-height:520px;
+  }
+
+  .final-card{
+    padding:38px 18px 35px;
+  }
+
+  .teddy-wrap{
+    transform:scale(.96);
+  }
+
+  .teddy{
+    transform:perspective(700px) rotateX(3deg) scale(.96);
+  }
+}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="noise"></div>
+<div class="flash" id="flash"></div>
+
+<main class="app">
+
+  <div class="top">
+    <div class="brand">Gift 11 · Mystery Department</div>
+    <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+  </div>
+
+  <section class="intro">
+    <div class="eyebrow">Something is hiding inside</div>
+    <h1>18 Mystery Boxes</h1>
+    <p>
+      One box inside another. Each one gets smaller.
+      Keep opening them until there is nowhere left to hide.
+    </p>
+    <div class="counter" id="counter">BOX 01 / 18</div>
+  </section>
+
+  <section class="box-stage" id="stage">
+    <div class="box-shadow"></div>
+
+    <div
+      class="mystery-box"
+      id="box"
+      tabindex="0"
+      role="button"
+      aria-label="Open mystery box"
+      style="--size:360px;--box:#d84b78;--box-dark:#7b2445;--ribbon:#ffd47d;"
+    >
+      <div class="box-body"></div>
+
+      <!-- Ribbon that remains attached to the box body -->
+      <div class="box-ribbon-v"></div>
+
+      <!-- The entire upper assembly belongs to the lid -->
+      <div class="box-lid">
+        <div class="lid-ribbon"></div>
+        <div class="lid-bow"></div>
+      </div>
+
+      <div class="box-number">01</div>
+    </div>
+
+    <div class="instruction" id="instruction">
+      Click the box to open it
+    </div>
+  </section>
+
+</main>
+
+<section class="final" id="final">
+  <div class="final-card">
+
+    <div class="final-kicker">You actually opened all of them</div>
+
+    <h2>You found the surprise.</h2>
+
+    <p class="final-message">
+      Eighteen boxes. Eighteen attempts to hide one little surprise.
+      And somehow, you made it all the way here.
+      So this one is yours.
+    </p>
+
+    <div class="teddy-wrap">
+
+      <span class="spark"></span>
+      <span class="spark"></span>
+      <span class="spark"></span>
+      <span class="spark"></span>
+      <span class="spark"></span>
+      <span class="spark"></span>
+
+      <div class="teddy" aria-label="3D teddy bear">
+
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+
+        <div class="body">
+          <div class="belly"></div>
+        </div>
+
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+
+        <div class="head">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+
+          <div class="muzzle">
+            <div class="nose"></div>
+            <div class="smile"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="final-close" onclick="closeFinal()">
+      Keep the surprise forever
+    </button>
+
+  </div>
+</section>
+
+<script>
+const colors = [
+  ["#e84f78","#79203c","#ffe09a"],
+  ["#f07b3f","#813817","#fff0b8"],
+  ["#e0b12f","#765914","#fff4c9"],
+  ["#53b878","#245e3a","#ffe9a6"],
+  ["#2fa6a0","#185b59","#fff0b4"],
+  ["#3e8dcc","#214b78","#ffe2a0"],
+  ["#596ee0","#2f397d","#ffd889"],
+  ["#865bd4","#472a73","#ffe4a8"],
+  ["#b45bd4","#642b73","#ffe1a2"],
+  ["#e455a0","#742451","#ffe7a9"],
+  ["#e95d69","#792b31","#fff0bd"],
+  ["#c98542","#71441f","#fff1b9"],
+  ["#a7b83d","#566218","#fff2ad"],
+  ["#46a66e","#235d42","#ffe6a1"],
+  ["#3f9dbb","#20536a","#ffecae"],
+  ["#6279d4","#303f79","#ffe29b"],
+  ["#9b5bc7","#512b70","#ffe7aa"],
+  ["#d94b7b","#6c1f3c","#fff0bb"]
+];
+
+const sizes = [
+  360,330,305,280,258,238,220,203,187,
+  172,158,145,132,120,108,96,84,72
+];
+
+let current = 0;
+let busy = false;
+
+const box = document.getElementById("box");
+const counter = document.getElementById("counter");
+const instruction = document.getElementById("instruction");
+const flash = document.getElementById("flash");
+const finalScreen = document.getElementById("final");
+
+function setBox(){
+  const c = colors[current];
+  const size = sizes[current];
+
+  box.style.setProperty("--size",size+"px");
+  box.style.setProperty("--box",c[0]);
+  box.style.setProperty("--box-dark",c[1]);
+  box.style.setProperty("--ribbon",c[2]);
+
+  box.querySelector(".box-number").textContent =
+    String(current+1).padStart(2,"0");
+
+  counter.textContent =
+    "BOX " + String(current+1).padStart(2,"0") + " / 18";
+
+  instruction.textContent =
+    current === 17
+      ? "This is the last one..."
+      : "Click the box to open it";
+}
+
+function burst(){
+  flash.classList.remove("active");
+  void flash.offsetWidth;
+  flash.classList.add("active");
+
+  for(let i=0;i<12;i++){
+    const particle=document.createElement("div");
+    particle.className="confetti";
+
+    particle.style.left=(45+Math.random()*10)+"%";
+    particle.style.background=[
+      "#ff6f9f",
+      "#ffd47d",
+      "#9e7cff",
+      "#75d9ca",
+      "#ffffff"
+    ][Math.floor(Math.random()*5)];
+
+    particle.style.setProperty("--x",(Math.random()*500-250)+"px");
+    particle.style.setProperty("--r",(Math.random()*900-450)+"deg");
+    particle.style.animationDuration=(1.1+Math.random()*.9)+"s";
+
+    document.body.appendChild(particle);
+
+    setTimeout(()=>particle.remove(),2200);
+  }
+}
+
+function openBox(){
+  if(busy) return;
+
+  busy=true;
+  box.classList.add("opening");
+  burst();
+
+  setTimeout(()=>{
+    if(current===17){
+      document.body.classList.add("celebrating");
+
+      setTimeout(()=>{
+        finalScreen.classList.add("show");
+        bigCelebration();
+        busy=false;
+      },350);
+
+      return;
+    }
+
+    current++;
+
+    box.classList.remove("opening");
+
+    box.style.transform="scale(.65)";
+
+    requestAnimationFrame(()=>{
+      setBox();
+
+      setTimeout(()=>{
+        box.style.transform="";
+        busy=false;
+      },80);
+    });
+
+  },650);
+}
+
+function bigCelebration(){
+  for(let i=0;i<80;i++){
+    const particle=document.createElement("div");
+    particle.className="confetti";
+
+    particle.style.left=(Math.random()*100)+"%";
+    particle.style.background=[
+      "#ff6f9f",
+      "#ffd47d",
+      "#9e7cff",
+      "#75d9ca",
+      "#ffffff"
+    ][Math.floor(Math.random()*5)];
+
+    particle.style.width=(5+Math.random()*7)+"px";
+    particle.style.height=(8+Math.random()*12)+"px";
+    particle.style.setProperty("--x",(Math.random()*700-350)+"px");
+    particle.style.setProperty("--r",(Math.random()*1400-700)+"deg");
+    particle.style.animationDuration=(1.5+Math.random()*2.2)+"s";
+    particle.style.animationDelay=(Math.random()*.45)+"s";
+
+    document.body.appendChild(particle);
+
+    setTimeout(()=>particle.remove(),4300);
+  }
+}
+
+function closeFinal(){
+  finalScreen.classList.remove("show");
+  document.body.classList.remove("celebrating");
+}
+
+box.addEventListener("click",openBox);
+
+box.addEventListener("keydown",e=>{
+  if(e.key==="Enter" || e.key===" "){
+    e.preventDefault();
+    openBox();
+  }
+});
+
+setBox();
+</script>
+
+</body>
+</html>

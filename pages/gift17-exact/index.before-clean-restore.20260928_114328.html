@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Jigsaw puzzle</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body><div class="gift17-particles" aria-hidden="true"></div>
+  <div id=forPuzzle></div>
+    <div id="menu">
+        <p id="controls">close controls</p><div class="gift17-brand"><span class="gift17-brand-dot"></span><span>The Missing Pieces</span><small>Gift 17</small></div><button type="button" id="themeToggle" class="theme-toggle"><span class="theme-icon">☾</span><span class="theme-label">Dark theme</span></button>
+        <div id="showhide">
+            <hr>
+            <p class="center"><button type="button" id="help">instructions</button></p>
+            <hr>
+            <p class="center">
+                <button type="button" id="default">default image</button>
+                <button type="button" id="load">load image</button>
+            </p>
+            
+            <p class="picture-picker">
+                <label for="gift17Picture">built-in picture</label>
+                <select id="gift17Picture">
+                    <option value="01">Picture 01</option>
+                    <option value="02">Picture 02</option>
+                    <option value="03">Picture 03</option>
+                    <option value="04">Picture 04</option>
+                    <option value="05">Picture 05</option>
+                    <option value="06">Picture 06</option>
+                    <option value="07">Picture 07</option>
+                    <option value="08">Picture 08</option>
+                    <option value="09">Picture 09</option>
+                    <option value="10">Picture 10</option>
+                    <option value="11">Picture 11</option>
+                    <option value="12">Picture 12</option>
+                    <option value="13">Picture 13</option>
+                    <option value="14">Picture 14</option>
+                    <option value="15">Picture 15</option>
+                    <option value="16">Picture 16</option>
+                    <option value="17">Picture 17</option>
+                    <option value="18">Picture 18</option>
+                </select>
+            </p>
+            <p class="center">
+                <button type="button" id="show">show image</button>
+            </p>
+
+            <p><input type=checkbox id="enablerot"><label for="enablerot" id="enablerotlabel">enable rotation</label>
+            </p>
+            <p>shape: <select id="shape">
+                    <option value="1" selected>classic</option>
+                    <option value="2">triangle</option>
+                    <option value="3">round</option>
+                    <option value="4">straight</option>
+                </select></p>
+            <p>number of pieces: <select id="nbpieces">
+                    <option selected>12</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                </select></p>
+            <p>between connected pieces: <select id="drawmode">
+                    <option value="1" selected>thin line</option>
+                    <option value="2">flat</option>
+                    <option value="3">bevel</option>
+                </select></p>
+            <p class="center"><button type="button" id="start">start game</button><button type="button" id="stop">stop
+                    game</button></p>
+            <hr>
+            <p>storage: <button type="button" id="helpstorage">?</button></p>
+            <p class="center"><button type="button" id="save">save game</button><button type="button"
+                    id="restore">restore game</button></p>
+            <hr>
+            <p>file: <button type="button" id="helpfile">?</button></p>
+            <p class="center"><button type="button" id="fsave">save game</button><button type="button"
+                    id="frestore">restore game</button></p>
+            <p>save name: <input type="text" id="saveas"><span id="saveext"></span></p>
+        </div> <!-- showhide -->
+    </div> <!-- menu -->
+    <script src="./script.js"></script>
+
+  </body>
+  
+</html>

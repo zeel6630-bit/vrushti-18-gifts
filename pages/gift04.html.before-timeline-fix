@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gift 04 · Our Future Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap');
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+background:#f8f3ea;
+color:#554d46;
+font-family:Manrope,sans-serif;
+overflow-x:hidden;
+}
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background:
+radial-gradient(circle at 10% 15%,rgba(240,199,174,.35),transparent 27%),
+radial-gradient(circle at 88% 25%,rgba(198,220,198,.38),transparent 30%),
+radial-gradient(circle at 45% 90%,rgba(216,204,232,.35),transparent 32%);
+z-index:-3;
+}
+.paper{
+position:fixed;
+inset:0;
+opacity:.2;
+pointer-events:none;
+background-image:
+linear-gradient(rgba(130,105,85,.08) 1px,transparent 1px),
+linear-gradient(90deg,rgba(130,105,85,.08) 1px,transparent 1px);
+background-size:42px 42px;
+mask-image:linear-gradient(to bottom,transparent,black 15%,black 85%,transparent);
+z-index:-2;
+}
+.floating{
+position:fixed;
+width:12px;height:12px;
+border-radius:50%;
+background:#d9b9a3;
+opacity:.25;
+animation:float 10s ease-in-out infinite;
+pointer-events:none;
+}
+.f1{left:12%;top:22%}.f2{left:82%;top:35%;animation-delay:2s}.f3{left:67%;top:78%;animation-delay:4s}.f4{left:27%;top:70%;animation-delay:6s}
+@keyframes float{50%{transform:translateY(-35px) translateX(20px);opacity:.5}}
+
+.back{
+position:fixed;top:18px;left:18px;z-index:40;
+padding:10px 15px;
+border-radius:999px;
+background:rgba(255,253,247,.76);
+border:1px solid rgba(95,75,60,.12);
+backdrop-filter:blur(12px);
+color:#6b6057;
+text-decoration:none;
+font:500 11px 'DM Sans';
+box-shadow:0 8px 28px rgba(90,65,45,.07);
+}
+
+.hero{
+min-height:82vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:100px 20px 50px;
+}
+.hero-inner{max-width:850px}
+.kicker{
+font:500 10px 'DM Sans';
+letter-spacing:.24em;
+color:#a9826b;
+text-transform:uppercase;
+}
+h1{
+font-size:clamp(52px,9vw,105px);
+font-weight:400;
+letter-spacing:-.065em;
+line-height:.92;
+margin:22px 0;
+color:#514a44;
+}
+.hero p{
+max-width:680px;
+margin:auto;
+font-size:15px;
+line-height:1.9;
+color:#857a72;
+}
+.house{
+width:110px;height:80px;
+margin:45px auto 30px;
+position:relative;
+animation:housefloat 5s ease-in-out infinite;
+}
+.house:before{
+content:"";
+position:absolute;
+left:5px;top:25px;
+width:100px;height:55px;
+border:2px solid #b8947d;
+border-top:0;
+border-radius:4px;
+background:rgba(255,255,255,.38);
+}
+.house:after{
+content:"";
+position:absolute;
+left:10px;top:3px;
+width:76px;height:76px;
+border-left:2px solid #b8947d;
+border-top:2px solid #b8947d;
+transform:rotate(45deg) scale(.72);
+background:#f8f3ea;
+}
+@keyframes housefloat{50%{transform:translateY(-7px)}}
+.scroll{
+font:500 10px 'DM Sans';
+letter-spacing:.18em;
+color:#9a8e86;
+}
+
+.blueprint{
+width:min(1050px,92vw);
+margin:auto;
+padding:30px 0 110px;
+}
+.heading{
+display:flex;
+align-items:end;
+justify-content:space-between;
+margin-bottom:45px;
+gap:20px;
+}
+.heading h2{
+font-size:32px;
+font-weight:400;
+margin:0;
+letter-spacing:-.04em;
+}
+.heading span{
+font:500 10px 'DM Sans';
+letter-spacing:.15em;
+color:#a99d94;
+}
+
+.route{
+position:relative;
+padding:10px 0;
+}
+.route:before{
+content:"";
+position:absolute;
+left:50%;
+top:0;
+bottom:0;
+width:2px;
+background:linear-gradient(#d8c0ad,#b9cfbd,#c8bdd8,#d8c0ad);
+transform:translateX(-50%);
+}
+.station{
+position:relative;
+width:50%;
+padding:0 50px 75px 0;
+}
+.station:nth-child(even){
+margin-left:50%;
+padding:0 0 75px 50px;
+}
+.node{
+position:absolute;
+right:-12px;
+top:18px;
+width:25px;height:25px;
+border-radius:50%;
+background:#f8f3ea;
+border:2px solid #b99580;
+box-shadow:0 0 0 7px rgba(185,149,128,.1);
+z-index:2;
+}
+.station:nth-child(even) .node{
+left:-12px;
+right:auto;
+}
+.blueprint-piece{
+position:relative;
+padding:28px;
+border:1px solid rgba(100,78,62,.13);
+border-radius:24px;
+background:rgba(255,253,248,.67);
+box-shadow:
+0 18px 55px rgba(95,70,50,.07),
+inset 0 1px rgba(255,255,255,.85);
+transition:.5s cubic-bezier(.2,.8,.2,1);
+cursor:pointer;
+}
+.blueprint-piece:hover{
+transform:translateY(-7px) scale(1.015);
+box-shadow:0 27px 70px rgba(95,70,50,.12);
+border-color:rgba(130,100,80,.24);
+}
+.plan-mark{
+width:58px;height:58px;
+border:1px solid var(--accent);
+border-radius:18px;
+position:relative;
+margin-bottom:22px;
+background:var(--wash);
+}
+.plan-mark:before,
+.plan-mark:after{
+content:"";
+position:absolute;
+background:var(--accent);
+opacity:.7;
+}
+.plan-mark:before{width:28px;height:1px;left:14px;top:28px}
+.plan-mark:after{width:1px;height:28px;left:28px;top:14px}
+.station:nth-child(2) .plan-mark{border-radius:50%}
+.station:nth-child(3) .plan-mark{transform:rotate(45deg);border-radius:8px}
+.station:nth-child(4) .plan-mark{border-radius:8px 22px}
+.station:nth-child(5) .plan-mark{border-style:dashed}
+.station:nth-child(6) .plan-mark{border-width:2px}
+.station:nth-child(7) .plan-mark{border-radius:50% 8px}
+.station:nth-child(8) .plan-mark{transform:scale(.85)}
+.station:nth-child(9) .plan-mark{border-radius:8px 8px 25px}
+.station:nth-child(10) .plan-mark{border-style:dotted}
+.station:nth-child(11) .plan-mark{transform:rotate(-20deg)}
+.station:nth-child(12) .plan-mark{border-radius:50% 20%}
+.station:nth-child(13) .plan-mark{border-width:3px}
+.station:nth-child(14) .plan-mark{border-radius:25%}
+.station:nth-child(15) .plan-mark{transform:rotate(20deg) scale(.9)}
+.station:nth-child(16) .plan-mark{border-radius:50%}
+.station:nth-child(17) .plan-mark{border-style:dashed;border-radius:5px}
+.station:nth-child(18) .plan-mark{transform:rotate(-10deg);border-width:2px}
+
+.phase{
+font:500 10px 'DM Sans';
+letter-spacing:.15em;
+color:#a88874;
+margin-bottom:10px;
+}
+.blueprint-piece h3{
+font-size:23px;
+font-weight:500;
+line-height:1.25;
+margin:0 0 10px;
+color:#584f48;
+}
+.blueprint-piece p{
+font-size:13px;
+line-height:1.75;
+margin:0;
+color:#877c74;
+}
+.detail-line{
+margin-top:18px;
+padding-top:13px;
+border-top:1px solid rgba(100,78,62,.08);
+font-size:11px;
+color:#a0958d;
+}
+
+.closing{
+margin:30px auto 0;
+padding:40px;
+width:min(850px,92vw);
+text-align:center;
+border:1px solid rgba(100,78,62,.12);
+border-radius:30px;
+background:rgba(255,253,248,.62);
+}
+.closing h2{
+font-size:34px;
+font-weight:400;
+margin:0 0 15px;
+}
+.closing p{
+font-size:14px;
+line-height:1.9;
+color:#877c74;
+max-width:650px;
+margin:auto;
+}
+.status{
+display:inline-block;
+margin-top:25px;
+padding:10px 15px;
+border:1px solid rgba(169,130,107,.25);
+border-radius:999px;
+font:500 9px 'DM Sans';
+letter-spacing:.15em;
+color:#a9826b;
+}
+
+.modal{
+position:fixed;
+inset:0;
+display:none;
+place-items:center;
+padding:20px;
+background:rgba(75,62,55,.18);
+backdrop-filter:blur(18px);
+z-index:100;
+}
+.modal.open{display:grid}
+.window{
+width:min(680px,94vw);
+max-height:88vh;
+overflow:auto;
+padding:38px;
+border-radius:30px;
+background:rgba(255,253,248,.92);
+border:1px solid rgba(100,78,62,.14);
+box-shadow:0 40px 120px rgba(70,50,40,.18);
+animation:windowin .5s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes windowin{from{opacity:0;transform:translateY(25px) scale(.96)}to{opacity:1;transform:none}}
+.window-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font:500 10px 'DM Sans';
+letter-spacing:.14em;
+color:#a08f84;
+}
+.close{
+width:32px;height:32px;
+border:0;border-radius:50%;
+background:#eee4dc;
+color:#75675e;
+cursor:pointer;
+font-size:17px;
+}
+.window h2{
+font-size:42px;
+font-weight:400;
+line-height:1.05;
+letter-spacing:-.045em;
+margin:25px 0 15px;
+}
+.window p{
+font-size:15px;
+line-height:1.9;
+color:#81766f;
+}
+.specs{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:25px;
+}
+.spec{
+padding:16px;
+background:#f7f0e9;
+border-radius:16px;
+}
+.spec small{
+display:block;
+font:500 9px 'DM Sans';
+letter-spacing:.12em;
+color:#a89589;
+margin-bottom:7px;
+}
+.spec span{
+font-size:13px;
+color:#665d56;
+line-height:1.5;
+}
+footer{
+padding:30px;
+text-align:center;
+font:500 10px 'DM Sans';
+letter-spacing:.13em;
+color:#aaa097;
+}
+
+@media(max-width:760px){
+.route:before{left:10px}
+.station,.station:nth-child(even){
+width:100%;
+margin:0;
+padding:0 0 45px 45px;
+}
+.node,.station:nth-child(even) .node{
+left:-2px;
+right:auto;
+}
+}
+@media(max-width:570px){
+.window{padding:25px}
+.specs{grid-template-columns:1fr}
+}
+</style>
+
+
+
+
+<style id="universal-simple-sparkle-logo">
+/* ==========================================================
+   UNIVERSAL LOGO
+   One simple monochrome four-point sparkle.
+   Used everywhere in Gift 04 + Gift 16.
+   ========================================================== */
+
+:root {
+    --universal-logo-color: #4b4d4b;
+}
+
+/* ---------- Gift 04 marks ---------- */
+
+.blueprint-unified-logo,
+.plan-mark,
+.blueprint-mark,
+.future-mark {
+
+    position: relative !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    color: var(--universal-logo-color) !important;
+
+    font-size: 0 !important;
+    line-height: 0 !important;
+
+    overflow: visible !important;
+
+    transform: none !important;
+}
+
+/* ---------- Gift 16 marks ---------- */
+
+.parallel-universe-logo,
+.universe-mark,
+.art {
+
+    position: relative !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    color: var(--universal-logo-color) !important;
+
+    font-size: 0 !important;
+    line-height: 0 !important;
+
+    overflow: visible !important;
+
+    transform: none !important;
+}
+
+
+/* ==========================================================
+   Remove EVERY previous decorative pseudo-logo
+   ========================================================== */
+
+.blueprint-unified-logo::after,
+.plan-mark::after,
+.blueprint-mark::after,
+.future-mark::after,
+
+.parallel-universe-logo::after,
+.universe-mark::after,
+.art::after {
+
+    content: none !important;
+}
+
+
+/* ==========================================================
+   THE ONE LOGO
+   Simple four-point sparkle.
+   ========================================================== */
+
+.blueprint-unified-logo::before,
+.plan-mark::before,
+.blueprint-mark::before,
+.future-mark::before,
+
+.parallel-universe-logo::before,
+.universe-mark::before,
+.art::before {
+
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    width: 27px !important;
+    height: 27px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    background: var(--universal-logo-color) !important;
+
+    clip-path: polygon(
+        50% 0%,
+        58% 41%,
+        100% 50%,
+        58% 59%,
+        50% 100%,
+        42% 59%,
+        0% 50%,
+        42% 41%
+    ) !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    animation: none !important;
+}
+
+
+/* ==========================================================
+   HERO / MAIN LOGO IN GIFT 04
+   If the old house mark was attached to another container,
+   convert that container into the same simple sparkle.
+   ========================================================== */
+
+.gift04-hero-logo,
+.blueprint-hero-logo,
+.future-blueprint-logo,
+.page-logo,
+.main-logo {
+
+    color: var(--universal-logo-color) !important;
+}
+
+
+/*
+   Any old house-shaped CSS artwork near the Gift 04
+   blueprint header is visually neutralized.
+*/
+.gift04-hero-logo::before,
+.blueprint-hero-logo::before,
+.future-blueprint-logo::before {
+
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    background: var(--universal-logo-color) !important;
+
+    clip-path: polygon(
+        50% 0%,
+        58% 41%,
+        100% 50%,
+        58% 59%,
+        50% 100%,
+        42% 59%,
+        0% 50%,
+        42% 41%
+    ) !important;
+
+    border: 0 !important;
+    box-shadow: none !important;
+
+    animation: none !important;
+}
+
+.gift04-hero-logo::after,
+.blueprint-hero-logo::after,
+.future-blueprint-logo::after {
+
+    content: none !important;
+}
+
+
+/* ==========================================================
+   NO LOGO ANIMATION
+   The actual logo stays completely static.
+   ========================================================== */
+
+.blueprint-unified-logo,
+.plan-mark,
+.blueprint-mark,
+.future-mark,
+.parallel-universe-logo,
+.universe-mark,
+.art,
+.blueprint-unified-logo::before,
+.plan-mark::before,
+.blueprint-mark::before,
+.future-mark::before,
+.parallel-universe-logo::before,
+.universe-mark::before,
+.art::before {
+
+    animation: none !important;
+}
+
+
+/* ==========================================================
+   Subtle hover only on the CONTAINER.
+   The logo itself does not animate.
+   ========================================================== */
+
+.blueprint-unified-logo:hover,
+.plan-mark:hover,
+.blueprint-mark:hover,
+.future-mark:hover,
+.parallel-universe-logo:hover,
+.universe-mark:hover,
+.art:hover {
+
+    transform: none !important;
+}
+
+
+/* ==========================================================
+   HOME PAGE GIFT ICON
+   Same exact logo language.
+   ========================================================== */
+
+.universal-home-gift-logo {
+
+    position: relative !important;
+
+    display: inline-grid !important;
+    place-items: center !important;
+
+    width: 34px !important;
+    height: 34px !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    color: var(--universal-logo-color) !important;
+
+    font-size: 0 !important;
+
+    box-shadow: none !important;
+}
+
+.universal-home-gift-logo::before {
+
+    content: "" !important;
+
+    position: absolute !important;
+
+    width: 22px !important;
+    height: 22px !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    background: var(--universal-logo-color) !important;
+
+    clip-path: polygon(
+        50% 0%,
+        58% 41%,
+        100% 50%,
+        58% 59%,
+        50% 100%,
+        42% 59%,
+        0% 50%,
+        42% 41%
+    ) !important;
+
+    animation: none !important;
+}
+</style>
+
+
+<style id="gift04-remove-old-house">
+/* ==========================================================
+   GIFT 04 — REMOVE OLD HOUSE / HERO BLUEPRINT ARTWORK
+   ========================================================== */
+
+/* Remove the old architectural/house illustration */
+.hero-mark svg,
+.hero-logo svg,
+.blueprint-hero svg,
+.future-blueprint-logo svg,
+.gift04-hero-logo svg,
+.hero-icon svg,
+.hero-art svg {
+    display: none !important;
+}
+
+/* Neutralize common old house-outline elements */
+.hero-mark,
+.hero-logo,
+.blueprint-hero,
+.future-blueprint-logo,
+.gift04-hero-logo,
+.hero-icon,
+.hero-art {
+    background: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================
+   ONE SIMPLE STATIC LOGO
+   ========================================================== */
+
+.hero-mark::before,
+.hero-logo::before,
+.blueprint-hero::before,
+.future-blueprint-logo::before,
+.gift04-hero-logo::before,
+.hero-icon::before,
+.hero-art::before {
+    content: "" !important;
+
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    background: #4b4d4b !important;
+
+    clip-path: polygon(
+        50% 0%,
+        58% 41%,
+        100% 50%,
+        58% 59%,
+        50% 100%,
+        42% 59%,
+        0% 50%,
+        42% 41%
+    ) !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    animation: none !important;
+}
+
+/* Kill any old pseudo-element artwork */
+.hero-mark::after,
+.hero-logo::after,
+.blueprint-hero::after,
+.future-blueprint-logo::after,
+.gift04-hero-logo::after,
+.hero-icon::after,
+.hero-art::after {
+    content: none !important;
+}
+
+/* Absolutely no animation on the logo */
+.hero-mark,
+.hero-logo,
+.blueprint-hero,
+.future-blueprint-logo,
+.gift04-hero-logo,
+.hero-icon,
+.hero-art,
+.hero-mark::before,
+.hero-logo::before,
+.blueprint-hero::before,
+.future-blueprint-logo::before,
+.gift04-hero-logo::before,
+.hero-icon::before,
+.hero-art::before {
+    animation: none !important;
+}
+</style>
+
+
+<style id="gift04-final-background-and-hero-fix">
+
+/* ==========================================================
+   1. REMOVE THE OLD HOUSE / ARCHITECTURAL HERO ART
+   ========================================================== */
+
+/* Anything explicitly named as house/architecture */
+[class*="house"],
+[id*="house"],
+[class*="House"],
+[id*="House"],
+[class*="architecture"],
+[id*="architecture"],
+[class*="Architecture"],
+[id*="Architecture"],
+[class*="house-icon"],
+[id*="house-icon"],
+[class*="home-icon"],
+[id*="home-icon"] {
+    display: none !important;
+}
+
+
+/* Old blueprint illustration containers */
+[class*="hero-art"],
+[id*="hero-art"],
+[class*="heroArt"],
+[id*="heroArt"],
+[class*="hero-mark"],
+[id*="hero-mark"],
+[class*="heroMark"],
+[id*="heroMark"] {
+    background: none !important;
+    background-image: none !important;
+}
+
+
+/* SVG artwork inside the Gift 04 hero */
+.hero svg,
+.hero-section svg,
+.hero-area svg,
+.hero-visual svg,
+.hero-illustration svg,
+.blueprint-hero svg,
+.future-hero svg,
+.future-blueprint svg {
+    display: none !important;
+}
+
+
+/* Explicitly kill common old house line elements */
+.house-line,
+.house-roof,
+.house-wall,
+.house-outline,
+.blueprint-house,
+.blueprint-house-icon,
+.architecture-mark,
+.home-outline,
+.roof-line {
+    display: none !important;
+}
+
+
+/* ==========================================================
+   2. CLEAN HERO AREA
+   ========================================================== */
+
+.gift04-hero-logo,
+.blueprint-hero-logo,
+.future-blueprint-logo,
+.hero-logo,
+.hero-mark,
+.hero-icon {
+    background: transparent !important;
+    background-image: none !important;
+
+    border: 0 !important;
+    box-shadow: none !important;
+
+    outline: none !important;
+
+    transform: none !important;
+}
+
+
+/* Remove previous logo pseudo-artwork */
+.gift04-hero-logo::before,
+.gift04-hero-logo::after,
+.blueprint-hero-logo::before,
+.blueprint-hero-logo::after,
+.future-blueprint-logo::before,
+.future-blueprint-logo::after,
+.hero-logo::before,
+.hero-logo::after,
+.hero-mark::before,
+.hero-mark::after,
+.hero-icon::before,
+.hero-icon::after {
+    content: none !important;
+}
+
+
+/* ==========================================================
+   3. NEW PARTICLE BACKGROUND
+   ========================================================== */
+
+.gift04-background-particles {
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+
+    min-height: 100% !important;
+
+    overflow: hidden !important;
+
+    pointer-events: none !important;
+
+    z-index: 0 !important;
+
+    isolation: isolate !important;
+}
+
+
+/* Individual particles */
+
+.gift04-background-particles .bg-particle {
+
+    position: absolute !important;
+
+    display: block !important;
+
+    border-radius: 50% !important;
+
+    pointer-events: none !important;
+
+    user-select: none !important;
+
+    opacity: var(--particle-opacity) !important;
+
+    width: var(--particle-size) !important;
+    height: var(--particle-size) !important;
+
+    left: var(--particle-left) !important;
+    top: var(--particle-top) !important;
+
+    background: var(--particle-color) !important;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.22),
+        0 0 12px rgba(92,113,105,.07) !important;
+
+    animation:
+        gift04ParticleFloat
+        var(--particle-duration)
+        var(--particle-delay)
+        ease-in-out
+        infinite alternate !important;
+
+    will-change: transform !important;
+}
+
+
+/* Very subtle floating motion */
+
+@keyframes gift04ParticleFloat {
+
+    0% {
+        transform:
+            translate3d(
+                calc(var(--particle-x) * -1),
+                calc(var(--particle-y) * -1),
+                0
+            )
+            scale(.88);
+    }
+
+    50% {
+        transform:
+            translate3d(0,0,0)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                var(--particle-x),
+                var(--particle-y),
+                0
+            )
+            scale(1.08);
+    }
+}
+
+
+/* ==========================================================
+   4. EVERYTHING IMPORTANT STAYS ABOVE PARTICLES
+   ========================================================== */
+
+body > *:not(.gift04-background-particles) {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Main content layers */
+main,
+.hero,
+.hero-section,
+.page,
+.page-content,
+.content,
+.container,
+.blueprint,
+.timeline,
+.route,
+.stations,
+.cards,
+section {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Modals must ALWAYS be above everything */
+.modal,
+.dialog,
+.overlay,
+.popup,
+.lightbox {
+    z-index: 9999 !important;
+}
+
+
+/* Cards remain completely clean */
+.card,
+.blueprint-card,
+.station,
+.panel,
+.future-card,
+.plan-card {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+
+/* Particles can NEVER capture clicks */
+.gift04-background-particles,
+.gift04-background-particles * {
+    pointer-events: none !important;
+}
+
+
+/* ==========================================================
+   5. DO NOT LET PARTICLES BLEED OVER TEXT
+   ========================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+small,
+strong,
+button,
+a,
+.card *,
+.station *,
+.panel * {
+    position: relative;
+    z-index: 3;
+}
+
+
+/* ==========================================================
+   6. CLEAN TOP SPACE
+   ========================================================== */
+
+/* Remove any leftover decorative hero icon area */
+.gift04-old-hero-art,
+.old-hero-art,
+.legacy-hero-art,
+.legacy-house-art,
+.house-art {
+    display: none !important;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="paper"></div>
+<div class="floating f1"></div>
+<div class="floating f2"></div>
+<div class="floating f3"></div>
+<div class="floating f4"></div>
+
+<a class="back" href="home.html">← GIFTS</a>
+
+<section class="hero">
+<div class="hero-inner">
+<div class="kicker">Gift 04 · Future Blueprint</div>
+
+<h1>A life we're<br>still designing.</h1>
+<p>
+Not a checklist. Not a promise that everything will happen exactly this way.
+Just the places, machines, rooms, adventures, work and little ordinary moments
+that make the future feel worth building.
+</p>
+<div class="scroll">FOLLOW THE BLUEPRINT ↓</div>
+</div>
+</section>
+
+<section class="blueprint">
+<div class="heading">
+<h2>The Future Plan</h2>
+<span>18 BLUEPRINT POINTS</span>
+</div>
+
+<div class="route">
+
+<article class="station" style="--accent:#c49479;--wash:#f3e2d6" data-id="01">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">01 · FIRST DESTINATION</div>
+<h3>Places We Still Want To Discover</h3>
+<p>The honeymoon coordinate. The first big “we actually made it” destination — walking through the gates together instead of only talking about the trip.</p>
+<div class="detail-line">PLAN TYPE · HONEYMOON</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#91a99a;--wash:#e3eee7" data-id="02">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">02 · MOUNTAINS</div>
+<h3>The Life We Want To Experience</h3>
+<p>Cold air, mountains, beautiful roads and enough time to slow down and actually experience the place rather than rushing through it.</p>
+<div class="detail-line">PLAN TYPE · TRAVEL</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#a78eaa;--wash:#eee5f0" data-id="03">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">03 · TWO WHEELS</div>
+<h3>Adventures We Haven't Planned Yet</h3>
+<p>A proper road adventure: bikes, mountain passes, unpredictable weather, roadside chai and the kind of exhaustion that becomes a story.</p>
+<div class="detail-line">PLAN TYPE · ROAD TRIP</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#b99679;--wash:#f1e6da" data-id="04">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">04 · FOUNDATION</div>
+<h3>The Space We Want To Build</h3>
+<p>A home that feels peaceful rather than impressive. Our corners, our routines, our things, our food, our lazy days and a place that feels completely ours.</p>
+<div class="detail-line">PLAN TYPE · HOME</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#8ea3b1;--wash:#e3edf2" data-id="05">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">05 · GARAGE</div>
+<h3>The Things We Want To Earn</h3>
+<p>The driver's-car chapter. The machine that belongs on the dream list because some dreams are simply meant to make you smile when you turn the key.</p>
+<div class="detail-line">PLAN TYPE · DREAM CAR</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#9a9f7c;--wash:#e9eadb" data-id="06">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">06 · ADVENTURE MACHINE</div>
+<h3>The Freedom We Want To Create</h3>
+<p>The other side of the garage: something made for long roads, rough roads, road trips and places where the road eventually stops.</p>
+<div class="detail-line">PLAN TYPE · DREAM CAR</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#bd8f91;--wash:#f2dfdf" data-id="07">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">07 · WORK</div>
+<h3>The Work We Want To Be Proud Of</h3>
+<p>Turn years of learning, mistakes and late nights into something real — work that creates value instead of only filling a calendar.</p>
+<div class="detail-line">PLAN TYPE · AMBITION</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#8da89e;--wash:#e0ede7" data-id="08">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">08 · CRAFT</div>
+<h3>The Skills We Want To Master</h3>
+<p>Keep learning until difficult things become normal. Skills first, reputation later, and never stop becoming better at the work.</p>
+<div class="detail-line">PLAN TYPE · GROWTH</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#a793b0;--wash:#ece4ef" data-id="09">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">09 · FREEDOM</div>
+<h3>The Independence We Want To Earn</h3>
+<p>Create enough stability that choices become wider: helping family, travelling, building, experimenting and saying yes to opportunities.</p>
+<div class="detail-line">PLAN TYPE · INDEPENDENCE</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#c19a7e;--wash:#f1e3d8" data-id="10">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">10 · FAMILY</div>
+<h3>The People We Want To Make Proud</h3>
+<p>A future isn't only about what we own. It's also about becoming the kind of people our families can rely on and feel proud of.</p>
+<div class="detail-line">PLAN TYPE · PEOPLE</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#8ea69a;--wash:#e4eee8" data-id="11">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">11 · SMALL DAYS</div>
+<h3>The Ordinary Days We Want To Have</h3>
+<p>Breakfast. Work. Someone being sleepy. Someone taking too long to get ready. The completely normal days that quietly become the best part.</p>
+<div class="detail-line">PLAN TYPE · EVERYDAY LIFE</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#ad8ea0;--wash:#eee2e8" data-id="12">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">12 · WEEKENDS</div>
+<h3>The Random Days We Will Remember</h3>
+<p>No itinerary. Pick a direction, put something on the speakers and see where the road ends up taking us.</p>
+<div class="detail-line">PLAN TYPE · FREE TIME</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#b19a7a;--wash:#eee8d9" data-id="13">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">13 · SPACE</div>
+<h3>A Life With Room For Our Hobbies</h3>
+<p>Books, technology, music, games, random projects and all the little interests that make a home feel like two people actually live there.</p>
+<div class="detail-line">PLAN TYPE · HOME DETAIL</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#8da2b2;--wash:#e2ebf1" data-id="14">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">14 · LEARNING</div>
+<h3>The Things We Will Keep Learning</h3>
+<p>Neither of us gets to become a finished person. Learn new things, change our minds, try unfamiliar things and keep expanding.</p>
+<div class="detail-line">PLAN TYPE · PERSONAL GROWTH</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#b38f83;--wash:#f0e1da" data-id="15">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">15 · ADVENTURES</div>
+<h3>The Memories We Want To Collect</h3>
+<p>More roads, cities, mountains, food, tiny cafés, strange local places and stories that become impossible to explain in one sentence.</p>
+<div class="detail-line">PLAN TYPE · EXPERIENCES</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#9a9e87;--wash:#e9eadf" data-id="16">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">16 · PEACE</div>
+<h3>The Kind Of Peace We Want</h3>
+<p>Not chasing every possible thing. Knowing what matters, protecting our peace and having enough space to enjoy what we've already built.</p>
+<div class="detail-line">PLAN TYPE · LIFESTYLE</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#aa8fa7;--wash:#ede3ed" data-id="17">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">17 · LEGACY</div>
+<h3>The Choices We Want To Be Proud Of</h3>
+<p>Years later, be able to look at the blueprint and recognize the difficult decisions, risks and patience that turned ideas into a real life.</p>
+<div class="detail-line">PLAN TYPE · LONG TERM</div>
+</div>
+</article>
+
+<article class="station" style="--accent:#b99179;--wash:#f2e2d6" data-id="18">
+<div class="node"></div>
+<div class="blueprint-piece">
+<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
+<div class="phase">18 · FINAL NOTE</div>
+<h3>The Future We Keep Designing Together</h3>
+<p>The blueprint is deliberately unfinished. Some dreams haven't been discovered yet. Leave room for the things neither of us can imagine today.</p>
+<div class="detail-line">PLAN TYPE · NO FINAL VERSION</div>
+</div>
+</article>
+
+</div>
+
+<div class="closing">
+<h2>Project Status</h2>
+<p>
+The destinations can change. The cars can change. The house can change.
+Even the shape of the dream can change.
+The important part is that the blueprint leaves room for both of us to keep growing.
+</p>
+<div class="status">UNDER CONSTRUCTION · ALWAYS</div>
+</div>
+</section>
+
+<footer>GIFT 04 · OUR FUTURE BLUEPRINT · VERSION 18.0</footer>
+
+<div class="modal" id="modal">
+<div class="window">
+<div class="window-top"><span id="mcode"></span><button class="close" id="close">×</button></div>
+<h2 id="mtitle"></h2>
+<p id="mtext"></p>
+<div class="specs">
+<div class="spec"><small>BLUEPRINT TYPE</small><span id="stype"></span></div>
+<div class="spec"><small>STATUS</small><span>Still being designed</span></div>
+<div class="spec"><small>OWNER</small><span>Both of us</span></div>
+<div class="spec"><small>VERSION</small><span>18.0 · Not final</span></div>
+</div>
+</div>
+</div>
+
+<script>
+const details={
+"01":["01 · FIRST DESTINATION","Places We Still Want To Discover","The first honeymoon coordinate. The point isn't simply visiting a famous place. It's the feeling of finally standing somewhere we once only imagined and realizing the plan became real.","HONEYMOON"],
+"02":["02 · MOUNTAINS","The Life We Want To Experience","A slower chapter filled with mountains, cold mornings, beautiful roads and enough time to experience the place without treating the trip like a checklist.","TRAVEL"],
+"03":["03 · TWO WHEELS","Adventures We Haven't Planned Yet","A proper road adventure with mountain passes, changing weather, roadside chai and the particular kind of tiredness that becomes one of the best memories.","ROAD TRIP"],
+"04":["04 · FOUNDATION","The Space We Want To Build","A home built around peace, comfort and personality rather than appearance. A place where our ordinary routines finally have a permanent address.","HOME"],
+"05":["05 · GARAGE","The Things We Want To Earn","The dream driver's car. One of those machines that belongs on the blueprint simply because some ambitions are allowed to be fun.","DREAM CAR"],
+"06":["06 · ADVENTURE MACHINE","The Freedom We Want To Create","The other side of the garage: built for long roads, rough roads and the trips where the road eventually becomes part of the adventure.","DREAM CAR"],
+"07":["07 · WORK","The Work We Want To Be Proud Of","Turn years of learning and difficult work into something useful, ambitious and real — something that can keep growing beyond a normal job.","AMBITION"],
+"08":["08 · CRAFT","The Skills We Want To Master","Keep learning until difficult problems stop feeling impossible. Build deep skill first and let everything else grow from that foundation.","GROWTH"],
+"09":["09 · FREEDOM","The Independence We Want To Earn","Create enough stability to widen the choices available to us: helping family, travelling, experimenting and deciding what comes next.","INDEPENDENCE"],
+"10":["10 · FAMILY","The People We Want To Make Proud","Build a life that isn't only impressive on paper. Become dependable, capable and good enough that the people who raised us can see the difference.","PEOPLE"],
+"11":["11 · SMALL DAYS","The Ordinary Days We Want To Have","The dream also contains breakfast, sleepy mornings, work, random conversations and all the boring-looking moments that eventually become the actual life.","EVERYDAY LIFE"],
+"12":["12 · WEEKENDS","The Random Days We Will Remember","Choose a direction without needing a reason. Let the road decide the afternoon and return home with a story instead of a schedule.","FREE TIME"],
+"13":["13 · SPACE","A Life With Room For Our Hobbies","A home should have room for the things that make each person themselves: books, technology, music, games, projects and random interests.","HOME DETAIL"],
+"14":["14 · LEARNING","The Things We Will Keep Learning","Neither person gets to become a finished product. Keep learning, changing, experimenting and becoming more capable together.","PERSONAL GROWTH"],
+"15":["15 · ADVENTURES","The Memories We Want To Collect","More cities, mountains, cafés, roads, food and strange little places. Experiences that stay long after the photographs are forgotten.","EXPERIENCES"],
+"16":["16 · PEACE","The Kind Of Peace We Want","Not every future needs to be loud. Build enough stability that there is room for quiet evenings, slow days and genuine peace.","LIFESTYLE"],
+"17":["17 · LEGACY","The Choices We Want To Be Proud Of","Years later, the goal is to recognize the work behind the life: difficult decisions, patience, risks and the courage to keep going.","LONG TERM"],
+"18":["18 · FINAL NOTE","The Future We Keep Designing Together","The final blueprint is intentionally unfinished. Some of the best parts of the future are probably dreams we haven't even discovered yet.","NO FINAL VERSION"]
+};
+
+document.querySelectorAll('.blueprint-piece').forEach(el=>{
+el.onclick=()=>{
+const d=details[el.closest('.station').dataset.id];
+document.getElementById('mcode').textContent=d[0];
+document.getElementById('mtitle').textContent=d[1];
+document.getElementById('mtext').textContent=d[2];
+document.getElementById('stype').textContent=d[3];
+document.getElementById('modal').classList.add('open');
+};
+});
+const modal=document.getElementById('modal');
+document.getElementById('close').onclick=()=>modal.classList.remove('open');
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open')});
+</script>
+
+<script id="gift04-final-particle-engine">
+(() => {
+
+    function createBackground() {
+
+        /* Remove previous generated layer */
+        document.querySelectorAll(".gift04-background-particles")
+            .forEach(el => el.remove());
+
+        const layer = document.createElement("div");
+
+        layer.className = "gift04-background-particles";
+
+        layer.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        /*
+         * Put the layer directly under the main content.
+         * It is deliberately not attached to a card.
+         */
+        document.body.prepend(layer);
+
+
+        /*
+         * Many particles.
+         *
+         * They intentionally have:
+         * - different sizes
+         * - different positions
+         * - different opacity
+         * - different speeds
+         * - different movement distances
+         */
+        const COUNT = 72;
+
+        const colors = [
+            "rgba(92,113,105,.34)",
+            "rgba(126,145,138,.27)",
+            "rgba(174,158,137,.22)",
+            "rgba(111,131,122,.25)",
+            "rgba(198,183,161,.20)"
+        ];
+
+
+        for (let i = 0; i < COUNT; i++) {
+
+            const particle = document.createElement("span");
+
+            particle.className = "bg-particle";
+
+
+            const size =
+                2 +
+                Math.random() * 4;
+
+
+            const opacity =
+                0.16 +
+                Math.random() * 0.28;
+
+
+            const left =
+                Math.random() * 100;
+
+
+            /*
+             * Spread particles over the whole page
+             * instead of putting them all inside the viewport.
+             */
+            const top =
+                Math.random() * 100;
+
+
+            const duration =
+                5 +
+                Math.random() * 9;
+
+
+            const delay =
+                Math.random() * -12;
+
+
+            const x =
+                (Math.random() * 30 + 10).toFixed(1) +
+                "px";
+
+
+            const y =
+                (Math.random() * 24 + 8).toFixed(1) +
+                "px";
+
+
+            particle.style.setProperty(
+                "--particle-size",
+                size.toFixed(1) + "px"
+            );
+
+            particle.style.setProperty(
+                "--particle-opacity",
+                opacity.toFixed(2)
+            );
+
+            particle.style.setProperty(
+                "--particle-left",
+                left.toFixed(2) + "%"
+            );
+
+            particle.style.setProperty(
+                "--particle-top",
+                top.toFixed(2) + "%"
+            );
+
+            particle.style.setProperty(
+                "--particle-duration",
+                duration.toFixed(2) + "s"
+            );
+
+            particle.style.setProperty(
+                "--particle-delay",
+                delay.toFixed(2) + "s"
+            );
+
+            particle.style.setProperty(
+                "--particle-x",
+                x
+            );
+
+            particle.style.setProperty(
+                "--particle-y",
+                y
+            );
+
+            particle.style.setProperty(
+                "--particle-color",
+                colors[
+                    Math.floor(
+                        Math.random() * colors.length
+                    )
+                ]
+            );
+
+
+            layer.appendChild(particle);
+        }
+
+
+        /*
+         * Subtle scroll-parallax.
+         *
+         * The particles remain in the background,
+         * but their layer moves very slightly as the user scrolls.
+         * This prevents them from feeling glued to the viewport.
+         */
+        let ticking = false;
+
+        function updateParallax() {
+
+            const scrollY =
+                window.scrollY || window.pageYOffset || 0;
+
+            const movement =
+                scrollY * 0.045;
+
+            layer.style.transform =
+                `translate3d(0, ${movement}px, 0)`;
+
+            ticking = false;
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                if (!ticking) {
+
+                    window.requestAnimationFrame(
+                        updateParallax
+                    );
+
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
+
+
+        updateParallax();
+    }
+
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            createBackground
+        );
+
+    } else {
+
+        createBackground();
+    }
+
+})();
+</script>
+
+</body>
+</html>

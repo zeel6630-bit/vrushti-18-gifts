@@ -1,0 +1,921 @@
+:root{
+    --bg0:#eef3ff;
+    --bg1:#f8f2ff;
+    --bg2:#fff4f8;
+
+    --text:#172033;
+    --muted:#68738a;
+
+    --glass:rgba(255,255,255,.78);
+    --glass-strong:rgba(255,255,255,.91);
+    --glass-border:rgba(255,255,255,.92);
+
+    --blue:#6478ff;
+    --violet:#9a78ff;
+    --pink:#ff86b5;
+    --cyan:#5edcff;
+
+    --puzzle-bg:#faf6eb;
+    --puzzle-border:rgba(255,255,255,.92);
+
+    --shadow:rgba(43,48,91,.22);
+}
+
+html[data-gift17-theme="dark"]{
+    --bg0:#070b18;
+    --bg1:#10132a;
+    --bg2:#171127;
+
+    --text:#f5f7ff;
+    --muted:#a9b1c8;
+
+    --glass:rgba(14,18,39,.76);
+    --glass-strong:rgba(18,23,48,.90);
+    --glass-border:rgba(255,255,255,.11);
+
+    --puzzle-bg:#faf6eb;
+    --puzzle-border:rgba(255,255,255,.18);
+
+    --shadow:rgba(0,0,0,.48);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+body{
+    overflow:hidden;
+    position:relative;
+
+    color:var(--text);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 8% 12%,
+            rgba(100,120,255,.28),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 88% 12%,
+            rgba(255,134,181,.23),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 72% 88%,
+            rgba(94,220,255,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 24% 82%,
+            rgba(154,120,255,.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg0),
+            var(--bg1),
+            var(--bg2)
+        );
+
+    transition:
+        background .45s ease,
+        color .35s ease;
+}
+
+/* Ambient particle field */
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:-20%;
+
+    z-index:0;
+    pointer-events:none;
+
+    opacity:.65;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(117,135,255,.55) 0 1.4px,
+            transparent 1.8px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,134,181,.45) 0 1.2px,
+            transparent 1.7px
+        ),
+        radial-gradient(
+            circle,
+            rgba(94,220,255,.42) 0 1.1px,
+            transparent 1.6px
+        );
+
+    background-size:
+        92px 96px,
+        137px 131px,
+        177px 171px;
+
+    background-position:
+        0 0,
+        35px 51px,
+        80px 21px;
+
+    animation:
+        particleDrift 25s linear infinite;
+}
+
+body::after{
+    content:"";
+
+    position:fixed;
+    inset:-20%;
+
+    z-index:0;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 13% 23%,
+            rgba(255,255,255,.45) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 77% 20%,
+            rgba(255,255,255,.30) 0 5px,
+            transparent 6px
+        ),
+        radial-gradient(
+            circle at 61% 75%,
+            rgba(255,255,255,.30) 0 9px,
+            transparent 10px
+        ),
+        radial-gradient(
+            circle at 24% 84%,
+            rgba(255,255,255,.26) 0 4px,
+            transparent 5px
+        );
+
+    animation:
+        bubbles 15s ease-in-out infinite alternate;
+}
+
+@keyframes particleDrift{
+    from{
+        transform:translate3d(0,0,0);
+    }
+
+    to{
+        transform:translate3d(90px,-70px,0);
+    }
+}
+
+@keyframes bubbles{
+    from{
+        transform:translate3d(-8px,12px,0) scale(1);
+    }
+
+    to{
+        transform:translate3d(18px,-22px,0) scale(1.06);
+    }
+}
+
+/* =========================================================
+   LARGE RECTANGULAR PUZZLE SCREEN
+   ========================================================= */
+
+#forPuzzle{
+    position:absolute;
+
+    width:min(91vw,1540px);
+    height:min(76vh,865px);
+
+    min-width:640px;
+    min-height:430px;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    overflow:hidden;
+
+    z-index:2;
+
+    border-radius:30px;
+
+    background:var(--puzzle-bg);
+
+    border:10px solid var(--puzzle-border);
+
+    box-shadow:
+        0 0 0 1px rgba(105,117,155,.16),
+        0 30px 100px var(--shadow),
+        0 8px 35px rgba(255,255,255,.55) inset;
+
+    transition:
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+#forPuzzle::before{
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    z-index:20;
+
+    pointer-events:none;
+
+    border:
+        1px solid rgba(150,135,96,.18);
+
+    border-radius:20px;
+}
+
+#forPuzzle canvas{
+    position:absolute !important;
+}
+
+/* =========================================================
+   CONTROL PANEL
+   ========================================================= */
+
+#menu{
+    position:fixed;
+
+    left:22px;
+    top:22px;
+
+    width:min(370px,calc(100vw - 44px));
+    max-height:calc(100vh - 44px);
+
+    overflow:auto;
+
+    margin:0;
+    padding:0 15px 16px;
+
+    z-index:1000;
+
+    border:
+        1px solid var(--glass-border);
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--glass-strong),
+            var(--glass)
+        );
+
+    color:var(--text);
+
+    box-shadow:
+        0 28px 90px var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.30);
+
+    backdrop-filter:
+        blur(24px)
+        saturate(145%);
+
+    -webkit-backdrop-filter:
+        blur(24px)
+        saturate(145%);
+
+    font-size:13px;
+    line-height:1.4;
+
+    transition:
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+
+    animation:
+        menuIn .55s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes menuIn{
+    from{
+        opacity:0;
+        transform:translate3d(-18px,-15px,0) scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:translate3d(0,0,0) scale(1);
+    }
+}
+
+#menu::-webkit-scrollbar{
+    width:6px;
+}
+
+#menu::-webkit-scrollbar-thumb{
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            #6679ff,
+            #ff8ab7
+        );
+}
+
+/* Brand */
+.gift17-brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    margin:0 -15px 10px;
+    padding:16px 17px 13px;
+
+    border-radius:25px 25px 17px 17px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            125deg,
+            #596fff,
+            #9276ff 52%,
+            #ff82b2
+        );
+
+    box-shadow:
+        0 13px 35px rgba(104,119,255,.27);
+
+    font-size:13px;
+    font-weight:850;
+
+    letter-spacing:.10em;
+    text-transform:uppercase;
+}
+
+.gift17-brand small{
+    margin-left:auto;
+
+    padding:4px 8px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.16);
+
+    font-size:9px;
+    letter-spacing:.08em;
+}
+
+.gift17-brand-dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 0 14px #fff;
+
+    animation:
+        dotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse{
+    50%{
+        transform:scale(1.45);
+        opacity:.55;
+    }
+}
+
+/* Open/close controls */
+#controls{
+    margin:0 0 10px;
+    padding:10px 12px;
+
+    border-radius:13px;
+
+    background:
+        rgba(120,130,170,.10);
+
+    color:var(--muted);
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        color .18s ease;
+}
+
+#controls:hover{
+    transform:translateY(-1px);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(100,120,255,.13),
+            rgba(255,134,181,.11)
+        );
+
+    color:var(--text);
+}
+
+/* Theme switch */
+.theme-toggle{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    min-height:39px;
+
+    margin:0 0 12px;
+    padding:8px 13px;
+
+    border:
+        1px solid rgba(127,139,180,.20);
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(100,120,255,.12),
+            rgba(255,134,181,.10)
+        );
+
+    color:var(--text);
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.theme-toggle:hover{
+    transform:translateY(-2px);
+
+    border-color:
+        rgba(126,139,255,.45);
+
+    box-shadow:
+        0 10px 25px rgba(89,105,185,.14);
+}
+
+.theme-icon{
+    width:20px;
+    height:20px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #687aff,
+            #ff86b5
+        );
+
+    color:white;
+}
+
+/* Picture selector */
+.picture-picker{
+    margin:13px 0 !important;
+    padding:11px;
+
+    border-radius:15px;
+
+    background:
+        rgba(110,124,175,.08);
+
+    border:
+        1px solid rgba(120,132,175,.14);
+}
+
+.picture-picker label{
+    display:block;
+
+    margin-bottom:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+    font-weight:850;
+
+    letter-spacing:.08em;
+    text-transform:uppercase;
+}
+
+#gift17Picture{
+    width:100%;
+}
+
+/* Separators */
+#menu hr{
+    height:1px;
+
+    margin:14px 0;
+
+    border:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(130,140,177,.24),
+            transparent
+        );
+}
+
+#menu .center{
+    text-align:center;
+}
+
+#menu p{
+    margin:9px 0;
+}
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+#menu button,
+#menu select,
+#menu input[type="text"]{
+    min-height:37px;
+
+    border:
+        1px solid rgba(120,132,175,.22);
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.70);
+
+    color:#26314a;
+
+    font:
+        700 12px/1
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+
+    box-shadow:
+        0 5px 15px rgba(60,67,105,.08),
+        inset 0 1px 0 rgba(255,255,255,.95);
+
+    transition:
+        transform .16s ease,
+        border-color .16s ease,
+        box-shadow .16s ease,
+        background .16s ease;
+}
+
+html[data-gift17-theme="dark"] #menu button,
+html[data-gift17-theme="dark"] #menu select,
+html[data-gift17-theme="dark"] #menu input[type="text"]{
+    background:
+        rgba(255,255,255,.08);
+
+    color:#f4f6ff;
+
+    border-color:
+        rgba(255,255,255,.12);
+}
+
+#menu button{
+    margin:4px 3px;
+    padding:8px 12px;
+
+    cursor:pointer;
+}
+
+#menu button:hover:not(:disabled){
+    transform:translateY(-2px);
+
+    border-color:
+        rgba(105,121,255,.46);
+
+    box-shadow:
+        0 9px 24px rgba(70,80,135,.15);
+}
+
+#menu button:active:not(:disabled){
+    transform:translateY(0) scale(.98);
+}
+
+#menu button:disabled,
+#menu select:disabled,
+#menu input:disabled{
+    opacity:.40;
+    cursor:not-allowed;
+}
+
+#menu #default,
+#menu #start{
+    color:#fff;
+
+    border-color:transparent;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5e74ff,
+            #9277ff 55%,
+            #ff82b4
+        );
+
+    box-shadow:
+        0 9px 25px rgba(104,112,235,.25);
+}
+
+#menu #stop{
+    color:#ff9dbf;
+
+    background:
+        rgba(255,100,145,.08);
+}
+
+/* =========================================================
+   ROTATION SWITCH
+   ========================================================= */
+
+#menu input[type="checkbox"]{
+    appearance:none;
+
+    width:40px;
+    height:22px;
+
+    margin:0 8px 0 0;
+
+    vertical-align:middle;
+
+    border:
+        1px solid rgba(120,132,175,.25);
+
+    border-radius:999px;
+
+    background:#dce1ef;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+#menu input[type="checkbox"]::after{
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+    height:16px;
+
+    top:2px;
+    left:2px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.18);
+
+    transition:.2s ease;
+}
+
+#menu input[type="checkbox"]:checked{
+    border-color:transparent;
+
+    background:
+        linear-gradient(
+            90deg,
+            #657aff,
+            #a078ff
+        );
+}
+
+#menu input[type="checkbox"]:checked::after{
+    transform:translateX(18px);
+}
+
+/* =========================================================
+   CLOSED CONTROL PANEL
+   ========================================================= */
+
+#menu.hidden{
+    width:auto;
+    min-width:0;
+
+    padding:0;
+
+    border:0;
+
+    background:transparent;
+
+    box-shadow:none;
+
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+}
+
+#menu.hidden .gift17-brand,
+#menu.hidden #showhide,
+#menu.hidden .theme-toggle{
+    display:none;
+}
+
+#menu.hidden #controls{
+    margin:0;
+
+    padding:10px 14px;
+
+    border:
+        1px solid var(--glass-border);
+
+    border-radius:999px;
+
+    background:
+        var(--glass-strong);
+
+    box-shadow:
+        0 13px 32px var(--shadow);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
+
+.showimage{
+    position:absolute;
+
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    background:
+        rgba(5,8,20,.66);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.showimage img{
+    display:block;
+
+    position:absolute;
+
+    width:96%;
+    height:96%;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    object-fit:contain;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.42);
+}
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+dialog{
+    width:min(540px,calc(100vw - 36px));
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    border-radius:22px;
+
+    padding:23px;
+
+    color:var(--text);
+
+    background:
+        var(--glass-strong);
+
+    box-shadow:
+        0 35px 100px var(--shadow);
+
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+}
+
+dialog::backdrop{
+    background:rgba(3,6,18,.52);
+
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
+}
+
+dialog button{
+    border:0;
+
+    border-radius:10px;
+
+    padding:9px 15px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #657aff,
+            #a077ff
+        );
+
+    font-weight:800;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:900px){
+
+    #forPuzzle{
+        width:calc(100vw - 28px);
+        height:calc(100vh - 70px);
+
+        min-width:0;
+        min-height:0;
+
+        border-width:7px;
+        border-radius:22px;
+    }
+
+    #menu{
+        left:10px;
+        top:10px;
+
+        width:min(350px,calc(100vw - 20px));
+
+        max-height:43vh;
+
+        border-radius:20px;
+    }
+
+    .gift17-brand{
+        border-radius:20px 20px 15px 15px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}

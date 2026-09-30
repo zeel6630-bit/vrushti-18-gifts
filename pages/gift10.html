@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Relationship Rules — 18 Pages</title>
+<style>
+:root{--ink:#201816;--paper:#f1e6d1;--wine:#622d36;--gold:#b28a46;--muted:#766a5c;--night:#151211}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--ink)}
+body{font-family:Georgia,"Times New Roman",serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;background-image:radial-gradient(rgba(255,255,255,.6) .6px,transparent .8px);background-size:6px 6px}
+.cover{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 35%,#352525,#151211 65%);display:grid;place-items:center;color:#eee1cc;transition:.7s}
+.cover.hide{opacity:0;visibility:hidden}
+.cover-inner{text-align:center;width:min(800px,90%)}
+.orn{font-size:46px;color:var(--gold)}
+.cover h1{font-size:clamp(44px,8vw,88px);font-weight:400;line-height:.92;margin:20px 0}
+.cover p{max-width:650px;margin:0 auto 30px;color:#bdb09d;line-height:1.9}
+.open{background:var(--wine);border:1px solid rgba(178,138,70,.65);color:white;padding:15px 25px;border-radius:4px;font:16px Georgia;cursor:pointer}
+.top{width:min(1240px,calc(100% - 28px));margin:auto;padding:18px 0;color:#e9ddc9;display:flex;justify-content:space-between;align-items:center}
+.brand{font:11px Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.gifts{color:#e9ddc9;text-decoration:none;border:1px solid #403532;padding:9px 13px;border-radius:999px;font:12px Arial}
+.book{width:min(980px,calc(100% - 20px));margin:10px auto 18px;perspective:2200px}
+.page{position:relative;overflow:hidden;min-height:min(800px,calc(100vh - 140px));padding:clamp(30px,5vw,76px);background:linear-gradient(105deg,rgba(255,255,255,.2),transparent 35%),var(--paper);box-shadow:0 35px 90px #0008;border-radius:7px}
+.page:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(70,42,25,.08) 5px)}
+.page-number{position:absolute;top:25px;right:30px;color:var(--gold);font:11px Arial,sans-serif;letter-spacing:.08em}
+.kicker{position:relative;z-index:2;font:700 10px Arial,sans-serif;letter-spacing:.2em;color:var(--wine)}
+h1{position:relative;z-index:2;font-size:clamp(32px,5vw,58px);font-weight:400;line-height:1.04;margin:34px 0 16px;max-width:760px}
+.rule-line{width:90px;height:2px;background:var(--gold);margin:0 0 28px;position:relative;z-index:2}
+.body{position:relative;z-index:2;font-size:17px;line-height:1.82;color:#493a31}
+.practice{position:relative;z-index:2;margin-top:30px;padding:17px 19px;border-left:3px solid var(--gold);background:#ffffff2c}
+.practice span{font:700 10px Arial,sans-serif;letter-spacing:.18em;color:var(--wine)}
+.practice p{margin:8px 0 0;font-size:15px;line-height:1.7}
+.research{position:relative;z-index:2;margin-top:22px;font:10px/1.6 Arial,sans-serif;color:#786b5b;max-width:800px}
+.mark{position:absolute;bottom:28px;left:32px;color:var(--gold);font-size:20px}
+.controls{width:min(980px,calc(100% - 20px));margin:0 auto 32px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+.controls button{background:#241e1c;border:1px solid #4a403a;color:#eee2cf;padding:11px 17px;border-radius:5px;cursor:pointer;font:14px Georgia}
+.controls button:disabled{opacity:.35;cursor:default}
+.counter{font:12px Arial;color:#bdb09d;min-width:100px;text-align:center}
+.bar{height:4px;width:190px;background:#342c28;border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--wine),var(--gold));width:0}
+.sources-panel{width:min(980px,calc(100% - 30px));margin:0 auto 40px;padding:24px;color:#bdb09d;font:12px/1.7 Arial,sans-serif}
+.sources-panel h2{font:20px Georgia;color:#e9ddc9;font-weight:400}
+.sources-panel a{color:#d2ae72}
+.flip{animation:flip .55s cubic-bezier(.2,.75,.2,1)}
+@keyframes flip{0%{transform:rotateY(-7deg);opacity:.65}100%{transform:none;opacity:1}}
+@media(max-width:760px){.page{min-height:760px;padding:30px 24px 55px}.body{font-size:15px;line-height:1.72}}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+<body>
+<div class="cover" id="cover">
+  <div class="cover-inner">
+    <div class="orn">✦</div>
+    <h1>Our Relationship Rules</h1>
+    <p>18 pages. 18 subjects worth understanding. Not laws for love — a private book for two people who want to care for each other deliberately.</p>
+    <button class="open" id="open">Open our book</button>
+  </div>
+</div>
+<header class="top">
+  <div class="brand">Zeel × Vrushti · Private Relationship Book</div>
+  <a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a>
+</header>
+<main class="book" id="book">
+<section class="page" data-page="01">
+  <div class="page-number">01 / 18</div>
+  <div class="kicker">OUR RELATIONSHIP RULES</div>
+  <h1>Everyday Effort</h1>
+  <div class="rule-line"></div>
+  <div class="body">Love has to survive ordinary days, not only birthdays, apologies, anniversaries, or dramatic moments. A strong relationship is partly built from the boring-looking things that say, “I still notice you.” Remembering something your partner mentioned yesterday, asking how an important day went, checking whether they reached home safely, making time for a short call when the day is crowded, or simply noticing that their mood is different can carry more meaning than an impressive gesture that happens once.<br><br><br><br>The rule is not that both people must perform the same number of acts every day. People have different energy, schedules, responsibilities, and ways of expressing care. The deeper rule is intentionality: do not let affection become something that exists only when it is convenient. If one person is studying, working, travelling, dealing with family responsibilities, or simply exhausted, the other person can still communicate, “You matter to me.”<br><br><br><br>Everyday effort also means learning your partner instead of using a generic definition of romance. One person may value a long conversation; another may feel loved when someone remembers a tiny preference. Ask, observe, adjust, and keep learning. A relationship becomes safer when neither person has to beg repeatedly to be noticed.</div>
+  <div class="practice"><span>FOR BOTH OF US</span><p>Try this: each of you name three small actions that make you feel cared for. Keep them realistic enough to repeat. The goal is not perfection; it is dependable attention.</p></div>
+  <div class="research">Research note: Studies of couples connect daily interaction, communication, intimacy, support, and perceived responsiveness with relationship quality. These findings describe patterns rather than a universal checklist.</div>
+  <div class="mark">✦</div>
+</section>
+</main>
+<nav class="controls">
+  <button id="prev">← Previous</button>
+  <div class="counter" id="counter">Page 1 of 18</div>
+  <div class="bar"><i id="bar"></i></div>
+  <button id="next">Next →</button>
+</nav>
+<section class="sources-panel">
+  <h2>Research trail</h2>
+  <p>This book is a personal synthesis, not a clinical manual or a universal set of laws. The research was used to shape themes around communication, intimacy, conflict, trust, support, expectations and Indian cultural context.</p>
+  <ul><li><a href="https://pubmed.ncbi.nlm.nih.gov/19161585/" target="_blank" rel="noopener">Urban Indian couples: intimacy, conflict, empathy, validation, support and expectations</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/42541717/" target="_blank" rel="noopener">Daily emotional closeness and positive communication</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/12613123/" target="_blank" rel="noopener">Communication, conflict and commitment</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/28025652/" target="_blank" rel="noopener">Communication during conflict</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/34334944/" target="_blank" rel="noopener">Time spent together, talking and relationship functioning</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/23500155/" target="_blank" rel="noopener">Relationship education and maintenance</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/25040008/" target="_blank" rel="noopener">Attachment, partner support, trust and intimacy</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/37647358/" target="_blank" rel="noopener">Culture and love/intimacy</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/30328774/" target="_blank" rel="noopener">Family and intimacy in urban India</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/30328771/" target="_blank" rel="noopener">Intimacy and communication in an Indian context</a></li></ul>
+</section>
+<script>
+const PAGES = [{"num": "01", "title": "Everyday Effort", "body": "Love has to survive ordinary days, not only birthdays, apologies, anniversaries, or dramatic moments. A strong relationship is partly built from the boring-looking things that say, “I still notice you.” Remembering something your partner mentioned yesterday, asking how an important day went, checking whether they reached home safely, making time for a short call when the day is crowded, or simply noticing that their mood is different can carry more meaning than an impressive gesture that happens once.\n\nThe rule is not that both people must perform the same number of acts every day. People have different energy, schedules, responsibilities, and ways of expressing care. The deeper rule is intentionality: do not let affection become something that exists only when it is convenient. If one person is studying, working, travelling, dealing with family responsibilities, or simply exhausted, the other person can still communicate, “You matter to me.”\n\nEveryday effort also means learning your partner instead of using a generic definition of romance. One person may value a long conversation; another may feel loved when someone remembers a tiny preference. Ask, observe, adjust, and keep learning. A relationship becomes safer when neither person has to beg repeatedly to be noticed.", "practice": "Try this: each of you name three small actions that make you feel cared for. Keep them realistic enough to repeat. The goal is not perfection; it is dependable attention.", "note": "Research note: Studies of couples connect daily interaction, communication, intimacy, support, and perceived responsiveness with relationship quality. These findings describe patterns rather than a universal checklist."}, {"num": "02", "title": "Tiny Gestures", "body": "Tiny gestures are the private language of a relationship. They can be almost invisible to everyone else: saving the last piece of something because you know they like it, sending a photograph because it reminded you of them, remembering their exam date, keeping a conversation going for two extra minutes because they sounded low, or saying “I reached” without being asked. These moments create a sense of being remembered between the major events.\n\nThe important part is not the object or the money involved. A tiny gesture works because it contains information: “I paid attention.” That makes it different from simply doing things mechanically. When a partner knows your small habits, worries, preferences, jokes, and difficult hours, they can respond in ways that feel personal rather than generic.\n\nTiny gestures should also remain free from hidden accounting. If you send ten messages and expect ten in return, the gesture becomes a transaction. Healthy reciprocity does not require identical behaviour at identical times. It means both people generally contribute to the emotional life of the relationship and neither person is permanently carrying it alone.\n\nNotice the tiny things before they become invisible. Appreciation keeps ordinary care from turning into an unacknowledged obligation.", "practice": "Practice: once a week, deliberately do one small thing that says “I remember you.” Do not announce it as a test or demand a matching gesture.", "note": "Research note: Research on daily communication and time spent talking suggests that ordinary interaction can be associated with closeness and satisfaction."}, {"num": "03", "title": "Expectations", "body": "Expectations are not the enemy of love. Unspoken expectations are often the problem. Every relationship contains assumptions about replies, time together, friendships, privacy, birthdays, family involvement, money, affection, future plans, and what “being there” actually means. Two people can love each other and still have completely different internal rulebooks.\n\nInstead of asking, “Why didn't you automatically understand?”, ask, “What did each of us think was supposed to happen?” That question moves the conversation from blame toward discovery. Some expectations will be reasonable and workable. Some may need negotiation. Others may come from fear, comparison, social media, previous relationships, family ideas, or an idealized picture of romance.\n\nAn expectation becomes healthier when it can be spoken clearly, discussed by both people, and adjusted when reality changes. It should not become a secret examination where one partner must guess the correct answer.\n\nMake room for different capacities. During exams, illness, family stress, work pressure, travel, or emotional exhaustion, the amount of available attention may change. The relationship can adapt without treating every temporary reduction in availability as proof that love has disappeared.\n\nThe mature question is not “Will you always give me exactly what I expect?” It is “Can we build expectations that both of us understand and can realistically live with?”", "practice": "Conversation prompt: finish these sentences separately: “I feel cared for when…”, “I feel neglected when…”, and “One expectation I need us to discuss is…”. Compare answers without immediately defending them.", "note": "Research note: Work on relationship standards and Indian couples indicates that expectations, agreement, empathy, validation, support, and context all matter to relationship quality."}, {"num": "04", "title": "Emotional Intimacy", "body": "Emotional intimacy is the experience of being known without having to manufacture a perfect version of yourself. It grows when partners can talk about fear, embarrassment, disappointment, ambition, insecurity, confusion, family pressure, loneliness, and hope without automatically turning vulnerability into ammunition.\n\nDeep disclosure alone is not enough. Intimacy also depends on what happens after the disclosure. If someone tells you something difficult and receives ridicule, dismissal, interrogation, or immediate problem-solving, they may learn that openness is unsafe. If they receive attention, respectful curiosity, and an appropriate response, the conversation can become a bridge.\n\nThere should also be room for ordinary emotional states. Your partner does not have to be entertaining, positive, productive, or romantic every day. Sometimes the intimate response is simply sitting with a difficult feeling instead of rushing to remove it.\n\nEmotional closeness does not mean losing individuality. You can understand each other's inner world while still having separate thoughts, friendships, interests, and private time. The aim is connection without erasing the person.\n\nA relationship becomes deeper when both people can say, “Here is what is happening inside me,” and reasonably expect the other person to handle that information with care.", "practice": "Practice: when your partner shares something emotional, ask first: “Do you want me to listen, help you think, distract you, or just stay with you?”", "note": "Research note: Daily-diary research links emotional closeness and perceived positive communication with daily relationship satisfaction."}, {"num": "05", "title": "Deep Romance", "body": "Deep romance is larger than flowers, dates, captions, or dramatic declarations. Those things can be beautiful, but romance becomes durable when a partner continues to be curious about the person they are loving.\n\nRomance means making room for anticipation: planning something together, remembering a meaningful place, creating a private tradition, writing something personal, revisiting an old memory, or imagining a future that belongs to both people. It also means noticing how your partner's idea of romance changes over time.\n\nA romantic relationship should not require constant intensity. If every day must feel like a movie, ordinary life eventually becomes evidence of failure. Mature romance allows quiet evenings, unfinished conversations, bad moods, exams, chores, distance, and routine to exist without removing affection from the relationship.\n\nDeep romance also includes respect. A grand gesture that ignores a partner's comfort is not made healthier by being grand. Affection should be wanted, not extracted. Closeness becomes more meaningful when both people can freely say yes, no, slower, later, or not today.\n\nThe lasting form of romance is therefore not permanent excitement. It is continued fascination: “There is still more of you I want to know.”", "practice": "Try this: create one private tradition that belongs only to the two of you. It can be tiny, but it should carry shared meaning.", "note": "Research note: Reviews of intimacy and love emphasize that expression varies across cultures and relationships; romance is shaped by time, context, communication, and how people experience closeness."}, {"num": "06", "title": "Affection & Closeness", "body": "Affection is one of the ways people communicate safety, warmth, attraction, reassurance, and belonging. It can appear through words, a hug, holding hands, sitting close, a forehead kiss, playful contact, a reassuring look, or simply staying physically present. But affection only works when it respects the person receiving it.\n\nPeople have different comfort levels and different moments of readiness. A partner can be affectionate and still need space. Another can want closeness and still be uncomfortable with a particular kind of touch. Neither preference automatically means that love is stronger or weaker.\n\nThe important rule is responsiveness. Notice the other person's signals. Ask when uncertainty matters. Accept a boundary without turning it into an insult. Never use affection as a bargaining chip: “If you loved me, you would…” turns closeness into pressure.\n\nFor long-distance couples, affection can also be translated rather than abandoned. A voice note, a familiar phrase, watching something together, sharing a photograph, or creating a small ritual can carry some of the emotional function of physical proximity.\n\nCloseness should feel like an invitation, not an obligation. When both people can approach and retreat safely, affection becomes more genuine because it is freely chosen.", "practice": "Practice: talk openly about what kinds of affection feel comforting, what feels neutral, and what requires asking first. Update the conversation as your comfort changes.", "note": "Research note: Research in Indian contexts highlights the importance of communication, relational equity, willingness to respect a partner's wishes, and wanted rather than pressured intimacy."}, {"num": "07", "title": "Neediness & Reassurance", "body": "Needing reassurance does not make someone weak, and wanting independence does not make someone uncaring. Every close relationship contains moments when one person needs extra confirmation that the bond is secure. The difficulty begins when reassurance becomes an endless emergency or when a partner is expected to regulate every fear instantly.\n\nA useful distinction is between asking and demanding. “I am feeling insecure today; can you reassure me?” gives the other person information and a chance to respond. Repeatedly checking, testing, threatening to leave, demanding proof, or interpreting every delay as rejection can create a cycle in which anxiety receives temporary relief but returns even stronger.\n\nThe partner receiving the request also has responsibilities. Mocking the need for reassurance can make insecurity worse. A calm response can acknowledge the feeling without promising impossible certainty: “I am here. Nothing about this delay means I stopped caring.”\n\nBoth people should gradually build internal security as well. Friends, study, work, hobbies, sleep, exercise, self-respect, and personal goals prevent the relationship from becoming the only source of emotional stability.\n\nReassurance is healthiest when it is a bridge back to calm, not a ritual that must be repeated forever to prove love.", "practice": "Useful sentence: “I am anxious right now, and I know anxiety is not the same thing as evidence. I would appreciate some reassurance, but I also want to handle my part.”", "note": "Research note: Attachment-based relationship research connects attachment orientation with partner support, trust, intimacy, conflict management, and satisfaction."}, {"num": "08", "title": "Insecurity & Jealousy", "body": "Jealousy is information, not a verdict. It can point toward fear of losing someone, comparison, uncertainty, previous hurt, unclear boundaries, or an actual behaviour that deserves discussion. The feeling itself does not establish that a partner has done something wrong.\n\nWhen jealousy appears, separate the trigger from the story built around it. “They replied late” is an event. “They must prefer somebody else” is an interpretation. Keeping those categories separate prevents a frightened mind from turning assumptions into facts.\n\nThe person who feels jealous can communicate without controlling: describe the event, name the emotion, explain the fear, and ask for a specific conversation. The other partner can respond without humiliation while still protecting reasonable boundaries.\n\nJealousy becomes destructive when it is converted into surveillance, isolation, password demands, constant interrogation, restrictions on friendships, public humiliation, threats, or punishment. Those behaviours do not create genuine trust; they replace trust with monitoring.\n\nTrust grows when behaviour is understandable, commitments are kept, boundaries are clear, and both people remain free enough to choose the relationship rather than being trapped inside it.", "practice": "Practice: use four steps — “What happened?”, “What did I feel?”, “What story did I tell myself?”, “What do I actually need to know or request?”", "note": "Research note: Relationship research distinguishes emotions and communication processes from the behaviours partners choose in response to them. Control and coercion should not be treated as ordinary expressions of jealousy."}, {"num": "09", "title": "Communication", "body": "Communication is not simply talking more. It is the process of transferring meaning accurately enough that two people can make decisions together. A long conversation can still fail if both people are preparing their defence rather than understanding the issue.\n\nStart with specificity. Replace “You never care” with the concrete behaviour that hurt you. Replace “Fine, do whatever” with the actual boundary or request. Avoid forcing your partner to decode sarcasm, silence, hints, or indirect tests.\n\nTiming matters. A serious conversation started during exhaustion, an exam, a family crisis, or intense anger may require postponement. Postponement should not become disappearance. Say when you expect to return to the subject.\n\nGood communication also contains correction. “I understood you to mean X. Did I get that right?” is often more productive than arguing against an interpretation you invented.\n\nFor difficult topics, aim for a shared map: what happened, what each person thinks it meant, what each person felt, what matters now, and what needs to happen next. You do not need identical interpretations to reach a workable agreement.\n\nThe goal is not to win the conversation. It is to make the relationship more accurate.", "practice": "Practice: before responding to a difficult statement, summarize your partner's point in one sentence and ask whether you understood correctly.", "note": "Research note: Research consistently examines communication as a major component of relationship functioning, including communication during conflict and everyday interaction."}, {"num": "10", "title": "Listening & Validation", "body": "Listening is different from waiting for your turn. Validation does not mean declaring that every interpretation is correct. It means communicating that the other person's emotional experience is understandable enough to deserve attention.\n\nA useful response can contain three separate parts: recognition, curiosity, and response. “I can see why that hurt” recognizes the feeling. “Which part bothered you most?” invites detail. “Here is what I can do” moves toward action when action is appropriate.\n\nAvoid premature solutions. Sometimes the person needs a witness before they need advice. At other times they explicitly want help. Ask instead of assuming.\n\nValidation also works in disagreement. You can say, “I understand why you felt ignored,” without saying, “Therefore your conclusion about my intention is definitely correct.” This distinction protects both empathy and honesty.\n\nListening should not become one-sided emotional labour. Both partners deserve space to speak, and both should have opportunities to ask questions and clarify. If one person's feelings always become the entire agenda, resentment can grow.\n\nBeing heard does not guarantee getting what you want. It means your inner experience was treated as real information rather than as an inconvenience.", "practice": "Practice: after listening, ask: “Do you feel understood, or did I miss something important?” Then listen again without defending yourself.", "note": "Research note: Research on urban Indian couples found associations between happiness and agreement, empathy, validation, support, and fulfilled expectations."}, {"num": "11", "title": "Fights & Anger", "body": "Conflict is not automatically evidence that a relationship is broken. Two people with different needs, histories, priorities, and stress levels will sometimes collide. The danger is not disagreement itself; it is what partners permit themselves to do while angry.\n\nSet boundaries around behaviour before the next fight happens. No threats of violence. No intimidation. No humiliation. No deliberate exposure of private information. No insults designed to wound. No using known vulnerabilities as weapons. If either person is too activated to speak constructively, a pause is legitimate.\n\nA pause should have structure. “I am too angry to do this well. I need forty minutes, and I will come back at 9:30” is very different from disappearing indefinitely.\n\nWhen the conversation resumes, return to the issue rather than reopening every historical grievance. Anger often brings a catalogue of old pain, but solving ten years of problems in one argument is rarely realistic.\n\nSome conflicts contain a genuine incompatibility rather than a communication mistake. In those cases, the goal is not to find magic wording. It is to determine whether the difference can be negotiated, accepted, or requires a larger decision.\n\nA healthy fight is not one in which nobody gets upset. It is one in which both people remain responsible for what they do with that emotion.", "practice": "Practice: agree on a timeout phrase and a maximum return window before you need it. Use the pause to regulate, not to punish.", "note": "Research note: Studies link destructive conflict and negative interaction with poorer relationship outcomes; constructive communication can help depending on the problem and context."}, {"num": "12", "title": "Repair & Apology", "body": "An apology is not a password that instantly resets the relationship. Repair is the larger process of recognizing harm, taking responsibility, understanding impact, and changing behaviour where change is possible.\n\nA useful apology is specific. It names what happened rather than hiding behind “sorry for whatever.” It avoids turning responsibility into a counterattack: “I am sorry I did that, but you made me angry” may explain context, yet it does not fully own the action.\n\nThe person who was hurt also has a role in repair. Forgiveness cannot be demanded on a schedule. Someone may accept an apology while still needing time. They may want a conversation about what would prevent repetition.\n\nSometimes the repair is practical: correcting misinformation, replacing something damaged, changing a routine, setting a new boundary, or making a plan for the next difficult situation. Sometimes it is emotional: listening to the impact without arguing about whether the other person is “allowed” to feel it.\n\nRepeated apologies without behavioural change lose credibility. A changed pattern is often the strongest evidence that the apology was understood.\n\nRepair does not erase history. It changes what the couple does with history.", "practice": "Practice: use this sequence: “I did… / I understand that it affected you by… / I am sorry… / Next time I will… / Is there anything important I have missed?”", "note": "Research note: Relationship-education research finds that structured work on communication and relationship skills can help many couples maintain relationship satisfaction, although effects vary."}, {"num": "13", "title": "Trust & Loyalty", "body": "Trust is built from many small predictions becoming reliable: “If I tell you something private, you will treat it carefully.” “If you promise a call, you will either make it or tell me when you cannot.” “If you disagree, you will not secretly punish me.” “If a boundary changes, you will discuss it.”\n\nLoyalty is more than avoiding physical cheating. It includes how you represent the relationship when your partner is absent, how you handle attention from someone else, whether you protect private conversations, and whether you are honest when temptation or confusion appears.\n\nTrust should not mean blind belief. A relationship can contain openness, verification, and reasonable questions without becoming a surveillance system. When trust has been damaged, rebuilding may require more transparency for a period of time, but that process should be discussed rather than imposed as permanent control.\n\nBetrayal deserves clarity. If a serious breach occurs, both people may need to decide what happened, what it means, what would be required for repair, and whether continuing is actually safe and wanted.\n\nTrust cannot be demanded into existence. It is earned repeatedly through congruence between words and behaviour.", "practice": "Practice: each person name one behaviour that currently strengthens trust and one behaviour that could weaken it. Discuss them without turning the exercise into an accusation list.", "note": "Research note: Relationship-functioning models include trust, commitment, intimacy, support, conflict management, and partner effects as interconnected factors."}, {"num": "14", "title": "Boundaries & Freedom", "body": "A boundary describes what a person will accept, participate in, or do to protect their wellbeing. It is not a command to control another human being. “I will not continue a conversation while I am being insulted” is a boundary. “You are not allowed to speak to anyone I dislike” is control.\n\nHealthy relationships require both connection and room to remain an individual. Personal time, friendships, studies, work, family relationships, hobbies, privacy, and independent goals do not automatically compete with love.\n\nFreedom also requires responsibility. Independence is not a licence to ignore commitments or behave secretly. If something affects the relationship, discuss it. If something belongs to your personal life, communicate enough to prevent unnecessary uncertainty while retaining appropriate privacy.\n\nBoundaries may change. What felt comfortable at seventeen may feel different later. A couple can revisit agreements about social media, opposite-sex friendships, private conversations, physical affection, time together, family involvement, finances, or future plans.\n\nThe healthiest boundary conversation asks two questions at once: “What do I need to feel safe?” and “What freedom does my partner need to remain themselves?” The answer should leave both people with dignity.", "practice": "Practice: write one boundary as “I need… because… If this happens, I will…”. Then ask your partner what boundary they want you to understand.", "note": "Research note: Relationship research emphasizes autonomy, attachment, support, and conflict processes; healthy closeness does not require eliminating individual identity."}, {"num": "15", "title": "Supporting Growth", "body": "A relationship should give two people somewhere to grow, not somewhere they must shrink. Supporting growth means taking a partner's education, career, friendships, health, creativity, ambitions, and changing interests seriously.\n\nSupport does not mean automatic agreement. You can question a risky plan while still respecting the person making it. You can say, “I am worried about this part,” without saying, “Your dream is stupid.”\n\nGrowth can also create asymmetry. One person may have an intense exam period while the other has more free time. One may change career direction. One may become more confident while the other is struggling. The relationship needs flexibility so temporary imbalance does not become a permanent hierarchy.\n\nCelebrate progress without making everything competitive. Your partner's achievement is not evidence that you are falling behind. A strong bond can contain two separate trajectories and still have a shared future.\n\nThere is another side: do not use love to prevent growth. “If you really loved me, you would not go” can sound romantic while quietly making affection conditional on limitation.\n\nThe question is not “How do we stay exactly the same?” It is “How do we remain connected while becoming fuller versions of ourselves?”", "practice": "Practice: ask each other: “What are you trying to become over the next year, and what kind of support would actually help?”", "note": "Research note: Relationship studies repeatedly consider partner support, stress, autonomy, and individual development as relevant to relationship functioning."}, {"num": "16", "title": "Distance & Missing Each Other", "body": "Distance changes the mechanics of a relationship. A partner cannot simply walk into the room, notice your face, help with a small task, or share an ordinary silence. That absence can make small misunderstandings feel larger because important nonverbal information is missing.\n\nThe answer is not necessarily constant contact. A healthier long-distance rhythm usually comes from predictable connection combined with flexibility. Decide what matters: a good-morning message, a call after a difficult day, a weekly longer conversation, watching something together, sharing photographs, or planning the next visit.\n\nMissing someone should be allowed to exist without immediately turning into blame. “I miss you and I wish you were here” contains vulnerability. “You obviously don't miss me because you didn't call exactly when I expected” converts longing into accusation.\n\nCreate shared experiences even when you cannot share the same physical space. Read the same thing. Play a game. Eat together over a call. Build a private playlist. Keep small traditions. Talk about ordinary life, not only relationship problems.\n\nMost importantly, maintain a future orientation without making every conversation about the day you will finally stop being long-distance. The relationship also has to be lived now.", "practice": "Practice: build a distance ritual that is reliable but not exhausting. Make it something both people genuinely enjoy rather than another obligation.", "note": "Research note: Research on daily interaction and intimacy supports the importance of communication and shared connection; long-distance relationships also require adaptation to reduced physical proximity."}, {"num": "17", "title": "Family, Culture & Future", "body": "In an Indian relationship, love can exist inside a much larger social system: parents, siblings, extended family, education, career expectations, community, religion, language, finances, geography, and ideas about marriage. A couple may therefore face decisions that are not purely private.\n\nThe first rule is to distinguish the couple's values from outside pressure. Family opinions can be important without becoming the automatic decision-maker for every part of the relationship. At the same time, pretending that family context does not matter can create unrealistic plans.\n\nTalk early about the difficult subjects: whether marriage is a goal, preferred timeline, career priorities, where to live, family involvement, financial responsibilities, cultural practices, religion if relevant, and what each person expects from future family life. These conversations are not promises that everything will work out. They are ways to discover whether the two people are building toward compatible lives.\n\nFamily conflict should not automatically become “me versus you.” Sometimes both partners are frightened by the same external pressure. Treat the problem as something to understand together.\n\nCulture can shape how affection, privacy, gender roles, independence, and commitment are expressed. Neither person's background should be mocked or treated as automatically superior.\n\nA shared future becomes stronger when it is designed consciously rather than inherited accidentally.", "practice": "Practice: separately write “What my family may expect,” “What I personally want,” and “What I am willing to negotiate.” Compare the three lists.", "note": "Research note: Research involving urban Indian couples and young women in India shows that intimacy and relationship choices can be strongly shaped by family structures, social norms, education, career expectations, and changing cultural practices."}, {"num": "18", "title": "Long-Term Bond & Renewal", "body": "A long-term relationship cannot remain permanently in its first version. People change. Schedules change. Bodies change. Careers change. Families change. Priorities change. The relationship therefore needs renewal rather than a promise to freeze time.\n\nRenewal means checking the relationship deliberately. What still feels good? What has become automatic? What are we avoiding? What do we want more of? Which old agreement no longer fits? What kind of people are we becoming? These questions are not signs of failure; they are maintenance.\n\nKeep creating new memories while protecting old ones. Revisit places and songs that carry history, but also allow new traditions to appear. Do not make the early stage of the relationship the permanent standard against which every later year is judged.\n\nLong-term love also requires realistic resilience. There will be seasons of closeness and seasons of stress. A temporary difficult period should not automatically be interpreted as the final identity of the relationship. At the same time, persistence should never be used to excuse ongoing harm, coercion, or fear.\n\nRenewal is a choice to keep learning the person beside you. The most meaningful promise is not “we will never change.” It is “when we change, we will keep meeting each other again.”", "practice": "Practice: every few months, hold a relationship review with three questions: “What should we keep?”, “What should we change?”, and “What should we build next?”", "note": "Research note: Relationship research supports the value of ongoing communication, adaptive skills, intimacy, and deliberate maintenance. Research does not guarantee that every relationship should continue regardless of circumstances."}];
+let index = 0;
+const book = document.getElementById('book');
+const counter = document.getElementById('counter');
+const bar = document.getElementById('bar');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+
+function render() {
+  const r = PAGES[index];
+  book.innerHTML = `
+  <section class="page">
+    <div class="page-number">${r.num} / 18</div>
+    <div class="kicker">OUR RELATIONSHIP RULES</div>
+    <h1>${escapeHtml(r.title)}</h1>
+    <div class="rule-line"></div>
+    <div class="body">${escapeHtml(r.body).replace(/\n/g,'<br><br>')}</div>
+    <div class="practice"><span>FOR BOTH OF US</span><p>${escapeHtml(r.practice)}</p></div>
+    <div class="research">${escapeHtml(r.note)}</div>
+    <div class="mark">✦</div>
+  </section>`;
+  counter.textContent = `Page ${index+1} of 18`;
+  bar.style.width = `${((index+1)/18)*100}%`;
+  prev.disabled = index === 0;
+  next.disabled = index === 17;
+  book.classList.remove('flip');
+  void book.offsetWidth;
+  book.classList.add('flip');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+next.onclick = () => { if(index < 17) { index++; render(); } };
+prev.onclick = () => { if(index > 0) { index--; render(); } };
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
+  if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
+});
+document.getElementById('open').onclick = () => document.getElementById('cover').classList.add('hide');
+</script>
+</body>
+</html>

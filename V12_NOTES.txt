@@ -1,0 +1,10 @@
+V12 UPDATE
+
+- Added a deliberate visual gap between the birthday message and the static CodePen-style cake/candles.
+- Kept the cake itself static; no cake/candle animation was added.
+- Added realistic CSS balloons in multiple theme-matching colors.
+- Balloons rise from below the viewport with varied size, side placement and gentle string sway.
+- Balloons now end their flight just below the top birthday toran instead of passing through it.
+- At the end of each balloon flight, the balloon bursts into a ring, sparks and colorful confetti-style particles, then disappears.
+- The balloon burst is generated at the actual balloon position, so each pop looks spatially connected to the balloon.
+- Existing fireworks, falling paper and background celebration effects remain intact.

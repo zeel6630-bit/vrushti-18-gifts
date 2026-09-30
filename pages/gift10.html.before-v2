@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift 10 — The Rules of Us</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+    --ink:#211d1b;
+    --muted:#716963;
+    --paper:#f4efe5;
+    --wine:#6d3038;
+    --wine-dark:#451f25;
+    --gold:#a78352;
+    --line:rgba(60,45,38,.18);
+}
+
+html,body{
+    min-height:100%;
+    width:100%;
+}
+
+body{
+    background:
+        radial-gradient(circle at 20% 10%,rgba(167,131,82,.10),transparent 30%),
+        radial-gradient(circle at 80% 90%,rgba(109,48,56,.08),transparent 30%),
+        #181616;
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.045;
+    background-image:repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.8) 4px
+    );
+    z-index:20;
+}
+
+/* COVER */
+
+.cover{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+.book{
+    width:min(1050px,100%);
+    min-height:680px;
+    display:grid;
+    grid-template-columns:58px 1fr;
+    background:var(--paper);
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.55),
+        0 10px 30px rgba(0,0,0,.35);
+    border-radius:4px;
+    overflow:hidden;
+}
+
+.book-spine,
+.reader-spine{
+    background:linear-gradient(
+        90deg,
+        #35191e,
+        #5b2931 45%,
+        #35191e
+    );
+    position:relative;
+}
+
+.book-spine::after{
+    content:"10";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-90deg);
+    color:rgba(255,255,255,.65);
+    font:12px Arial,sans-serif;
+    letter-spacing:5px;
+}
+
+.cover-inner{
+    position:relative;
+    min-height:680px;
+    padding:70px 75px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.28),
+            transparent 25%,
+            transparent 75%,
+            rgba(0,0,0,.025)
+        ),
+        var(--paper);
+}
+
+.cover-inner::before{
+    content:"";
+    position:absolute;
+    inset:25px;
+    border:1px solid var(--line);
+    pointer-events:none;
+}
+
+.eyebrow{
+    font:11px Arial,sans-serif;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:var(--wine);
+}
+
+.cover-title{
+    max-width:700px;
+}
+
+.cover-title .number{
+    font:300 clamp(75px,12vw,150px)/.8 Arial,sans-serif;
+    color:rgba(109,48,56,.14);
+    margin-bottom:-12px;
+}
+
+.cover-title h1{
+    position:relative;
+    font-size:clamp(48px,7vw,88px);
+    line-height:.92;
+    font-weight:500;
+    letter-spacing:-3px;
+}
+
+.cover-title h1 span{
+    color:var(--wine);
+}
+
+.cover-subtitle{
+    max-width:520px;
+    margin-top:30px;
+    font-size:19px;
+    line-height:1.8;
+    color:var(--muted);
+}
+
+.cover-bottom{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.cover-note{
+    max-width:430px;
+    font-size:14px;
+    line-height:1.7;
+    color:#77706a;
+}
+
+.open-btn{
+    border:1px solid var(--wine);
+    background:var(--wine);
+    color:white;
+    padding:16px 30px;
+    cursor:pointer;
+    font:12px Arial,sans-serif;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    transition:.25s ease;
+}
+
+.open-btn:hover{
+    background:var(--wine-dark);
+    transform:translateY(-2px);
+}
+
+/* READER */
+
+.reader{
+    display:none;
+    min-height:100vh;
+    padding:28px;
+    align-items:center;
+    justify-content:center;
+}
+
+.reader.active{
+    display:flex;
+}
+
+.reader-shell{
+    width:min(1120px,100%);
+    min-height:720px;
+    display:grid;
+    grid-template-columns:58px 1fr;
+    background:var(--paper);
+    box-shadow:0 35px 90px rgba(0,0,0,.55);
+    overflow:hidden;
+}
+
+.reader-spine::before{
+    content:"THE RULES OF US";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-90deg);
+    color:rgba(255,255,255,.5);
+    font:9px Arial,sans-serif;
+    letter-spacing:4px;
+    white-space:nowrap;
+}
+
+.reader-page{
+    min-height:720px;
+    padding:55px 70px 45px;
+    display:flex;
+    flex-direction:column;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--line);
+}
+
+.gift-label{
+    font:10px Arial,sans-serif;
+    letter-spacing:3px;
+    color:var(--wine);
+    text-transform:uppercase;
+}
+
+.progress{
+    font:11px Arial,sans-serif;
+    letter-spacing:2px;
+    color:#77706a;
+}
+
+.chapter{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    max-width:900px;
+    margin:auto;
+    width:100%;
+}
+
+.chapter-number{
+    font:200 clamp(70px,10vw,125px)/.75 Arial,sans-serif;
+    color:rgba(109,48,56,.13);
+}
+
+.chapter-rule{
+    margin-bottom:22px;
+    font:11px Arial,sans-serif;
+    letter-spacing:4px;
+    color:var(--gold);
+    text-transform:uppercase;
+}
+
+.chapter h2{
+    max-width:850px;
+    margin-bottom:30px;
+    font-size:clamp(35px,5vw,65px);
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-1.8px;
+}
+
+.chapter h2::after{
+    content:"";
+    display:block;
+    width:65px;
+    height:2px;
+    background:var(--wine);
+    margin-top:24px;
+}
+
+.chapter p{
+    max-width:720px;
+    font-size:20px;
+    line-height:1.9;
+    color:#554e49;
+}
+
+.principle{
+    max-width:720px;
+    margin-top:38px;
+    padding:18px 20px;
+    border-left:3px solid var(--wine);
+    background:rgba(109,48,56,.045);
+}
+
+.principle span{
+    display:block;
+    margin-bottom:7px;
+    font:9px Arial,sans-serif;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--wine);
+}
+
+.principle strong{
+    font-size:15px;
+    font-weight:500;
+    color:#413a36;
+}
+
+.navigation{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+}
+
+.nav-btn{
+    border:0;
+    background:transparent;
+    color:var(--wine);
+    cursor:pointer;
+    padding:10px 0;
+    font:11px Arial,sans-serif;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.nav-btn:disabled{
+    opacity:.25;
+    cursor:not-allowed;
+}
+
+.page-dots{
+    display:flex;
+    gap:6px;
+    align-items:center;
+}
+
+.dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#c9beb2;
+    transition:.25s;
+}
+
+.dot.active{
+    width:22px;
+    border-radius:4px;
+    background:var(--wine);
+}
+
+/* FINAL PAGE */
+
+.final-page{
+    display:none;
+    min-height:570px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.final-page.active{
+    display:flex;
+}
+
+.final-small{
+    margin-bottom:28px;
+    font:10px Arial,sans-serif;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:var(--wine);
+}
+
+.final-page h2{
+    max-width:750px;
+    font-size:clamp(42px,6vw,75px);
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-2px;
+}
+
+.final-page p{
+    max-width:650px;
+    margin-top:30px;
+    color:#625b55;
+    font-size:19px;
+    line-height:1.9;
+}
+
+.signature{
+    margin-top:45px;
+    font:10px Arial,sans-serif;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#857a70;
+}
+
+.fade-in{
+    animation:pageIn .38s ease forwards;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateX(18px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .cover,
+    .reader{
+        padding:12px;
+    }
+
+    .book,
+    .reader-shell{
+        grid-template-columns:35px 1fr;
+        min-height:calc(100vh - 24px);
+    }
+
+    .cover-inner{
+        min-height:calc(100vh - 24px);
+        padding:45px 28px;
+    }
+
+    .cover-inner::before{
+        inset:13px;
+    }
+
+    .reader-page{
+        min-height:calc(100vh - 24px);
+        padding:30px 24px 25px;
+    }
+
+    .chapter{
+        padding:35px 0;
+    }
+
+    .chapter p{
+        font-size:17px;
+        line-height:1.75;
+    }
+
+    .cover-bottom{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .open-btn{
+        width:100%;
+    }
+
+    .page-dots{
+        display:none;
+    }
+
+    .chapter h2{
+        letter-spacing:-1px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="cover" id="cover">
+
+    <div class="book">
+
+        <div class="book-spine"></div>
+
+        <div class="cover-inner">
+
+            <div class="eyebrow">
+                Gift 10 · A Private Book
+            </div>
+
+            <div class="cover-title">
+
+                <div class="number">18</div>
+
+                <h1>
+                    The Rules<br>
+                    <span>of Us.</span>
+                </h1>
+
+                <p class="cover-subtitle">
+                    Eighteen principles for building a relationship
+                    that remains honest, respectful, safe and strong.
+                </p>
+
+            </div>
+
+            <div class="cover-bottom">
+
+                <p class="cover-note">
+                    These aren't rules about controlling each other.
+                    They're reminders about how two people can take
+                    care of something they both value.
+                </p>
+
+                <button class="open-btn" onclick="openBook()">
+                    Open the book →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="reader" id="reader">
+
+    <div class="reader-shell">
+
+        <div class="reader-spine"></div>
+
+        <div class="reader-page">
+
+            <div class="topbar">
+
+                <div class="gift-label">
+                    Gift 10 · The Rules of Us
+                </div>
+
+                <div class="progress" id="progress">
+                    01 / 18
+                </div>
+
+            </div>
+
+
+            <div class="chapter" id="chapter">
+
+                <div class="chapter-number" id="number">01</div>
+
+                <div class="chapter-rule">
+                    Relationship Principle
+                </div>
+
+                <h2 id="title">
+                    Choose Each Other, Every Day
+                </h2>
+
+                <p id="description">
+                    A healthy relationship is not maintained only by
+                    feelings. It is maintained by consistent effort,
+                    attention, and the decision to keep showing up
+                    for each other.
+                </p>
+
+                <div class="principle">
+                    <span>Remember</span>
+                    <strong id="principle">
+                        Love becomes stronger when effort becomes consistent.
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="final-page" id="finalPage">
+
+                <div class="final-small">
+                    Gift 10 · The Last Page
+                </div>
+
+                <h2>
+                    Take care of what you have.
+                </h2>
+
+                <p>
+                    A healthy relationship is not defined by never
+                    having difficult days. It is defined by how two
+                    people treat each other when those days arrive.
+                </p>
+
+                <div class="signature">
+                    18 rules · 2 people · 1 relationship
+                </div>
+
+            </div>
+
+
+            <div class="navigation">
+
+                <button
+                    class="nav-btn"
+                    id="prevBtn"
+                    onclick="previousRule()">
+                    ← Previous
+                </button>
+
+                <div class="page-dots" id="dots"></div>
+
+                <button
+                    class="nav-btn"
+                    id="nextBtn"
+                    onclick="nextRule()">
+                    Next →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+const rules = [
+
+{
+title:"Choose Each Other, Every Day",
+description:"A healthy relationship is not maintained only by feelings. It is maintained by consistent effort, attention, and the decision to keep showing up for each other.",
+principle:"Love becomes stronger when effort becomes consistent."
+},
+
+{
+title:"Respect Comes Before Winning",
+description:"Disagreements should never become competitions. Being right is less important than protecting the respect between two people.",
+principle:"A relationship should never have a winner and a loser."
+},
+
+{
+title:"Talk About Problems, Don't Hide Them",
+description:"Small problems can become large when they are repeatedly ignored. Speak honestly about what hurts before resentment has time to grow.",
+principle:"Unspoken problems rarely disappear by themselves."
+},
+
+{
+title:"Never Use Silence as a Weapon",
+description:"Taking time to calm down is healthy. Deliberately ignoring someone to punish them is not. If you need space, communicate that you need it.",
+principle:"Space should create peace, not fear."
+},
+
+{
+title:"Listen to Understand",
+description:"Listening is not simply waiting for your turn to speak. Try to understand what the other person actually feels, even when you see the situation differently.",
+principle:"Understanding does not require agreeing."
+},
+
+{
+title:"Be Honest, Even When It Is Difficult",
+description:"Trust depends on truth. Difficult conversations may hurt temporarily, but dishonesty can damage the foundation of a relationship much more deeply.",
+principle:"A difficult truth is safer than a comfortable lie."
+},
+
+{
+title:"Protect Each Other's Boundaries",
+description:"Love does not mean unlimited access or control. Both people deserve privacy, personal space, friendships, interests, and boundaries.",
+principle:"Love and control are not the same thing."
+},
+
+{
+title:"Never Threaten the Relationship During Arguments",
+description:"Breaking up should not become a weapon used to frighten or control the other person. Serious decisions should not be thrown around in moments of anger.",
+principle:"Do not turn someone's deepest fear into an argument tactic."
+},
+
+{
+title:"Apologize With Responsibility",
+description:"A real apology is more than saying sorry. It means understanding what caused the hurt, taking responsibility, and making an honest effort not to repeat it.",
+principle:"An apology matters most when behaviour changes afterward."
+},
+
+{
+title:"Forgive Without Forgetting the Lesson",
+description:"Forgiveness can allow a relationship to heal, but healing does not require pretending nothing happened. Learn from mistakes and change what needs to change.",
+principle:"Forgiveness should lead to growth, not repetition."
+},
+
+{
+title:"Do Not Compare Your Relationship With Others",
+description:"Every couple has a different reality. Social media, other couples, and other people's relationships should not become the measurement of your own.",
+principle:"Your relationship does not need to look like anyone else's."
+},
+
+{
+title:"Support Each Other's Growth",
+description:"Loving someone means wanting them to become a stronger and happier version of themselves, not keeping them small because change feels uncomfortable.",
+principle:"Love should make room for growth."
+},
+
+{
+title:"Keep Your Own Identity",
+description:"A relationship should add to your life, not replace it. Both people should remain individuals with their own dreams, interests, friendships, and ambitions.",
+principle:"Two complete people can build one strong relationship."
+},
+
+{
+title:"Make Difficult Conversations Safe",
+description:"Both people should be able to say, 'This hurt me,' without immediately being mocked, dismissed, or attacked. Emotional safety is part of relationship health.",
+principle:"Honesty needs a safe place to exist."
+},
+
+{
+title:"Be Consistent, Not Just Romantic",
+description:"Grand gestures are temporary. Reliability is what builds trust: keeping promises, communicating, being present, and doing what you said you would do.",
+principle:"Consistency builds the trust that romance depends on."
+},
+
+{
+title:"Respect Each Other Even When Angry",
+description:"Anger is normal. Cruelty is a choice. No argument gives either person permission to insult, humiliate, threaten, manipulate, or deliberately hurt the other.",
+principle:"Being angry never removes the responsibility to be respectful."
+},
+
+{
+title:"Solve Problems Together",
+description:"The problem should be the enemy — not each other. When something goes wrong, approach it as 'us against the problem,' rather than 'me against you.'",
+principle:"Protect the relationship while solving the problem."
+},
+
+{
+title:"Never Stop Taking Care of the Relationship",
+description:"A healthy relationship is not something you finish building. It needs communication, affection, honesty, patience, effort, and care throughout the years.",
+principle:"The relationship needs care long after the beginning."
+}
+
+];
+
+let current=0;
+
+const chapter=document.getElementById("chapter");
+const finalPage=document.getElementById("finalPage");
+const number=document.getElementById("number");
+const title=document.getElementById("title");
+const description=document.getElementById("description");
+const principle=document.getElementById("principle");
+const progress=document.getElementById("progress");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+const dots=document.getElementById("dots");
+
+function buildDots(){
+
+    dots.innerHTML="";
+
+    rules.forEach((_,index)=>{
+
+        const dot=document.createElement("div");
+
+        dot.className="dot";
+
+        if(index===current){
+            dot.classList.add("active");
+        }
+
+        dots.appendChild(dot);
+
+    });
+}
+
+function renderRule(){
+
+    chapter.classList.remove("fade-in");
+
+    void chapter.offsetWidth;
+
+    chapter.classList.add("fade-in");
+
+    const rule=rules[current];
+
+    number.textContent=String(current+1).padStart(2,"0");
+
+    title.textContent=rule.title;
+
+    description.textContent=rule.description;
+
+    principle.textContent=rule.principle;
+
+    progress.textContent=
+        `${String(current+1).padStart(2,"0")} / 18`;
+
+    prevBtn.disabled=current===0;
+
+    nextBtn.textContent=
+        current===rules.length-1
+        ? "Final Page →"
+        : "Next →";
+
+    buildDots();
+}
+
+function nextRule(){
+
+    if(current<rules.length-1){
+
+        current++;
+
+        renderRule();
+
+    }else{
+
+        chapter.style.display="none";
+
+        finalPage.classList.add("active");
+
+        progress.textContent="18 / 18";
+
+        prevBtn.disabled=false;
+
+        nextBtn.textContent="Start Again →";
+
+        document
+            .querySelectorAll(".dot")
+            .forEach(d=>d.classList.remove("active"));
+    }
+}
+
+function previousRule(){
+
+    if(finalPage.classList.contains("active")){
+
+        finalPage.classList.remove("active");
+
+        chapter.style.display="flex";
+
+        current=rules.length-1;
+
+        renderRule();
+
+        return;
+    }
+
+    if(current>0){
+
+        current--;
+
+        renderRule();
+    }
+}
+
+function openBook(){
+
+    document.getElementById("cover").style.display="none";
+
+    document.getElementById("reader").classList.add("active");
+
+    current=0;
+
+    renderRule();
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+}
+
+document.addEventListener("keydown",event=>{
+
+    if(
+        document
+        .getElementById("reader")
+        .classList
+        .contains("active")
+    ){
+
+        if(event.key==="ArrowRight"){
+            nextRule();
+        }
+
+        if(event.key==="ArrowLeft"){
+            previousRule();
+        }
+    }
+});
+
+let touchStartX=0;
+
+document.addEventListener("touchstart",event=>{
+
+    touchStartX=event.changedTouches[0].screenX;
+
+},{passive:true});
+
+document.addEventListener("touchend",event=>{
+
+    if(
+        !document
+        .getElementById("reader")
+        .classList
+        .contains("active")
+    ) return;
+
+    const touchEndX=event.changedTouches[0].screenX;
+
+    const difference=touchEndX-touchStartX;
+
+    if(Math.abs(difference)<50) return;
+
+    if(difference<0){
+        nextRule();
+    }else{
+        previousRule();
+    }
+
+},{passive:true});
+
+buildDots();
+
+</script>
+
+</body>
+</html>

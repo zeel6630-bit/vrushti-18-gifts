@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gift 14 · 18 Flirty Questions</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --cream:#fff8f1;
+  --cream2:#fff1e8;
+  --pink:#f39ab5;
+  --pink2:#ffd4df;
+  --rose:#d95d82;
+  --text:#49353d;
+  --muted:#947681;
+  --white:#fffdfb;
+  --shadow:0 25px 70px rgba(171,91,119,.16);
+}
+
+html,body{
+  min-height:100%;
+}
+
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% 12%,rgba(255,185,207,.48),transparent 27%),
+    radial-gradient(circle at 87% 18%,rgba(255,221,190,.45),transparent 26%),
+    radial-gradient(circle at 50% 100%,rgba(221,204,255,.30),transparent 35%),
+    linear-gradient(135deg,var(--cream),var(--cream2));
+  overflow-x:hidden;
+}
+
+button{
+  font:inherit;
+}
+
+.background{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.orb{
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  filter:blur(2px);
+  opacity:.25;
+  animation:floatOrb 13s ease-in-out infinite alternate;
+}
+
+.orb.one{
+  background:#ff9fbd;
+  left:-50px;
+  top:20%;
+}
+
+.orb.two{
+  background:#ffd38e;
+  right:-60px;
+  top:55%;
+  width:220px;
+  height:220px;
+  animation-delay:-4s;
+}
+
+.orb.three{
+  background:#c9b6ff;
+  left:42%;
+  bottom:-100px;
+  width:250px;
+  height:250px;
+  animation-delay:-8s;
+}
+
+@keyframes floatOrb{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(35px,-28px,0)}
+}
+
+.particle{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:rgba(217,93,130,.35);
+  animation:particleMove linear infinite;
+}
+
+@keyframes particleMove{
+  from{transform:translateY(105vh);opacity:0}
+  15%{opacity:.7}
+  85%{opacity:.7}
+  to{transform:translateY(-10vh);opacity:0}
+}
+
+.app{
+  position:relative;
+  z-index:2;
+  width:min(920px,calc(100% - 30px));
+  margin:auto;
+  padding:35px 0 55px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.gift-label{
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--rose);
+  font-weight:700;
+}
+
+.progress{
+  font-size:13px;
+  color:var(--muted);
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(217,93,130,.12);
+  padding:8px 13px;
+  border-radius:30px;
+  backdrop-filter:blur(12px);
+}
+
+.hero{
+  text-align:center;
+  margin:10px auto 28px;
+}
+
+.hero .mini{
+  color:var(--rose);
+  font-size:13px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.hero h1{
+  font-size:clamp(34px,6vw,62px);
+  line-height:1.05;
+  letter-spacing:-2px;
+  font-weight:750;
+}
+
+.hero h1 span{
+  color:var(--rose);
+}
+
+.hero p{
+  max-width:610px;
+  margin:15px auto 0;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
+
+.quiz-card{
+  position:relative;
+  background:rgba(255,253,251,.78);
+  border:1px solid rgba(217,93,130,.14);
+  border-radius:34px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(22px);
+  padding:clamp(24px,5vw,52px);
+  overflow:hidden;
+}
+
+.quiz-card:before{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:-100px;
+  top:-100px;
+  background:rgba(255,186,207,.26);
+  border-radius:50%;
+}
+
+.question-number{
+  position:relative;
+  color:var(--rose);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.question{
+  position:relative;
+  max-width:760px;
+  font-size:clamp(23px,4vw,37px);
+  line-height:1.25;
+  letter-spacing:-.7px;
+  font-weight:650;
+  margin-bottom:30px;
+}
+
+.options{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.option{
+  border:1px solid rgba(217,93,130,.14);
+  background:rgba(255,255,255,.72);
+  color:var(--text);
+  border-radius:20px;
+  min-height:76px;
+  padding:16px 18px;
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    background .18s ease,
+    border-color .18s ease;
+}
+
+.option:hover{
+  transform:translateY(-3px);
+  background:#fff;
+  border-color:rgba(217,93,130,.35);
+  box-shadow:0 12px 28px rgba(171,91,119,.12);
+}
+
+.option-letter{
+  width:37px;
+  height:37px;
+  min-width:37px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#ffe2ea;
+  color:var(--rose);
+  font-weight:800;
+}
+
+.option-text{
+  line-height:1.45;
+  font-size:15px;
+}
+
+.option.correct{
+  background:#fff0f5;
+  border-color:#ee9eb7;
+  box-shadow:0 12px 30px rgba(217,93,130,.16);
+}
+
+.next-wrap{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  margin-top:25px;
+  min-height:52px;
+}
+
+.next-btn{
+  border:0;
+  cursor:pointer;
+  padding:14px 28px;
+  border-radius:50px;
+  background:linear-gradient(135deg,#dc6f93,#ed9ab2);
+  color:white;
+  font-weight:750;
+  box-shadow:0 12px 30px rgba(217,93,130,.24);
+  display:none;
+  transition:.2s;
+}
+
+.next-btn:hover{
+  transform:translateY(-2px);
+}
+
+.hint{
+  position:relative;
+  text-align:center;
+  margin-top:18px;
+  font-size:12px;
+  color:#a98993;
+}
+
+.shake{
+  animation:shake .48s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake{
+  10%,90%{transform:translateX(-3px)}
+  20%,80%{transform:translateX(6px)}
+  30%,50%,70%{transform:translateX(-8px)}
+  40%,60%{transform:translateX(8px)}
+}
+
+.error-overlay{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(69,42,52,.22);
+  backdrop-filter:blur(7px);
+}
+
+.error-overlay.show{
+  display:flex;
+}
+
+.error-modal{
+  width:min(430px,100%);
+  background:#fffaf7;
+  border:1px solid rgba(217,93,130,.18);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:0 30px 100px rgba(74,42,53,.25);
+  position:relative;
+  text-align:center;
+  animation:pop .22s ease-out;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.close-error{
+  position:absolute;
+  right:14px;
+  top:12px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#fff0f4;
+  color:#a84f6e;
+  font-size:23px;
+  cursor:pointer;
+}
+
+.error-icon{
+  width:62px;
+  height:62px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#ffe1e9;
+  color:#cf5579;
+  font-size:29px;
+  font-weight:800;
+}
+
+.error-modal h2{
+  font-size:24px;
+  margin-bottom:8px;
+}
+
+.error-modal p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+}
+
+.error-close-btn{
+  margin-top:20px;
+  border:0;
+  background:#d9678b;
+  color:#fff;
+  padding:11px 24px;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.success-overlay{
+  position:fixed;
+  inset:0;
+  z-index:30;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(255,248,243,.88);
+  backdrop-filter:blur(12px);
+}
+
+.success-overlay.show{
+  display:flex;
+}
+
+.success-card{
+  width:min(560px,100%);
+  background:#fffdfb;
+  border:1px solid rgba(217,93,130,.15);
+  border-radius:34px;
+  box-shadow:var(--shadow);
+  padding:42px 30px;
+  text-align:center;
+  animation:pop .35s ease-out;
+}
+
+.success-card .heart{
+  font-size:50px;
+  margin-bottom:12px;
+}
+
+.success-card h2{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.success-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.restart{
+  margin-top:22px;
+  border:0;
+  background:#d9678b;
+  color:#fff;
+  border-radius:30px;
+  padding:13px 25px;
+  font-weight:750;
+  cursor:pointer;
+}
+
+@media(max-width:650px){
+  .app{
+    width:min(100% - 18px,920px);
+    padding-top:22px;
+  }
+
+  .quiz-card{
+    border-radius:26px;
+    padding:23px 17px;
+  }
+
+  .options{
+    grid-template-columns:1fr;
+  }
+
+  .option{
+    min-height:68px;
+  }
+
+  .hero h1{
+    letter-spacing:-1.3px;
+  }
+
+  .question{
+    font-size:25px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+<style id="birthday-home-button-style">
+.birthday-home-button {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 999999 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.30) !important;
+
+  background: rgba(20,20,30,.72) !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}
+
+.birthday-home-button:hover {
+  transform: translateY(-3px) scale(1.08) !important;
+
+  background: rgba(35,35,48,.90) !important;
+
+  border-color: rgba(255,255,255,.55) !important;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.30),
+    0 0 22px rgba(255,255,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+.birthday-home-button:active {
+  transform: scale(.94) !important;
+}
+
+.birthday-home-button svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 600px) {
+  .birthday-home-button {
+    top: 14px !important;
+    right: 14px !important;
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .birthday-home-button svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="background">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="gift-label">Gift 14 · A Little Trouble</div>
+    <div class="progress" id="progress">Question 1 / 18</div>
+  </div>
+
+  <section class="hero">
+    <div class="mini">For Vrushti Jii</div>
+    <h1>18 <span>Flirty</span> Questions</h1>
+    <p>
+      Four answers. Three are believable. One is the answer you were
+      probably trying not to choose. 😏
+    </p>
+  </section>
+
+  <main class="quiz-card" id="quizCard">
+
+    <div class="question-number" id="questionNumber">
+      Question 01
+    </div>
+
+    <div class="question" id="question"></div>
+
+    <div class="options" id="options"></div>
+
+    <div class="next-wrap">
+      <button class="next-btn" id="nextBtn">NEXT QUESTION →</button>
+    </div>
+
+    <div class="hint">
+      Choose carefully. You only get to move forward after finding the flirty answer.
+    </div>
+
+  </main>
+
+</div>
+
+<!-- WRONG ANSWER MODAL -->
+<div class="error-overlay" id="errorOverlay">
+  <div class="error-modal">
+
+    <button class="close-error" id="closeError" aria-label="Close">×</button>
+
+    <div class="error-icon">×</div>
+
+    <h2>Wrong answer 😏</h2>
+
+    <p>
+      Hmm... nice try.<br>
+      But you know that's not the answer you're looking for.
+    </p>
+
+    <button class="error-close-btn" id="errorCloseBtn">
+      Okay, I'll try again
+    </button>
+
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+
+    <div class="heart">💗</div>
+
+    <h2>You survived all 18 😏</h2>
+
+    <p>
+      Somehow you managed to find every answer.<br>
+      I have a feeling you knew exactly what you were doing.
+    </p>
+
+    <button class="restart" id="restartBtn">
+      PLAY AGAIN
+    </button>
+
+  </div>
+</div>
+
+<script>
+
+/* =========================================================
+   GIFT 14 — 18 FLIRTY QUESTIONS
+   ========================================================= */
+
+const questions = [
+
+{
+  q:"If I suddenly sat beside you, what would you probably do?",
+  options:[
+    "Ask what I'm doing",
+    "Move a little",
+    "Start talking normally",
+    "Try not to smile while secretly enjoying it"
+  ],
+  correct:3
+},
+
+{
+  q:"If I kept looking at you without saying anything, what would you do?",
+  options:[
+    "Ask why I'm looking",
+    "Look somewhere else",
+    "Start laughing",
+    "Look back at me and make me even more nervous"
+  ],
+  correct:3
+},
+
+{
+  q:"If I said 'come closer' for no reason, what would you choose?",
+  options:[
+    "Ask me why",
+    "Say no",
+    "Laugh at me",
+    "Come closer and ask me later"
+  ],
+  correct:3
+},
+
+{
+  q:"Which would make you smile the most?",
+  options:[
+    "A funny message",
+    "A random meme",
+    "A cute compliment",
+    "Me telling you that you look extra cute today"
+  ],
+  correct:3
+},
+
+{
+  q:"If we were sitting together and our hands accidentally touched, what would you do?",
+  options:[
+    "Move your hand",
+    "Pretend nothing happened",
+    "Laugh about it",
+    "Leave your hand there for a little longer"
+  ],
+  correct:3
+},
+
+{
+  q:"If I told you 'You look really cute today,' what would you secretly want me to do next?",
+  options:[
+    "Change the topic",
+    "Give you another compliment",
+    "Make you laugh",
+    "Keep looking at you while saying it again"
+  ],
+  correct:3
+},
+
+{
+  q:"If I gave you one minute to flirt with me, what would you do?",
+  options:[
+    "Make me laugh",
+    "Ask me random questions",
+    "Give me a cute compliment",
+    "Say something that would make me blush instantly"
+  ],
+  correct:3
+},
+
+{
+  q:"If I was standing very close to you, what would be hardest to do?",
+  options:[
+    "Keep talking normally",
+    "Look somewhere else",
+    "Stop laughing",
+    "Pretend you weren't enjoying how close I was"
+  ],
+  correct:3
+},
+
+{
+  q:"If I sent you 'I miss your face' instead of 'I miss you,' what would you reply?",
+  options:[
+    "What is wrong with you?",
+    "Haha okay",
+    "You miss my face?",
+    "Then come see it"
+  ],
+  correct:3
+},
+
+{
+  q:"If I caught you staring at me, what would you say?",
+  options:[
+    "Nothing",
+    "Why are you looking at me?",
+    "I wasn't staring",
+    "Maybe I just like looking at you"
+  ],
+  correct:3
+},
+
+{
+  q:"If I asked you to choose one thing from me, what would you pick?",
+  options:[
+    "My hoodie",
+    "My playlist",
+    "My favorite snack",
+    "My attention"
+  ],
+  correct:3
+},
+
+{
+  q:"If I suddenly became quiet while looking at you, what would you think?",
+  options:[
+    "Something happened",
+    "Why is he quiet?",
+    "He's probably thinking",
+    "He's probably trying to make me blush"
+  ],
+  correct:3
+},
+
+{
+  q:"If I said 'I have something to tell you' and then smiled, what would you expect?",
+  options:[
+    "A joke",
+    "Some random story",
+    "A question",
+    "A confession that makes you smile"
+  ],
+  correct:3
+},
+
+{
+  q:"If you had to sit next to me for the whole evening, what would you secretly hope for?",
+  options:[
+    "Good food",
+    "A good conversation",
+    "Lots of jokes",
+    "A little too much flirting"
+  ],
+  correct:3
+},
+
+{
+  q:"If I said 'You know what I like about you?' what would you want the answer to be?",
+  options:[
+    "Your funny side",
+    "Your kindness",
+    "Your smile",
+    "Something that makes you blush when you hear it"
+  ],
+  correct:3
+},
+
+{
+  q:"If I challenged you to make me smile without saying 'I love you,' what would you do?",
+  options:[
+    "Tell me a joke",
+    "Send me a cute picture",
+    "Give me a compliment",
+    "Say something only you could say to make me blush"
+  ],
+  correct:3
+},
+
+{
+  q:"If I gave you the choice between talking to me for one hour or getting one surprise from me, what would you choose?",
+  options:[
+    "The surprise",
+    "The one-hour conversation",
+    "Both if possible",
+    "The conversation, but only if I stay close to you"
+  ],
+  correct:3
+},
+
+{
+  q:"Last one 😏 If I asked, 'Do you know why I keep flirting with you?' what would you answer?",
+  options:[
+    "Because you're bored",
+    "Because you like annoying me",
+    "Because you have nothing better to do",
+    "Because you like me a little too much"
+  ],
+  correct:3
+}
+
+];
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let current = 0;
+let answeredCorrectly = false;
+
+const questionNumber = document.getElementById("questionNumber");
+const question = document.getElementById("question");
+const options = document.getElementById("options");
+const progress = document.getElementById("progress");
+const nextBtn = document.getElementById("nextBtn");
+
+const quizCard = document.getElementById("quizCard");
+
+const errorOverlay = document.getElementById("errorOverlay");
+const closeError = document.getElementById("closeError");
+const errorCloseBtn = document.getElementById("errorCloseBtn");
+
+const successOverlay = document.getElementById("successOverlay");
+const restartBtn = document.getElementById("restartBtn");
+
+
+/* =========================================================
+   RANDOMIZE ANSWER POSITION
+   ========================================================= */
+
+function shuffle(array){
+
+  const arr = [...array];
+
+  for(let i=arr.length-1;i>0;i--){
+
+    const j=Math.floor(Math.random()*(i+1));
+
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+
+  return arr;
+}
+
+
+/* =========================================================
+   LOAD QUESTION
+   ========================================================= */
+
+function loadQuestion(){
+
+  answeredCorrectly=false;
+
+  const item=questions[current];
+
+  questionNumber.textContent=
+    `Question ${String(current+1).padStart(2,"0")}`;
+
+  progress.textContent=
+    `Question ${current+1} / ${questions.length}`;
+
+  question.textContent=item.q;
+
+  options.innerHTML="";
+
+  nextBtn.style.display="none";
+
+  /*
+    The original correct answer is stored by index.
+    We attach the correct flag BEFORE shuffling.
+  */
+
+  const prepared=item.options.map((text,index)=>({
+    text,
+    correct:index===item.correct
+  }));
+
+  const randomized=shuffle(prepared);
+
+  randomized.forEach((option,index)=>{
+
+    const button=document.createElement("button");
+
+    button.className="option";
+
+    button.innerHTML=`
+      <span class="option-letter">
+        ${String.fromCharCode(65+index)}
+      </span>
+
+      <span class="option-text">
+        ${option.text}
+      </span>
+    `;
+
+    button.addEventListener("click",()=>{
+
+      if(answeredCorrectly)return;
+
+      if(option.correct){
+
+        answeredCorrectly=true;
+
+        button.classList.add("correct");
+
+        [...options.children].forEach(btn=>{
+          btn.style.pointerEvents="none";
+        });
+
+        nextBtn.style.display="block";
+
+        button.animate(
+          [
+            {transform:"scale(1)"},
+            {transform:"scale(1.025)"},
+            {transform:"scale(1)"}
+          ],
+          {
+            duration:360,
+            easing:"ease-out"
+          }
+        );
+
+      }else{
+
+        showWrongAnswer();
+      }
+
+    });
+
+    options.appendChild(button);
+
+  });
+}
+
+
+/* =========================================================
+   WRONG ANSWER
+   ========================================================= */
+
+function showWrongAnswer(){
+
+  quizCard.classList.remove("shake");
+
+  /*
+    Force reflow so the shake works every time.
+  */
+
+  void quizCard.offsetWidth;
+
+  quizCard.classList.add("shake");
+
+  /*
+    Phone vibration where supported.
+  */
+
+  if(navigator.vibrate){
+
+    navigator.vibrate([
+      80,
+      45,
+      80,
+      45,
+      120
+    ]);
+
+  }
+
+  errorOverlay.classList.add("show");
+}
+
+
+/* =========================================================
+   CLOSE ERROR
+   ========================================================= */
+
+function hideError(){
+
+  errorOverlay.classList.remove("show");
+
+  quizCard.classList.remove("shake");
+}
+
+closeError.addEventListener("click",hideError);
+
+errorCloseBtn.addEventListener("click",hideError);
+
+errorOverlay.addEventListener("click",(event)=>{
+
+  if(event.target===errorOverlay){
+    hideError();
+  }
+
+});
+
+
+/* =========================================================
+   NEXT QUESTION
+   ========================================================= */
+
+nextBtn.addEventListener("click",()=>{
+
+  if(!answeredCorrectly)return;
+
+  current++;
+
+  if(current>=questions.length){
+
+    successOverlay.classList.add("show");
+
+    launchConfetti();
+
+    return;
+  }
+
+  loadQuestion();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+
+/* =========================================================
+   PLAY AGAIN
+   ========================================================= */
+
+restartBtn.addEventListener("click",()=>{
+
+  current=0;
+
+  successOverlay.classList.remove("show");
+
+  loadQuestion();
+
+});
+
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
+
+const background=document.querySelector(".background");
+
+for(let i=0;i<35;i++){
+
+  const particle=document.createElement("div");
+
+  particle.className="particle";
+
+  particle.style.left=Math.random()*100+"%";
+
+  particle.style.animationDuration=
+    (8+Math.random()*12)+"s";
+
+  particle.style.animationDelay=
+    (-Math.random()*15)+"s";
+
+  particle.style.width=
+  particle.style.height=
+    (3+Math.random()*4)+"px";
+
+  background.appendChild(particle);
+}
+
+
+/* =========================================================
+   SIMPLE FINAL CONFETTI
+   ========================================================= */
+
+function launchConfetti(){
+
+  for(let i=0;i<65;i++){
+
+    const piece=document.createElement("div");
+
+    piece.style.position="fixed";
+    piece.style.left=(50+Math.random()*20-10)+"%";
+    piece.style.top="48%";
+    piece.style.width=(5+Math.random()*6)+"px";
+    piece.style.height=(8+Math.random()*10)+"px";
+    piece.style.borderRadius="3px";
+    piece.style.background=[
+      "#f39ab5",
+      "#e98ca9",
+      "#ffd18c",
+      "#c8b4ef",
+      "#a9d9cf"
+    ][Math.floor(Math.random()*5)];
+
+    piece.style.zIndex="40";
+    piece.style.pointerEvents="none";
+
+    document.body.appendChild(piece);
+
+    const x=(Math.random()-0.5)*700;
+    const y=250+Math.random()*500;
+    const rotation=Math.random()*900-450;
+
+    piece.animate(
+      [
+        {
+          transform:"translate(-50%,-50%) rotate(0deg)",
+          opacity:1
+        },
+        {
+          transform:
+            `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${rotation}deg)`,
+          opacity:0
+        }
+      ],
+      {
+        duration:1300+Math.random()*1000,
+        easing:"cubic-bezier(.2,.8,.3,1)"
+      }
+    ).onfinish=()=>piece.remove();
+
+  }
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+loadQuestion();
+
+</script>
+
+
+<div class="gift-footer"><a class="birthday-home-button" href="home.html">
+<span aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 3.5 2.5 11.2h2.1v9.1h5.1v-5.7h4.6v5.7h5.1v-9.1h2.1L12 3.5z"/>
+</svg>
+</span>
+</a></div>
+</body>
+</html>

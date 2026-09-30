@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gift 14 — The Vrushti Randomizer</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Space+Mono:wght@400;700&display=swap');
+
+*{box-sizing:border-box}
+
+:root{
+  --bg:#f7f1ec;
+  --bg2:#eee4df;
+  --card:#fffaf7;
+  --pink:#d987a3;
+  --pink2:#efb7c8;
+  --rose:#bd718c;
+  --peach:#eab095;
+  --lav:#a99acb;
+  --mint:#93bcae;
+  --gold:#c59b61;
+  --ink:#38313a;
+  --muted:#91868c;
+  --line:rgba(73,55,63,.12);
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  background:
+    radial-gradient(circle at 12% 15%,rgba(239,183,200,.38),transparent 25%),
+    radial-gradient(circle at 90% 18%,rgba(197,155,97,.16),transparent 23%),
+    radial-gradient(circle at 80% 90%,rgba(169,154,203,.22),transparent 27%),
+    linear-gradient(145deg,#fbf7f3,#eee4df);
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button{
+  font:inherit;
+}
+
+.background-orb{
+  position:fixed;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  filter:blur(55px);
+  pointer-events:none;
+  opacity:.28;
+  animation:floatOrb 16s ease-in-out infinite alternate;
+}
+
+.orb1{
+  left:-100px;
+  top:35%;
+  background:var(--pink2);
+}
+
+.orb2{
+  right:-100px;
+  bottom:10%;
+  background:#b9add8;
+  animation-delay:-6s;
+}
+
+@keyframes floatOrb{
+  from{transform:translate(0,0)}
+  to{transform:translate(55px,-35px)}
+}
+
+.container{
+  width:min(1160px,93%);
+  margin:auto;
+  padding:30px 0 65px;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+}
+
+.kicker{
+  color:var(--rose);
+  font-family:"Space Mono",monospace;
+  font-size:9px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.title{
+  margin:0;
+  font-size:clamp(34px,6vw,60px);
+  line-height:.98;
+  letter-spacing:-2px;
+  font-weight:600;
+  color:#3b3339;
+}
+
+.subtitle{
+  margin:11px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.number{
+  width:66px;
+  height:66px;
+  border-radius:50%;
+  border:1px solid rgba(189,113,140,.25);
+  background:rgba(255,255,255,.62);
+  display:grid;
+  place-items:center;
+  color:var(--rose);
+  font-family:"Space Mono",monospace;
+  box-shadow:0 12px 35px rgba(91,62,71,.08);
+}
+
+/* MACHINE */
+
+.machine{
+  position:relative;
+  margin:38px auto 0;
+  padding:22px;
+  max-width:1080px;
+  background:rgba(255,250,247,.76);
+  border:1px solid rgba(90,67,76,.11);
+  border-radius:28px;
+  box-shadow:
+    0 28px 70px rgba(83,58,68,.12),
+    inset 0 1px rgba(255,255,255,.8);
+  backdrop-filter:blur(14px);
+}
+
+.machine-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:2px 8px 18px;
+  border-bottom:1px solid var(--line);
+}
+
+.machine-name{
+  color:var(--rose);
+  font-family:"Space Mono",monospace;
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+
+.round-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#94898e;
+  font-family:"Space Mono",monospace;
+  font-size:8px;
+  letter-spacing:1px;
+}
+
+.status-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#86b5a5;
+  box-shadow:0 0 10px rgba(134,181,165,.65);
+}
+
+/* STATUS */
+
+.spin-status{
+  text-align:center;
+  padding:21px 0 4px;
+}
+
+.spin-label{
+  font-family:"Space Mono",monospace;
+  color:#a2979b;
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.spin-count{
+  margin-top:7px;
+  color:#494047;
+  font-size:14px;
+  font-weight:600;
+}
+
+.spin-count span{
+  color:var(--rose);
+}
+
+/* WHEELS */
+
+.wheels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  padding:24px 5px 16px;
+}
+
+.wheel-box{
+  --accent:var(--pink);
+  position:relative;
+  min-height:350px;
+  padding:18px 12px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.78),rgba(250,240,236,.66));
+  box-shadow:
+    0 16px 35px rgba(91,62,71,.08),
+    inset 0 1px rgba(255,255,255,.9);
+  overflow:hidden;
+}
+
+.wheel-box:nth-child(1){--accent:var(--pink)}
+.wheel-box:nth-child(2){--accent:#7eaeb0}
+.wheel-box:nth-child(3){--accent:var(--gold)}
+
+.wheel-label{
+  text-align:center;
+  color:var(--accent);
+  font-family:"Space Mono",monospace;
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+.pointer{
+  position:absolute;
+  z-index:8;
+  left:50%;
+  top:53px;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-top:17px solid var(--accent);
+  filter:drop-shadow(0 3px 4px rgba(50,30,40,.2));
+}
+
+/*
+  The wheel itself is a calm physical-looking carousel.
+  JS controls the exact rotation.
+*/
+
+.wheel{
+  position:relative;
+  width:225px;
+  height:225px;
+  max-width:100%;
+  margin:auto;
+  border-radius:50%;
+  border:8px solid rgba(255,255,255,.75);
+  background:
+    radial-gradient(circle at 35% 25%,rgba(255,255,255,.95),transparent 17%),
+    radial-gradient(circle at 50% 50%,#f4e5e4,#ead6d5);
+  box-shadow:
+    0 15px 30px rgba(84,57,65,.14),
+    inset 0 0 0 2px rgba(100,72,80,.08),
+    inset 0 0 35px rgba(130,89,101,.12);
+  transform:rotate(0deg);
+  transition:none;
+  will-change:transform;
+}
+
+.wheel:before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  border:1px dashed rgba(110,79,89,.17);
+}
+
+.wheel:after{
+  content:"";
+  position:absolute;
+  width:43px;
+  height:43px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#fffaf7;
+  border:3px solid var(--accent);
+  box-shadow:
+    0 4px 15px rgba(70,50,60,.16),
+    inset 0 0 0 5px rgba(255,255,255,.8);
+}
+
+.wheel-item{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100%;
+  text-align:center;
+  font-size:14px;
+  font-weight:600;
+  color:#51474d;
+  transform-origin:center;
+}
+
+.wheel-item:nth-child(1){
+  transform:translate(-50%,-50%) translateY(-76px);
+}
+
+.wheel-item:nth-child(2){
+  transform:translate(-50%,-50%) rotate(120deg) translateY(-76px) rotate(-120deg);
+}
+
+.wheel-item:nth-child(3){
+  transform:translate(-50%,-50%) rotate(240deg) translateY(-76px) rotate(-240deg);
+}
+
+.result{
+  text-align:center;
+  margin-top:14px;
+}
+
+.result-label{
+  color:#aaa0a4;
+  font-family:"Space Mono",monospace;
+  font-size:7px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.result-value{
+  margin-top:5px;
+  min-height:18px;
+  color:var(--accent);
+  font-size:13px;
+  font-weight:600;
+  opacity:.25;
+  transition:.5s;
+}
+
+.result-value.show{
+  opacity:1;
+}
+
+/* SPIN BUTTON */
+
+.spin-area{
+  display:flex;
+  justify-content:center;
+  padding:17px 0 23px;
+}
+
+.spin-button{
+  min-width:200px;
+  height:57px;
+  padding:0 25px;
+  border:1px solid rgba(189,113,140,.35);
+  border-radius:999px;
+  background:
+    linear-gradient(135deg,#df93ac,#c47b98);
+  color:white;
+  font-family:"Space Mono",monospace;
+  font-size:10px;
+  letter-spacing:1.7px;
+  cursor:pointer;
+  box-shadow:
+    0 12px 28px rgba(189,113,140,.22),
+    inset 0 1px rgba(255,255,255,.35);
+  transition:.25s;
+}
+
+.spin-button:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 16px 34px rgba(189,113,140,.28),
+    inset 0 1px rgba(255,255,255,.35);
+}
+
+.spin-button:disabled{
+  cursor:not-allowed;
+  opacity:.62;
+  transform:none;
+}
+
+.spin-button.complete{
+  background:linear-gradient(135deg,#8fb8aa,#729d90);
+}
+
+/* REVEAL */
+
+.reveal{
+  display:none;
+  max-width:880px;
+  margin:30px auto 0;
+}
+
+.reveal.show{
+  display:block;
+  animation:revealIn .9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes revealIn{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+    filter:blur(7px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+.reveal-title{
+  text-align:center;
+}
+
+.reveal-title small{
+  color:var(--rose);
+  font-family:"Space Mono",monospace;
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.reveal-title h2{
+  margin:8px 0 20px;
+  font-size:clamp(25px,5vw,40px);
+  font-weight:600;
+}
+
+.combo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:19px;
+}
+
+.chip{
+  padding:9px 15px;
+  border-radius:999px;
+  background:rgba(255,255,255,.7);
+  border:1px solid var(--line);
+  font-family:"Space Mono",monospace;
+  font-size:8px;
+  color:#655a60;
+  box-shadow:0 5px 15px rgba(80,55,65,.06);
+}
+
+.chip:nth-child(1){border-color:rgba(217,135,163,.35);color:#bd718c}
+.chip:nth-child(3){border-color:rgba(126,174,176,.35);color:#628f91}
+.chip:nth-child(5){border-color:rgba(197,155,97,.35);color:#a47e43}
+
+.plus{
+  color:#b4a8ad;
+  font-family:"Space Mono",monospace;
+  font-size:10px;
+}
+
+.message{
+  position:relative;
+  padding:46px 45px;
+  border-radius:24px;
+  border:1px solid rgba(90,67,76,.1);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(239,183,200,.2),transparent 43%),
+    rgba(255,251,248,.88);
+  box-shadow:
+    0 25px 65px rgba(83,58,68,.12),
+    inset 0 1px rgba(255,255,255,.9);
+  text-align:center;
+}
+
+.quote{
+  font-family:"Playfair Display",serif;
+  color:var(--rose);
+  font-size:43px;
+  line-height:.5;
+}
+
+.message p{
+  margin:18px auto 0;
+  max-width:730px;
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(19px,3vw,27px);
+  line-height:1.72;
+  color:#51454c;
+}
+
+.from{
+  margin-top:23px;
+  color:#a0979b;
+  font-family:"Space Mono",monospace;
+  font-size:8px;
+  letter-spacing:1.4px;
+}
+
+/* NEXT ROUND */
+
+.next-round{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.next-button{
+  border:1px solid rgba(189,113,140,.25);
+  background:rgba(255,255,255,.7);
+  color:var(--rose);
+  border-radius:999px;
+  padding:12px 22px;
+  cursor:pointer;
+  font-family:"Space Mono",monospace;
+  font-size:9px;
+  letter-spacing:1.3px;
+  transition:.25s;
+}
+
+.next-button:hover{
+  transform:translateY(-2px);
+  background:#fff;
+  box-shadow:0 10px 25px rgba(90,60,72,.1);
+}
+
+/* confetti */
+
+.confetti{
+  position:fixed;
+  z-index:30;
+  width:7px;
+  height:7px;
+  border-radius:2px;
+  pointer-events:none;
+  animation:confettiFall 1.4s cubic-bezier(.2,.7,.3,1) forwards;
+}
+
+@keyframes confettiFall{
+  0%{
+    transform:translate(0,0) rotate(0) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:translate(var(--x),var(--y)) rotate(650deg) scale(.2);
+    opacity:0;
+  }
+}
+
+/* mobile */
+
+@media(max-width:820px){
+  .wheels{
+    grid-template-columns:1fr;
+  }
+
+  .wheel-box{
+    min-height:340px;
+  }
+
+  .machine{
+    padding:15px;
+  }
+}
+
+@media(max-width:520px){
+  .container{
+    width:95%;
+    padding-top:20px;
+  }
+
+  .title{
+    font-size:38px;
+  }
+
+  .number{
+    width:54px;
+    height:54px;
+  }
+
+  .machine{
+    border-radius:22px;
+  }
+
+  .message{
+    padding:34px 20px;
+  }
+
+  .message p{
+    font-size:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-orb orb1"></div>
+<div class="background-orb orb2"></div>
+
+<div class="container">
+
+<header class="header">
+  <div>
+    <div class="kicker">Gift 14 · Randomizer</div>
+    <h1 class="title">The Vrushti<br>Randomizer</h1>
+    <p class="subtitle">Three spins. One combination. One message.</p>
+  </div>
+
+  <div class="number">14</div>
+</header>
+
+<section class="machine">
+
+  <div class="machine-top">
+    <div class="machine-name">VRUSH × ZEEL · RANDOM LOVE MACHINE</div>
+
+    <div class="round-status">
+      <i class="status-dot"></i>
+      ROUND ACTIVE
+    </div>
+  </div>
+
+  <div class="spin-status">
+    <div class="spin-label">Current round</div>
+    <div class="spin-count">
+      SPIN <span id="spinNumber">0</span> / 3
+    </div>
+  </div>
+
+  <div class="wheels">
+
+    <div class="wheel-box">
+      <div class="wheel-label">01 · VIBE</div>
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheel0">
+        <div class="wheel-item">Soft</div>
+        <div class="wheel-item">Playful</div>
+        <div class="wheel-item">Passionate</div>
+      </div>
+
+      <div class="result">
+        <div class="result-label">Locked result</div>
+        <div class="result-value" id="result0">Waiting</div>
+      </div>
+    </div>
+
+    <div class="wheel-box">
+      <div class="wheel-label">02 · FEELING</div>
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheel1">
+        <div class="wheel-item">Missing You</div>
+        <div class="wheel-item">Your Eyes</div>
+        <div class="wheel-item">Waiting For You</div>
+      </div>
+
+      <div class="result">
+        <div class="result-label">Locked result</div>
+        <div class="result-value" id="result1">Waiting</div>
+      </div>
+    </div>
+
+    <div class="wheel-box">
+      <div class="wheel-label">03 · ENDING</div>
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheel2">
+        <div class="wheel-item">Love</div>
+        <div class="wheel-item">Meeting</div>
+        <div class="wheel-item">Always</div>
+      </div>
+
+      <div class="result">
+        <div class="result-label">Locked result</div>
+        <div class="result-value" id="result2">Waiting</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="spin-area">
+    <button class="spin-button" id="spinButton">
+      SPIN 01
+    </button>
+  </div>
+
+</section>
+
+<section class="reveal" id="reveal">
+
+  <div class="reveal-title">
+    <small>YOUR COMBINATION</small>
+    <h2>The randomizer chose this for you.</h2>
+  </div>
+
+  <div class="combo">
+    <div class="chip" id="chip0"></div>
+    <div class="plus">+</div>
+    <div class="chip" id="chip1"></div>
+    <div class="plus">+</div>
+    <div class="chip" id="chip2"></div>
+  </div>
+
+  <div class="message">
+    <div class="quote">“</div>
+    <p id="paragraph"></p>
+    <div class="from">FROM ZEEL · FOR VRUSHTI JII</div>
+  </div>
+
+  <div class="next-round">
+    <button class="next-button" id="nextRound">
+      NEXT ROUND · 3 NEW SPINS
+    </button>
+  </div>
+
+</section>
+
+</div>
+
+<script>
+
+/*
+==========================================================
+GIFT 14 RANDOMIZER
+==========================================================
+
+3 wheels × 3 outcomes = 27 exact combinations.
+
+The wheel labels are English.
+
+The actual romantic content remains Roman-Hindi.
+
+No generated text is created at runtime.
+Every combination maps to one predefined paragraph.
+*/
+
+const wheels = [
+  ["Soft","Playful","Passionate"],
+  ["Missing You","Your Eyes","Waiting For You"],
+  ["Love","Meeting","Always"]
+];
+
+const messages = {
+
+"0-0-0":
+"Teri yaad jab dheere se dil ke darwaze pe aati hai, chehre pe bina wajah ek muskaan si chha jaati hai. Shayad mohabbat isi ko kehte hain, jab door rehkar bhi koi itna paas nazar aata hai.",
+
+"0-0-1":
+"Tumhari yaad ka bhi ajeeb sa asar hai, raat chhoti lagti hai aur dil beqaraar hai. Bas ek mulaqat mil jaaye toh keh doon, tumse milna hi meri sabse pyaari aadat hai.",
+
+"0-0-2":
+"Teri yaadon ko sambhal kar rakha hai dil ke kone mein, jaise koi khwaab chhupa ho aankhon ke sone mein. Tum aaj paas nahi ho, par dil ka faisla hai — tum kal bhi meri, aur hamesha meri kahaani mein ho.",
+
+"0-1-0":
+"Teri nazron ka jaadu kuch aisa chalta hai, mera seedha sa dil bhi shararat karta hai. Tum ek baar muskura do toh baat ban jaaye, aur main phir tumhari aankhon mein hi kho jaaun.",
+
+"0-1-1":
+"Teri nazrein mili toh dil ne kaha, sambhal zara, par dil ko meri baat kabhi samajh hi kahan aati hai. Tum saamne ho toh duniya bhool jaata hoon, aur bas tumhari taraf dekhta reh jaata hoon.",
+
+"0-1-2":
+"Teri aankhon mein jo sukoon milta hai, woh kahin aur kahan milta hai. Isliye dil ne chupke se ek faisla kiya hai — nazrein tumhari, aur unmein kho jaana hamesha mera.",
+
+"0-2-0":
+"Intezaar tera bhi kitna ajeeb hai, waqt guzarta hai par dil wahi kareeb hai. Kab aaogi yeh sawaal roz hota hai, par jawab se pehle hi dil kehta hai — bas tum aa jao.",
+
+"0-2-1":
+"Intezaar mein bhi ek alag si mithaas hai, kyunki pata hai kisi apne se mulaqat hai. Din chahe kitna bhi lamba kyun na ho, tum mil jao toh har pal ki keemat khaas hai.",
+
+"0-2-2":
+"Main intezaar karunga bina kisi shikayat ke, bina kisi sawaal ke, bas tumhare naam ke saath. Kyunki kuch log waqt ke saath nahi badalte — kuch log waqt ko hi apna bana lete hain.",
+
+"1-0-0":
+"Tumhari yaad aaye toh dil thoda shararti ho jaata hai, bina wajah tumhe message karne ka bahaana banata hai. Phir tum poochti ho 'kya hua?', aur dil kehta hai — bas tumse baat karne ka mann hua.",
+
+"1-0-1":
+"Yaad tumhari aaye aur main chup rahun, itna bhi shareef nahi hoon main. Tum saamne mil jao toh pehle smile karunga, phir tumhe bataunga ki kitna miss kiya tha tumhe.",
+
+"1-0-2":
+"Tumhari yaad ka koi schedule nahi, koi time nahi, koi reason nahi. Jab chahe aa jaati hai aur dil ko keh jaati hai — chahe duniya kuch bhi kahe, yeh ladki hamesha special rahegi.",
+
+"1-1-0":
+"Teri nazron mein woh shararat hai jo dil ko pareshaan karti hai, aur teri smile woh aadat hai jo har baar jaan le jaati hai. Tum bas dekhti raho, main har baar tumpe thoda aur fida hota rahunga.",
+
+"1-1-1":
+"Tum aankhon se baat karti ho aur main bina jawab ke haar jaata hoon. Sach kahun, tumhare saamne meri saari smartness khatam ho jaati hai — aur mujhe yeh haar bhi bahut pasand hai.",
+
+"1-1-2":
+"Ek nazar tumhari aur dil ka haal badal jaata hai, ek smile tumhari aur din kamaal ka ho jaata hai. Isliye dil ne apni favourite jagah chun li hai — tumhari aankhon ke paas, hamesha ke liye.",
+
+"1-2-0":
+"Tera intezaar karte hue bhi dil shararat karta hai, har notification par sochta hai shayad tumhara message hoga. Aur jab sach mein tumhara naam screen pe aaye — bas phir kya, smile apne aap aa jaati hai.",
+
+"1-2-1":
+"Intezaar tera hai toh thoda filmy hona banta hai, tum aao toh dil ka scene bhi romantic hona banta hai. Main bas itna chahta hoon — tum saamne ho, aur baaki duniya thodi der ke liye mute ho.",
+
+"1-2-2":
+"Chahe intezaar kitna bhi lamba ho, dil ki shararat kam nahi hogi. Tum aati rehna, main tumhe dekhta rahunga — aur har baar pehle din ki tarah tumpe fida hota rahunga.",
+
+"2-0-0":
+"Teri yaad aaye toh dil sirf yaad nahi karta, thoda sa pagal bhi ho jaata hai. Phir dil kehta hai, duniya ko baad mein dekh lenge — pehle Vrushti se baat karte hain.",
+
+"2-0-1":
+"Yaad tumhari aati hai toh dil ko bas ek bahaana chahiye, tumse milne ka ek chhota sa thikaana chahiye. Tum mil jao toh phir kya kehna — meri saari shararatein tumhare naam.",
+
+"2-0-2":
+"Tumhari yaad bhi meri favourite troublemaker hai, kabhi bhi aa jaati hai aur dil ko beqaraar kar jaati hai. Lekin sach kahun, is pareshani se mujhe koi problem nahi — tum hamesha meri favourite problem rahogi.",
+
+"2-1-0":
+"Teri nazron mein jo junoon hai, uska koi jawaab nahi, ek baar dekh loon toh phir khud pe mera ikhtiyaar nahi. Tum muskura do toh dil keh deta hai — bas, aaj phir se pyaar ho gaya.",
+
+"2-1-1":
+"Tumhari aankhon se jo baat shuru hoti hai, woh dil tak jaakar rukti hai. Tum paas aa jao toh waqt bhi dheere chalne lagta hai — aur main chahta hoon woh pal kabhi khatam na ho.",
+
+"2-1-2":
+"Teri nazrein mili aur dil ne bina soche keh diya, yeh kahaani ab aadhi nahi rahegi. Tum meri favourite nazar ho, meri favourite khushi ho — aur meri favourite kahaani hamesha rahogi.",
+
+"2-2-0":
+"Tumhara intezaar ab aadat nahi, ek khoobsurat sa junoon hai. Pata nahi tum kab aaogi, par dil ko yakeen hai — jis din aaogi, us din saari kamiyaan poori ho jaayengi.",
+
+"2-2-1":
+"Intezaar tera hai toh dil ko shikayat bhi nahi, kyunki har pal ke baad tumhari mulaqat ka khwaab hai kahin. Tum saamne aaogi aur main shayad kuch keh na paun — bas tumhe dekhta reh jaaun.",
+
+"2-2-2":
+"Na waqt rok sakta hai, na faasle, na koi aur bahaana. Agar dil ne kisi ko apna maana hai toh phir baat sirf aaj ki nahi hoti. Vrushti, tum meri aaj ki khushi ho — aur kal ki bhi kahaani ho, hamesha."
+};
+
+let spinCount=0;
+let results=[null,null,null];
+let busy=false;
+
+const spinButton=document.getElementById("spinButton");
+const spinNumber=document.getElementById("spinNumber");
+const reveal=document.getElementById("reveal");
+
+function sleep(ms){
+  return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+/*
+  Random result + realistic physical motion.
+
+  The final index is random.
+  The number of complete rotations is also randomized.
+
+  The wheel:
+  acceleration → many rotations → gradual deceleration → stop.
+*/
+
+function spinWheelPhysical(wheel,selected){
+
+  return new Promise(resolve=>{
+
+    const itemAngle=selected*120;
+
+    /*
+      Pointer is at top.
+      Add random full rotations so every spin looks different.
+    */
+    const fullTurns=5+Math.floor(Math.random()*4);
+
+    /*
+      Tiny random variation in the final stopping angle.
+      This keeps the stopping motion organic while still landing
+      inside the selected result sector.
+    */
+    const variation=(Math.random()*18)-9;
+
+    const finalRotation=
+      (fullTurns*360) +
+      (360-itemAngle) +
+      variation;
+
+    const start=performance.now();
+    const duration=4300+Math.floor(Math.random()*1700);
+
+    function ease(t){
+      /*
+        Quintic ease-out:
+        starts quickly, then progressively loses speed.
+      */
+      return 1-Math.pow(1-t,5);
+    }
+
+    function frame(now){
+
+      const elapsed=now-start;
+      const t=Math.min(elapsed/duration,1);
+      const eased=ease(t);
+
+      wheel.style.transform=
+        `rotate(${finalRotation*eased}deg)`;
+
+      if(t<1){
+        requestAnimationFrame(frame);
+      }else{
+        wheel.style.transform=
+          `rotate(${finalRotation}deg)`;
+
+        resolve();
+      }
+    }
+
+    requestAnimationFrame(frame);
+  });
+}
+
+function makeConfetti(){
+
+  const colors=[
+    "#d987a3",
+    "#efb7c8",
+    "#a99acb",
+    "#93bcae",
+    "#c59b61"
+  ];
+
+  for(let i=0;i<48;i++){
+
+    const c=document.createElement("div");
+    c.className="confetti";
+
+    c.style.left=(50+Math.random()*18-9)+"%";
+    c.style.top=(45+Math.random()*8-4)+"%";
+
+    c.style.background=
+      colors[Math.floor(Math.random()*colors.length)];
+
+    c.style.setProperty("--x",(Math.random()*500-250)+"px");
+    c.style.setProperty("--y",(Math.random()*500+80)+"px");
+
+    document.body.appendChild(c);
+
+    setTimeout(()=>c.remove(),1500);
+  }
+}
+
+async function spin(){
+
+  if(busy || spinCount>=3) return;
+
+  busy=true;
+  spinCount++;
+
+  spinNumber.textContent=spinCount;
+
+  const wheel=
+    document.getElementById("wheel"+(spinCount-1));
+
+  const result=
+    document.getElementById("result"+(spinCount-1));
+
+  const selected=
+    Math.floor(Math.random()*3);
+
+  results[spinCount-1]=selected;
+
+  spinButton.disabled=true;
+  spinButton.textContent="SPINNING...";
+
+  /*
+    Small anticipation pause.
+    Makes the interaction feel physical.
+  */
+  await sleep(260);
+
+  await spinWheelPhysical(wheel,selected);
+
+  result.textContent=
+    wheels[spinCount-1][selected];
+
+  result.classList.add("show");
+
+  await sleep(650);
+
+  if(spinCount<3){
+
+    spinButton.textContent=
+      "SPIN 0"+(spinCount+1);
+
+    spinButton.disabled=false;
+    busy=false;
+
+  }else{
+
+    spinButton.textContent="REVEALING...";
+
+    await sleep(900);
+
+    revealResult();
+
+    spinButton.textContent="ROUND COMPLETE";
+    spinButton.classList.add("complete");
+
+    spinButton.disabled=true;
+    busy=false;
+  }
+}
+
+function revealResult(){
+
+  const key=results.join("-");
+
+  document.getElementById("chip0").textContent=
+    wheels[0][results[0]];
+
+  document.getElementById("chip1").textContent=
+    wheels[1][results[1]];
+
+  document.getElementById("chip2").textContent=
+    wheels[2][results[2]];
+
+  document.getElementById("paragraph").textContent=
+    messages[key];
+
+  reveal.classList.add("show");
+
+  makeConfetti();
+
+  setTimeout(()=>{
+    reveal.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  },120);
+}
+
+function resetRound(){
+
+  spinCount=0;
+  results=[null,null,null];
+  busy=false;
+
+  spinNumber.textContent="0";
+
+  for(let i=0;i<3;i++){
+
+    const wheel=document.getElementById("wheel"+i);
+    const result=document.getElementById("result"+i);
+
+    wheel.style.transform="rotate(0deg)";
+    result.textContent="Waiting";
+    result.classList.remove("show");
+  }
+
+  reveal.classList.remove("show");
+
+  spinButton.textContent="SPIN 01";
+  spinButton.classList.remove("complete");
+  spinButton.disabled=false;
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+spinButton.addEventListener("click",spin);
+
+document.getElementById("nextRound")
+  .addEventListener("click",resetRound);
+
+document.addEventListener("keydown",e=>{
+
+  if(
+    (e.key==="Enter" || e.key===" ") &&
+    !spinButton.disabled &&
+    !busy
+  ){
+    e.preventDefault();
+    spin();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
