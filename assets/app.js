@@ -42,8 +42,8 @@ function music(){
  const m=document.createElement("div");m.className="music";
  m.innerHTML=`<button id="musicBtn">▶</button><small id="musicName">Birthday soundtrack · add music/song.mp3</small><audio id="bgm" loop preload="auto"></audio>`;
  document.body.appendChild(m);
- const a=m.querySelector("audio"), b=m.querySelector("button"); a.src="../music/song.mp3";
- b.onclick=()=>{if(a.paused){a.play().then(()=>{b.textContent="Ⅱ"}).catch(()=>alert("Add your MP3 as music/song.mp3, then tap play."))}else{a.pause();b.textContent="▶"}};
+ const a=m.querySelector("audio"), b=m.querySelector("button"); a.src=new URL("../music/song.mp3",document.baseURI).href;
+ b.onclick=()=>{if(a.paused){a.play().then(()=>{b.textContent="Ⅱ"}).catch(e=>{console.error("Birthday music playback error:",e);alert("Music could not start. Check the browser console for the exact error.")})}else{a.pause();b.textContent="▶"}};
 }
 
 function gate(){
