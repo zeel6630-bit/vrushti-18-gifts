@@ -40,43 +40,10 @@ function toggleDrawer(){document.getElementById("drawer")?.classList.toggle("ope
 function music(){
  if(document.querySelector(".music")) return;
  const m=document.createElement("div");m.className="music";
-m.innerHTML=`<button id="musicBtn" type="button" aria-label="Open birthday music player">▶</button><small id="musicName">Birthday soundtrack</small>`;
-
-const b=m.querySelector("#musicBtn");
-
-let musicWindow=null;
-
-function openPersistentMusicPlayer(){
-
-  const playerURL =
-    new URL("../music-player.html", document.baseURI).href;
-
-  if(
-    !musicWindow ||
-    musicWindow.closed
-  ){
-
-    musicWindow =
-      window.open(
-        playerURL,
-        "ZEEL_VRUSH_BIRTHDAY_MUSIC",
-        "popup=yes,width=410,height=250,resizable=yes"
-      );
-
-  }else{
-
-    musicWindow.focus();
-
-  }
-
-}
-
-b.onclick=()=>{
-
-  openPersistentMusicPlayer();
-
-};
-
+ m.innerHTML=`<button id="musicBtn">▶</button><small id="musicName">Birthday soundtrack · add music/song.mp3</small><audio id="bgm" loop preload="auto"></audio>`;
+ document.body.appendChild(m);
+ const a=m.querySelector("audio"), b=m.querySelector("button"); a.src="../music/song.mp3";
+ b.onclick=()=>{if(a.paused){a.play().then(()=>{b.textContent="Ⅱ"}).catch(()=>alert("Add your MP3 as music/song.mp3, then tap play."))}else{a.pause();b.textContent="▶"}};
 }
 
 function gate(){

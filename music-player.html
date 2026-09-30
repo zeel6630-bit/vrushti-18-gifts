@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Birthday Music</title>
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.player{
+  width:min(360px,calc(100vw - 28px));
+  box-sizing:border-box;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:22px;
+  background:rgba(18,18,28,.94);
+  color:#fff;
+  box-shadow:0 18px 60px rgba(0,0,0,.45);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.12);
+  font-size:23px;
+}
+
+.info{
+  min-width:0;
+  flex:1;
+}
+
+.title{
+  font-weight:800;
+  font-size:14px;
+  letter-spacing:.3px;
+}
+
+.status{
+  margin-top:5px;
+  font-size:11px;
+  opacity:.68;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  border-radius:50%;
+  width:46px;
+  height:46px;
+  font-size:17px;
+  font-weight:800;
+  transition:.2s ease;
+}
+
+button:hover{
+  background:rgba(255,255,255,.20);
+  transform:scale(1.05);
+}
+
+button:active{
+  transform:scale(.96);
+}
+
+.progress{
+  width:100%;
+  height:4px;
+  margin-top:16px;
+  border-radius:99px;
+  background:rgba(255,255,255,.12);
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  width:0;
+  background:#fff;
+  border-radius:99px;
+  transition:width .15s linear;
+}
+
+.hint{
+  margin-top:10px;
+  font-size:10px;
+  opacity:.5;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+  <div class="row">
+
+    <div class="icon">♫</div>
+
+    <div class="info">
+      <div class="title">Birthday Soundtrack</div>
+      <div class="status" id="status">Ready</div>
+    </div>
+
+    <button
+      id="play"
+      type="button"
+      aria-label="Play or pause">
+      ▶
+    </button>
+
+  </div>
+
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <div class="hint">
+    This player stays alive while you explore all 18 gifts.
+  </div>
+
+</div>
+
+<audio
+  id="bgm"
+  src="music/song.mp3"
+  loop
+  preload="auto">
+</audio>
+
+<script>
+(() => {
+
+  const audio = document.getElementById("bgm");
+  const play = document.getElementById("play");
+  const status = document.getElementById("status");
+  const bar = document.getElementById("bar");
+
+  const STATE_KEY = "zeel-vrush-birthday-music-state-v1";
+
+  function saveState(){
+
+    try{
+
+      localStorage.setItem(
+        STATE_KEY,
+        JSON.stringify({
+          playing: !audio.paused,
+          time: audio.currentTime || 0
+        })
+      );
+
+    }catch(e){}
+
+  }
+
+  function render(){
+
+    play.textContent = audio.paused ? "▶" : "Ⅱ";
+
+    status.textContent =
+      audio.paused
+        ? "Paused"
+        : "Playing continuously";
+
+    if(
+      Number.isFinite(audio.duration) &&
+      audio.duration > 0
+    ){
+
+      bar.style.width =
+        ((audio.currentTime / audio.duration) * 100) + "%";
+
+    }
+
+  }
+
+  async function startMusic(){
+
+    try{
+
+      await audio.play();
+
+      render();
+      saveState();
+
+    }catch(error){
+
+      status.textContent =
+        "Tap play to start the soundtrack";
+
+      render();
+
+    }
+
+  }
+
+  play.addEventListener("click", () => {
+
+    if(audio.paused){
+
+      startMusic();
+
+    }else{
+
+      audio.pause();
+      render();
+      saveState();
+
+    }
+
+  });
+
+  audio.addEventListener("play", render);
+
+  audio.addEventListener("pause", () => {
+
+    render();
+    saveState();
+
+  });
+
+  audio.addEventListener("timeupdate", () => {
+
+    render();
+
+    if(
+      Math.floor(audio.currentTime) % 2 === 0
+    ){
+
+      saveState();
+
+    }
+
+  });
+
+  audio.addEventListener(
+    "loadedmetadata",
+    render
+  );
+
+  audio.addEventListener(
+    "error",
+    () => {
+
+      status.textContent =
+        "music/song.mp3 could not be loaded";
+
+    }
+  );
+
+  /*
+   * Keep state synchronized with another same-origin
+   * page/window.
+   */
+  window.addEventListener("storage", event => {
+
+    if(
+      event.key !== STATE_KEY ||
+      !event.newValue
+    ){
+
+      return;
+
+    }
+
+    try{
+
+      const state =
+        JSON.parse(event.newValue);
+
+      if(
+        typeof state.time === "number" &&
+        Math.abs(
+          audio.currentTime - state.time
+        ) > 2
+      ){
+
+        audio.currentTime = state.time;
+
+      }
+
+      if(
+        state.playing &&
+        audio.paused
+      ){
+
+        startMusic();
+
+      }
+
+      if(
+        !state.playing &&
+        !audio.paused
+      ){
+
+        audio.pause();
+
+      }
+
+    }catch(e){}
+
+  });
+
+  /*
+   * Restore the last known position.
+   */
+  try{
+
+    const state =
+      JSON.parse(
+        localStorage.getItem(STATE_KEY) || "null"
+      );
+
+    if(
+      state &&
+      typeof state.time === "number"
+    ){
+
+      audio.addEventListener(
+        "loadedmetadata",
+        () => {
+
+          if(
+            Math.abs(
+              audio.currentTime - state.time
+            ) > 1
+          ){
+
+            audio.currentTime = state.time;
+
+          }
+
+        },
+        { once:true }
+      );
+
+    }
+
+  }catch(e){}
+
+  render();
+
+})();
+</script>
+
+</body>
+</html>
