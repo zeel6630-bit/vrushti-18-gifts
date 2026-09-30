@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Private Birthday Universe</title>
+</head>
+<body>
+<script>
+(function () {
+
+    var path = window.location.pathname;
+
+    /*
+     * GitHub Pages project sites look like:
+     *
+     * username.github.io/repository/...
+     *
+     * Remove the repository prefix and retain the requested page.
+     */
+
+    var parts = path.split("/").filter(Boolean);
+
+    var known = [
+        "birthday.html",
+        "birthday-reveal.html",
+        "message.html",
+        "home.html",
+        "gift01.html",
+        "gift02.html",
+        "gift03.html",
+        "gift04.html",
+        "gift05.html",
+        "gift06.html",
+        "gift07.html",
+        "gift08.html",
+        "gift09.html",
+        "gift10.html",
+        "gift11.html",
+        "gift12.html",
+        "gift13.html",
+        "gift14.html",
+        "gift15.html",
+        "gift16.html",
+        "gift17.html",
+        "gift18.html"
+    ];
+
+    var requested = parts.length
+        ? parts[parts.length - 1]
+        : "";
+
+    if (known.indexOf(requested) !== -1) {
+
+        window.location.replace(
+            "./index.html?open=" +
+            encodeURIComponent("pages/" + requested)
+        );
+
+        return;
+    }
+
+    /*
+     * If GitHub reached the 404 page for an unknown child route,
+     * return safely to the real root entry point.
+     */
+    window.location.replace("./index.html");
+
+})();
+</script>
+
+<p>Opening Birthday Universe...</p>
+</body>
+</html>
