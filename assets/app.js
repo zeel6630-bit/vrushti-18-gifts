@@ -148,143 +148,67 @@ function gate(){
 
     /*
      * IMPORTANT:
-     * Do NOT use location.href here.
      *
-     * index.html must remain alive because it owns the
-     * persistent audio element.
+     * password-gate.html is itself inside the permanent
+     * birthdayFrame owned by index.html.
+     *
+     * Therefore NEVER create another iframe here.
+     *
+     * We tell the PARENT index.html to replace its existing
+     * birthdayFrame with birthday.html.
+     *
+     * The parent document survives.
+     * The parent audio survives.
+     * The black music button survives.
      */
 
-    const lock = document.querySelector(".lock");
+    if(window.top !== window.self){
 
-    if(lock){
-      lock.style.transition = "opacity .45s ease";
-      lock.style.opacity = "0";
+      try{
 
-      setTimeout(function(){
-        lock.style.display = "none";
-      },450);
-    }
+        const parentDocument = window.parent.document;
+        const parentFrame =
+          parentDocument.getElementById("birthdayFrame");
 
-    let frame = document.getElementById("birthdayFrame");
+        if(parentFrame){
 
-    if(!frame){
+          parentFrame.src =
+            new URL(
+              "pages/birthday.html",
+              window.parent.location.href
+            ).href;
 
-      frame = document.createElement("iframe");
-
-      frame.id = "birthdayFrame";
-      frame.title = "Birthday Universe";
-      frame.setAttribute("allow","autoplay");
-      frame.setAttribute("allowfullscreen","");
-
-      frame.style.position = "fixed";
-      frame.style.inset = "0";
-      frame.style.width = "100%";
-      frame.style.height = "100%";
-      frame.style.border = "0";
-      frame.style.margin = "0";
-      frame.style.padding = "0";
-      frame.style.zIndex = "1";
-      frame.style.background = "#fff";
-      frame.style.opacity = "0";
-      frame.style.transition = "opacity .45s ease";
-
-      document.body.appendChild(frame);
-
-      setTimeout(function(){
-        frame.style.opacity = "1";
-      },30);
-
-      /*
-       * All navigation inside the birthday pages stays inside
-       * this iframe. The parent index.html — and its audio —
-       * never gets unloaded.
-       */
-      frame.addEventListener("load", function(){
-
-        try{
-
-          const doc = frame.contentDocument;
-
-          if(!doc) return;
-
-          /*
-           * Prevent the individual pages from creating another
-           * music player.
-           */
-          const pageMusic = doc.querySelectorAll(".music");
-
-          pageMusic.forEach(function(el){
-            if(el.id !== "persistentBirthdayMusic"){
-              el.remove();
-            }
-          });
-
-          /*
-           * Intercept normal internal HTML navigation.
-           *
-           * Example:
-           * birthday-reveal.html → message.html
-           * message.html → home.html
-           * home.html → gift01.html
-           *
-           * The URL changes inside the iframe only.
-           */
-          doc.addEventListener("click", function(event){
-
-            const link = event.target.closest("a");
-
-            if(!link) return;
-
-            const href = link.getAttribute("href");
-
-            if(!href) return;
-
-            if(
-              href.startsWith("#") ||
-              href.startsWith("http://") ||
-              href.startsWith("https://") ||
-              href.startsWith("//") ||
-              href.startsWith("mailto:") ||
-              href.startsWith("tel:") ||
-              href.startsWith("javascript:") ||
-              link.hasAttribute("download")
-            ){
-              return;
-            }
-
-            const current = new URL(frame.src);
-
-            const destination = new URL(href,current);
-
-            /*
-             * Only keep local HTML navigation inside the frame.
-             */
-            if(
-              destination.origin !== window.location.origin ||
-              !destination.pathname.toLowerCase().endsWith(".html")
-            ){
-              return;
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            frame.src = destination.href;
-
-          },true);
-
-        }catch(error){
-          console.warn("Birthday navigation handler:",error);
+          return;
         }
 
-      });
+      }catch(error){
 
+        console.warn(
+          "Could not access parent birthday frame:",
+          error
+        );
+      }
     }
 
     /*
-     * Start at the same page the old password gate used.
+     * Fallback for safety.
+     *
+     * This should not normally execute because the password
+     * gate is loaded inside index.html's birthdayFrame.
      */
-    frame.src = "pages/birthday.html";
+    const frame =
+      document.getElementById("birthdayFrame");
+
+    if(frame){
+
+      frame.src =
+        new URL(
+          "pages/birthday.html",
+          document.baseURI
+        ).href;
+
+    }
+
   }
 
   btn.onclick = function(){
