@@ -263,6 +263,20 @@ body {
      */
     frame.addEventListener("load", function () {
 
+        /*
+         * IMPORTANT:
+         *
+         * The child birthday document must remain untouched.
+         *
+         * The parent owns ONLY:
+         *   - persistent music
+         *   - iframe navigation
+         *
+         * Do NOT remove elements from the child DOM here.
+         * Earlier cleanup code was too broad and could remove
+         * legitimate birthday-page elements.
+         */
+
         try {
 
             const doc = frame.contentDocument;
@@ -270,62 +284,6 @@ body {
             if (!doc) {
                 return;
             }
-
-            /*
-             * REMOVE ALL OLD PAGE-LEVEL MUSIC CONTROLS.
-             *
-             * The parent index.html owns the ONE and ONLY music player.
-             * Child pages must never display their previous music buttons
-             * or create another audio controller.
-             */
-
-            doc.querySelectorAll("audio").forEach(function (el) {
-                el.remove();
-            });
-
-            doc.querySelectorAll(
-                '[id*="music" i], ' +
-                '[class*="music" i], ' +
-                '[id*="song" i], ' +
-                '[class*="song" i], ' +
-                '[id*="audio" i], ' +
-                '[class*="audio" i], ' +
-                '[aria-label*="music" i], ' +
-                '[aria-label*="song" i], ' +
-                '[title*="music" i], ' +
-                '[title*="song" i]'
-            ).forEach(function (el) {
-                el.remove();
-            });
-
-            /*
-             * Extra protection for common old music-player buttons.
-             * Only elements whose own text clearly identifies them as
-             * music controls are removed.
-             */
-            doc.querySelectorAll("button").forEach(function (button) {
-
-                var text = (
-                    button.textContent || ""
-                ).trim().toLowerCase();
-
-                var label = (
-                    button.getAttribute("aria-label") || ""
-                ).toLowerCase();
-
-                var title = (
-                    button.getAttribute("title") || ""
-                ).toLowerCase();
-
-                var combined =
-                    text + " " + label + " " + title;
-
-                if (
-                    /music player|music control|play music|pause music|stop music|song player/.test(combined)
-                ) {
-                    button.remove();
-                }
-            });
 
             /*
              * Keep local HTML navigation inside the iframe.
@@ -353,7 +311,7 @@ body {
 
                     /*
                      * Leave anchors, external links, mail links,
-                     * telephone links, etc. alone.
+                     * telephone links, javascript links, etc. alone.
                      */
                     if (
                         rawHref.startsWith("#") ||
@@ -379,36 +337,30 @@ body {
                     }
 
                     /*
-                     * Local birthday navigation stays inside the
-                     * permanent iframe.
+                     * Local birthday navigation stays inside
+                     * the permanent iframe.
                      */
                     event.preventDefault();
                     event.stopPropagation();
 
                     frame.src = targetURL.href;
+
                 },
                 true
             );
 
         } catch (error) {
             /*
-             * Do not allow an iframe inspection error to affect
-             * the persistent music.
+             * Never allow iframe inspection/navigation errors
+             * to affect the persistent music.
              */
         }
 
         /*
          * CRITICAL:
          *
-         * No audio.pause()
-         * No audio.currentTime = 0
-         * No audio.load()
-         *
-         * here.
-         *
          * Navigation does NOT modify music state.
          */
-
         updateButton();
 
         /*
@@ -443,6 +395,7 @@ body {
                 }
 
             } catch (error) {}
+
         }
 
     });
