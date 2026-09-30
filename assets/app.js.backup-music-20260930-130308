@@ -40,15 +40,15 @@ function toggleDrawer(){document.getElementById("drawer")?.classList.toggle("ope
 
 function music(){
   /*
-   * PERSISTENT BIRTHDAY MUSIC
+   * The music element belongs to the ROOT index.html document.
+   * The root document stays alive after unlocking, while the
+   * birthday pages are displayed inside #birthdayFrame.
    *
-   * This function MUST run only in the root index.html document.
-   * The root document survives while birthday pages are displayed
-   * inside #birthdayFrame.
+   * This is what makes the music survive:
    *
-   * Therefore:
-   * password -> birthday -> reveal -> message -> home -> gifts
-   * keeps exactly the same Audio object.
+   * password → birthday → reveal → message → home → gifts
+   *
+   * without destroying the Audio object.
    */
 
   if(window.top !== window.self) return;
@@ -56,6 +56,7 @@ function music(){
 
   const wrap = document.createElement("div");
   wrap.id = "persistentBirthdayMusic";
+  wrap.className = "music";
 
   wrap.innerHTML = `
     <button
@@ -77,25 +78,18 @@ function music(){
   const button = document.getElementById("persistentMusicButton");
   const audio = document.getElementById("persistentBirthdayAudio");
 
-  if(!button || !audio) return;
-
-  /*
-   * index.html is at the repository root, so this is deliberately
-   * an absolute repository-relative URL.
-   */
-  audio.src = "music/song.mp3";
-  audio.loop = true;
+  audio.src = new URL("music/song.mp3", document.baseURI).href;
 
   function sync(){
     if(audio.paused){
       button.textContent = "▶";
-      button.setAttribute("aria-label","Play birthday music");
-      button.setAttribute("title","Play birthday music");
+      button.setAttribute("aria-label", "Play birthday music");
+      button.setAttribute("title", "Play birthday music");
       button.classList.remove("playing");
     }else{
       button.textContent = "■";
-      button.setAttribute("aria-label","Stop birthday music");
-      button.setAttribute("title","Stop birthday music");
+      button.setAttribute("aria-label", "Stop birthday music");
+      button.setAttribute("title", "Stop birthday music");
       button.classList.add("playing");
     }
   }
@@ -110,27 +104,52 @@ function music(){
         sync();
       }catch(error){
         console.error("Birthday music playback error:", error);
-        sync();
       }
     }else{
       audio.pause();
-
-      /*
-       * Second click means STOP, not merely pause.
-       * Resetting currentTime means the next Play starts from
-       * the beginning.
-       */
       audio.currentTime = 0;
       sync();
     }
   });
 
   audio.addEventListener("play", sync);
-  audio.addEventListener("playing", sync);
   audio.addEventListener("pause", sync);
   audio.addEventListener("ended", sync);
 
   sync();
+}
+
+function openPersistentMusicPlayer(){
+
+  const playerURL =
+    new URL("../music-player.html", document.baseURI).href;
+
+  if(
+    !musicWindow ||
+    musicWindow.closed
+  ){
+
+    musicWindow =
+      window.open(
+        playerURL,
+        "ZEEL_VRUSH_BIRTHDAY_MUSIC",
+        "popup=yes,width=410,height=250,resizable=yes"
+      );
+
+  }else{
+
+    musicWindow.focus();
+
+  }
+
+}
+
+b.onclick=()=>{
+
+  openPersistentMusicPlayer();
+
+};
+
 }
 
 

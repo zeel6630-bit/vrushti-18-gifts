@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script data-persistent-birthday-guard="v2">
+(function () {
+
+    /*
+     * If this page is already inside the permanent birthday iframe,
+     * do absolutely nothing.
+     */
+    if (window.top !== window.self) {
+        return;
+    }
+
+    /*
+     * Directly opening a child page would create a brand-new document
+     * and therefore destroy persistent music.
+     *
+     * Send the visitor back to the permanent parent.
+     *
+     * The parent will still require the password.
+     */
+    var here = window.location.pathname;
+
+    var marker = "/pages/";
+
+    var index = here.lastIndexOf(marker);
+
+    if (index === -1) {
+        return;
+    }
+
+    var childPath =
+        here.substring(index + 1);
+
+    var depth =
+        childPath.split("/").length - 1;
+
+    var prefix = "";
+
+    for (var i = 0; i < depth + 1; i++) {
+        prefix += "../";
+    }
+
+    var destination =
+        prefix +
+        "index.html?open=" +
+        encodeURIComponent(childPath);
+
+    window.location.replace(destination);
+
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Gift 04 · Our Future Blueprint</title>
@@ -1049,224 +1100,7 @@ that make the future feel worth building.
 </div>
 </section>
 
-<section class="blueprint">
-<div class="heading">
-<h2>The Future Plan</h2>
-<span>18 BLUEPRINT POINTS</span>
-</div>
 
-<div class="route">
-
-<article class="station" style="--accent:#c49479;--wash:#f3e2d6" data-id="01">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">01 · FIRST DESTINATION</div>
-<h3>Places We Still Want To Discover</h3>
-<p>The honeymoon coordinate. The first big “we actually made it” destination — walking through the gates together instead of only talking about the trip.</p>
-<div class="detail-line">PLAN TYPE · HONEYMOON</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#91a99a;--wash:#e3eee7" data-id="02">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">02 · MOUNTAINS</div>
-<h3>The Life We Want To Experience</h3>
-<p>Cold air, mountains, beautiful roads and enough time to slow down and actually experience the place rather than rushing through it.</p>
-<div class="detail-line">PLAN TYPE · TRAVEL</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#a78eaa;--wash:#eee5f0" data-id="03">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">03 · TWO WHEELS</div>
-<h3>Adventures We Haven't Planned Yet</h3>
-<p>A proper road adventure: bikes, mountain passes, unpredictable weather, roadside chai and the kind of exhaustion that becomes a story.</p>
-<div class="detail-line">PLAN TYPE · ROAD TRIP</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#b99679;--wash:#f1e6da" data-id="04">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">04 · FOUNDATION</div>
-<h3>The Space We Want To Build</h3>
-<p>A home that feels peaceful rather than impressive. Our corners, our routines, our things, our food, our lazy days and a place that feels completely ours.</p>
-<div class="detail-line">PLAN TYPE · HOME</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#8ea3b1;--wash:#e3edf2" data-id="05">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">05 · GARAGE</div>
-<h3>The Things We Want To Earn</h3>
-<p>The driver's-car chapter. The machine that belongs on the dream list because some dreams are simply meant to make you smile when you turn the key.</p>
-<div class="detail-line">PLAN TYPE · DREAM CAR</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#9a9f7c;--wash:#e9eadb" data-id="06">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">06 · ADVENTURE MACHINE</div>
-<h3>The Freedom We Want To Create</h3>
-<p>The other side of the garage: something made for long roads, rough roads, road trips and places where the road eventually stops.</p>
-<div class="detail-line">PLAN TYPE · DREAM CAR</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#bd8f91;--wash:#f2dfdf" data-id="07">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">07 · WORK</div>
-<h3>The Work We Want To Be Proud Of</h3>
-<p>Turn years of learning, mistakes and late nights into something real — work that creates value instead of only filling a calendar.</p>
-<div class="detail-line">PLAN TYPE · AMBITION</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#8da89e;--wash:#e0ede7" data-id="08">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">08 · CRAFT</div>
-<h3>The Skills We Want To Master</h3>
-<p>Keep learning until difficult things become normal. Skills first, reputation later, and never stop becoming better at the work.</p>
-<div class="detail-line">PLAN TYPE · GROWTH</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#a793b0;--wash:#ece4ef" data-id="09">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">09 · FREEDOM</div>
-<h3>The Independence We Want To Earn</h3>
-<p>Create enough stability that choices become wider: helping family, travelling, building, experimenting and saying yes to opportunities.</p>
-<div class="detail-line">PLAN TYPE · INDEPENDENCE</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#c19a7e;--wash:#f1e3d8" data-id="10">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">10 · FAMILY</div>
-<h3>The People We Want To Make Proud</h3>
-<p>A future isn't only about what we own. It's also about becoming the kind of people our families can rely on and feel proud of.</p>
-<div class="detail-line">PLAN TYPE · PEOPLE</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#8ea69a;--wash:#e4eee8" data-id="11">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">11 · SMALL DAYS</div>
-<h3>The Ordinary Days We Want To Have</h3>
-<p>Breakfast. Work. Someone being sleepy. Someone taking too long to get ready. The completely normal days that quietly become the best part.</p>
-<div class="detail-line">PLAN TYPE · EVERYDAY LIFE</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#ad8ea0;--wash:#eee2e8" data-id="12">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">12 · WEEKENDS</div>
-<h3>The Random Days We Will Remember</h3>
-<p>No itinerary. Pick a direction, put something on the speakers and see where the road ends up taking us.</p>
-<div class="detail-line">PLAN TYPE · FREE TIME</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#b19a7a;--wash:#eee8d9" data-id="13">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">13 · SPACE</div>
-<h3>A Life With Room For Our Hobbies</h3>
-<p>Books, technology, music, games, random projects and all the little interests that make a home feel like two people actually live there.</p>
-<div class="detail-line">PLAN TYPE · HOME DETAIL</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#8da2b2;--wash:#e2ebf1" data-id="14">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">14 · LEARNING</div>
-<h3>The Things We Will Keep Learning</h3>
-<p>Neither of us gets to become a finished person. Learn new things, change our minds, try unfamiliar things and keep expanding.</p>
-<div class="detail-line">PLAN TYPE · PERSONAL GROWTH</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#b38f83;--wash:#f0e1da" data-id="15">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">15 · ADVENTURES</div>
-<h3>The Memories We Want To Collect</h3>
-<p>More roads, cities, mountains, food, tiny cafés, strange local places and stories that become impossible to explain in one sentence.</p>
-<div class="detail-line">PLAN TYPE · EXPERIENCES</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#9a9e87;--wash:#e9eadf" data-id="16">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">16 · PEACE</div>
-<h3>The Kind Of Peace We Want</h3>
-<p>Not chasing every possible thing. Knowing what matters, protecting our peace and having enough space to enjoy what we've already built.</p>
-<div class="detail-line">PLAN TYPE · LIFESTYLE</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#aa8fa7;--wash:#ede3ed" data-id="17">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">17 · LEGACY</div>
-<h3>The Choices We Want To Be Proud Of</h3>
-<p>Years later, be able to look at the blueprint and recognize the difficult decisions, risks and patience that turned ideas into a real life.</p>
-<div class="detail-line">PLAN TYPE · LONG TERM</div>
-</div>
-</article>
-
-<article class="station" style="--accent:#b99179;--wash:#f2e2d6" data-id="18">
-<div class="node"></div>
-<div class="blueprint-piece">
-<div class="plan-mark blueprint-unified-logo blueprint-unified-logo"></div>
-<div class="phase">18 · FINAL NOTE</div>
-<h3>The Future We Keep Designing Together</h3>
-<p>The blueprint is deliberately unfinished. Some dreams haven't been discovered yet. Leave room for the things neither of us can imagine today.</p>
-<div class="detail-line">PLAN TYPE · NO FINAL VERSION</div>
-</div>
-</article>
-
-</div>
-
-<div class="closing">
-<h2>Project Status</h2>
-<p>
-The destinations can change. The cars can change. The house can change.
-Even the shape of the dream can change.
-The important part is that the blueprint leaves room for both of us to keep growing.
-</p>
-<div class="status">UNDER CONSTRUCTION · ALWAYS</div>
-</div>
-</section>
 
 <footer>GIFT 04 · OUR FUTURE BLUEPRINT · VERSION 18.0</footer>
 

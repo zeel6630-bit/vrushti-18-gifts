@@ -37,275 +37,92 @@ function drawer(){
 }
 function toggleDrawer(){document.getElementById("drawer")?.classList.toggle("open")}
 
-
 function music(){
-  /*
-   * PERSISTENT BIRTHDAY MUSIC
-   *
-   * This function MUST run only in the root index.html document.
-   * The root document survives while birthday pages are displayed
-   * inside #birthdayFrame.
-   *
-   * Therefore:
-   * password -> birthday -> reveal -> message -> home -> gifts
-   * keeps exactly the same Audio object.
-   */
+ if(document.querySelector(".music")) return;
 
-  if(window.top !== window.self) return;
-  if(document.getElementById("persistentBirthdayMusic")) return;
+ const m=document.createElement("div");
+ m.className="music";
+ m.innerHTML=`<button id="musicBtn" type="button" aria-label="Play birthday music">▶</button>`;
 
-  const wrap = document.createElement("div");
-  wrap.id = "persistentBirthdayMusic";
+ const b=m.querySelector("#musicBtn");
 
-  wrap.innerHTML = `
-    <button
-      id="persistentMusicButton"
-      type="button"
-      aria-label="Play birthday music"
-      title="Play birthday music"
-    >▶</button>
+ if(!window.__birthdayAudio){
+   window.__birthdayAudio=new Audio(
+     new URL("../music/song.mp3", document.baseURI).href
+   );
+   window.__birthdayAudio.preload="auto";
+   window.__birthdayAudio.loop=true;
+ }
 
-    <audio
-      id="persistentBirthdayAudio"
-      preload="auto"
-      loop
-    ></audio>
-  `;
+ const audio=window.__birthdayAudio;
 
-  document.body.appendChild(wrap);
+ function sync(){
+   b.textContent=audio.paused ? "▶" : "■";
+   b.setAttribute(
+     "aria-label",
+     audio.paused ? "Play birthday music" : "Stop birthday music"
+   );
+ }
 
-  const button = document.getElementById("persistentMusicButton");
-  const audio = document.getElementById("persistentBirthdayAudio");
+ b.onclick=async()=>{
+   try{
+     if(audio.paused){
+       await audio.play();
+     }else{
+       audio.pause();
+       audio.currentTime=0;
+     }
+     sync();
+   }catch(err){
+     console.error("Birthday music error:",err);
+   }
+ };
 
-  if(!button || !audio) return;
+ audio.addEventListener("play",sync);
+ audio.addEventListener("pause",sync);
+ sync();
 
-  /*
-   * index.html is at the repository root, so this is deliberately
-   * an absolute repository-relative URL.
-   */
-  audio.src = "music/song.mp3";
-  audio.loop = true;
+ document.body.appendChild(m);
+}
+function openPersistentMusicPlayer(){
 
-  function sync(){
-    if(audio.paused){
-      button.textContent = "▶";
-      button.setAttribute("aria-label","Play birthday music");
-      button.setAttribute("title","Play birthday music");
-      button.classList.remove("playing");
-    }else{
-      button.textContent = "■";
-      button.setAttribute("aria-label","Stop birthday music");
-      button.setAttribute("title","Stop birthday music");
-      button.classList.add("playing");
-    }
+  const playerURL =
+    new URL("../music-player.html", document.baseURI).href;
+
+  if(
+    !musicWindow ||
+    musicWindow.closed
+  ){
+
+    musicWindow =
+      window.open(
+        playerURL,
+        "ZEEL_VRUSH_BIRTHDAY_MUSIC",
+        "popup=yes,width=410,height=250,resizable=yes"
+      );
+
+  }else{
+
+    musicWindow.focus();
+
   }
 
-  button.addEventListener("click", async function(event){
-    event.preventDefault();
-    event.stopPropagation();
-
-    if(audio.paused){
-      try{
-        await audio.play();
-        sync();
-      }catch(error){
-        console.error("Birthday music playback error:", error);
-        sync();
-      }
-    }else{
-      audio.pause();
-
-      /*
-       * Second click means STOP, not merely pause.
-       * Resetting currentTime means the next Play starts from
-       * the beginning.
-       */
-      audio.currentTime = 0;
-      sync();
-    }
-  });
-
-  audio.addEventListener("play", sync);
-  audio.addEventListener("playing", sync);
-  audio.addEventListener("pause", sync);
-  audio.addEventListener("ended", sync);
-
-  sync();
 }
 
+b.onclick=()=>{
+
+  openPersistentMusicPlayer();
+
+};
+
+}
 
 function gate(){
-
-  const input = document.getElementById("password");
-  const btn = document.getElementById("unlock");
-  const err = document.getElementById("err");
-
-  if(!input || !btn) return;
-
-  function openBirthdayUniverse(){
-
-    sessionStorage.setItem("vrushUnlocked","yes");
-
-    /*
-     * IMPORTANT:
-     * Do NOT use location.href here.
-     *
-     * index.html must remain alive because it owns the
-     * persistent audio element.
-     */
-
-    const lock = document.querySelector(".lock");
-
-    if(lock){
-      lock.style.transition = "opacity .45s ease";
-      lock.style.opacity = "0";
-
-      setTimeout(function(){
-        lock.style.display = "none";
-      },450);
-    }
-
-    let frame = document.getElementById("birthdayFrame");
-
-    if(!frame){
-
-      frame = document.createElement("iframe");
-
-      frame.id = "birthdayFrame";
-      frame.title = "Birthday Universe";
-      frame.setAttribute("allow","autoplay");
-      frame.setAttribute("allowfullscreen","");
-
-      frame.style.position = "fixed";
-      frame.style.inset = "0";
-      frame.style.width = "100%";
-      frame.style.height = "100%";
-      frame.style.border = "0";
-      frame.style.margin = "0";
-      frame.style.padding = "0";
-      frame.style.zIndex = "1";
-      frame.style.background = "#fff";
-      frame.style.opacity = "0";
-      frame.style.transition = "opacity .45s ease";
-
-      document.body.appendChild(frame);
-
-      setTimeout(function(){
-        frame.style.opacity = "1";
-      },30);
-
-      /*
-       * All navigation inside the birthday pages stays inside
-       * this iframe. The parent index.html — and its audio —
-       * never gets unloaded.
-       */
-      frame.addEventListener("load", function(){
-
-        try{
-
-          const doc = frame.contentDocument;
-
-          if(!doc) return;
-
-          /*
-           * Prevent the individual pages from creating another
-           * music player.
-           */
-          const pageMusic = doc.querySelectorAll(".music");
-
-          pageMusic.forEach(function(el){
-            if(el.id !== "persistentBirthdayMusic"){
-              el.remove();
-            }
-          });
-
-          /*
-           * Intercept normal internal HTML navigation.
-           *
-           * Example:
-           * birthday-reveal.html → message.html
-           * message.html → home.html
-           * home.html → gift01.html
-           *
-           * The URL changes inside the iframe only.
-           */
-          doc.addEventListener("click", function(event){
-
-            const link = event.target.closest("a");
-
-            if(!link) return;
-
-            const href = link.getAttribute("href");
-
-            if(!href) return;
-
-            if(
-              href.startsWith("#") ||
-              href.startsWith("http://") ||
-              href.startsWith("https://") ||
-              href.startsWith("//") ||
-              href.startsWith("mailto:") ||
-              href.startsWith("tel:") ||
-              href.startsWith("javascript:") ||
-              link.hasAttribute("download")
-            ){
-              return;
-            }
-
-            const current = new URL(frame.src);
-
-            const destination = new URL(href,current);
-
-            /*
-             * Only keep local HTML navigation inside the frame.
-             */
-            if(
-              destination.origin !== window.location.origin ||
-              !destination.pathname.toLowerCase().endsWith(".html")
-            ){
-              return;
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            frame.src = destination.href;
-
-          },true);
-
-        }catch(error){
-          console.warn("Birthday navigation handler:",error);
-        }
-
-      });
-
-    }
-
-    /*
-     * Start at the same page the old password gate used.
-     */
-    frame.src = "pages/birthday.html";
-  }
-
-  btn.onclick = function(){
-
-    if(input.value === "1119"){
-      openBirthdayUniverse();
-    }else{
-      err.textContent = "Not that one. Try again.";
-      input.value = "";
-      input.focus();
-    }
-
-  };
-
-  input.addEventListener("keydown",function(e){
-    if(e.key === "Enter"){
-      btn.click();
-    }
-  });
+ const input=document.getElementById("password"), btn=document.getElementById("unlock"), err=document.getElementById("err");
+ if(!input||!btn)return;
+ btn.onclick=()=>{if(input.value==="1119"){sessionStorage.setItem("vrushUnlocked","yes");location.href="pages/birthday.html"}else{err.textContent="Not that one. Try again.";input.value="";input.focus()}};
+ input.addEventListener("keydown",e=>{if(e.key==="Enter")btn.click()});
 }
-
 
 function randomFirework(layer,x,y){
   const f=document.createElement("div");

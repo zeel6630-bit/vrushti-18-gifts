@@ -1,0 +1,122 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Private Birthday Universe · ZEEL × VRUSH</title><link rel="stylesheet" href="assets/style.css">
+<style id="universal-home-gift-logo">
+.universal-home-gift-logo {
+    position: relative !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    width: 34px !important;
+    height: 34px !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #4b4d4b !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+}
+
+.universal-home-gift-logo::before {
+    content: "" !important;
+    position: absolute !important;
+    width: 22px !important;
+    height: 22px !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: #4b4d4b !important;
+    clip-path: polygon(
+        50% 0%,
+        58% 41%,
+        100% 50%,
+        58% 59%,
+        50% 100%,
+        42% 59%,
+        0% 50%,
+        42% 41%
+    ) !important;
+    animation: none !important;
+}
+</style>
+
+
+<style id="gift04-home-remove-logo">
+
+/*
+ * Gift 04 on the main gifts page:
+ * remove the little decorative logo completely.
+ * Keep the envelope/card itself untouched.
+ */
+
+a[href*="gift04.html"] .universal-home-gift-logo,
+a[href*="gift04.html"] .gift-icon,
+a[href*="gift04.html"] .card-icon,
+a[href*="gift04.html"] .icon,
+a[href*="gift04.html"] .mark,
+a[href*="gift04.html"] svg,
+a[href*="gift04.html"] img {
+    display: none !important;
+}
+
+
+/*
+ * Also suppress common CSS icon pseudo-elements
+ * on the Gift 04 card without touching the card text.
+ */
+a[href*="gift04.html"]::before {
+    content: none !important;
+}
+
+a[href*="gift04.html"]::after {
+    content: none !important;
+}
+
+</style>
+
+</head><body data-page="gate"><div class="app"><div class="noise"></div><div class="orb"></div><div class="topbar"></div><div class="lock"><div class="lock-card"><div class="eyebrow">private birthday universe</div><div class="lock-mark" aria-hidden="true"><span></span></div><h1>Only you<br><span class="script">can enter.</span></h1><p class="tiny">A tiny password protects a very large amount of nonsense, love and birthday chaos.</p><input id="password" type="password" inputmode="numeric" placeholder="enter the secret code"><div id="err" class="error"></div><button id="unlock">Unlock my 18 gifts</button><p class="tiny" style="margin-top:18px">Hint: the code is a date hidden in our story.</p></div></div></div><script src="assets/app.js"></script></body></html>
+<style id="persistent-birthday-music-style">
+#persistentBirthdayMusic{
+  position:fixed !important;
+  left:22px !important;
+  bottom:22px !important;
+  width:56px !important;
+  height:56px !important;
+  z-index:2147483647 !important;
+  pointer-events:auto !important;
+}
+
+#persistentBirthdayMusic button{
+  width:56px !important;
+  height:56px !important;
+  border-radius:50% !important;
+  border:1px solid rgba(255,255,255,.28) !important;
+  background:rgba(20,20,30,.88) !important;
+  color:#fff !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  cursor:pointer !important;
+  font-size:18px !important;
+  line-height:1 !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.28) !important;
+  backdrop-filter:blur(12px) !important;
+  -webkit-backdrop-filter:blur(12px) !important;
+}
+
+#persistentBirthdayMusic button:hover{
+  transform:scale(1.06);
+}
+
+#persistentBirthdayMusic button.playing{
+  box-shadow:0 10px 35px rgba(255,105,150,.38) !important;
+}
+
+#birthdayFrame{
+  z-index:10 !important;
+}
+
+@media(max-width:600px){
+  #persistentBirthdayMusic{
+    left:16px !important;
+    bottom:16px !important;
+  }
+}
+</style>

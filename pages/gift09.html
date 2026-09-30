@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script data-persistent-birthday-guard="v2">
+(function () {
+
+    /*
+     * If this page is already inside the permanent birthday iframe,
+     * do absolutely nothing.
+     */
+    if (window.top !== window.self) {
+        return;
+    }
+
+    /*
+     * Directly opening a child page would create a brand-new document
+     * and therefore destroy persistent music.
+     *
+     * Send the visitor back to the permanent parent.
+     *
+     * The parent will still require the password.
+     */
+    var here = window.location.pathname;
+
+    var marker = "/pages/";
+
+    var index = here.lastIndexOf(marker);
+
+    if (index === -1) {
+        return;
+    }
+
+    var childPath =
+        here.substring(index + 1);
+
+    var depth =
+        childPath.split("/").length - 1;
+
+    var prefix = "";
+
+    for (var i = 0; i < depth + 1; i++) {
+        prefix += "../";
+    }
+
+    var destination =
+        prefix +
+        "index.html?open=" +
+        encodeURIComponent(childPath);
+
+    window.location.replace(destination);
+
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#171327">
